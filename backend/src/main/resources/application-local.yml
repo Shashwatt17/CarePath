@@ -1,0 +1,6 @@
+# Explicit opt-in. Do not activate this profile on a public deployment.
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true

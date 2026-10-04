@@ -1,0 +1,49 @@
+Phase 3 verification — executed 2026-09-19
+
+Final backend command (from repository parent):
+JAVA_HOME=/workspace/scratch/toolchains/jdk-21.0.12.1+1 /workspace/scratch/toolchains/apache-maven-3.9.11/bin/mvn -o -Dmaven.repo.local=/workspace/scratch/toolchains/m2 -f carepath/backend/pom.xml -B '-Dtest=*Test,FrontendProxyIT' verify
+
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 22.98 s -- in com.carepath.foundation.LocalDocumentationSecurityTest
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.716 s -- in com.carepath.foundation.FoundationSecurityTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.726 s -- in com.carepath.identity.SecureCookieIntegrationTest
+[INFO] Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.607 s -- in com.carepath.identity.AuthenticationIntegrationTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.879 s -- in com.carepath.identity.FrontendProxyIT
+[INFO] Tests run: 31, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.85 s -- in com.carepath.vault.VaultIntegrationTest
+[INFO] Tests run: 58, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+[INFO] Total time:  01:02 min
+[INFO] Finished at: 2026-09-19T13:21:34-04:00
+
+Compile + testCompile + package + Spring Boot executable JAR repackage completed.
+58 tests = 26 existing foundation/auth tests + 31 vault tests + 1 production Next HTTP proxy test.
+Actual API/JDBC/security/local-filesystem behavior tested with H2 and test clock/rate-store port.
+No native PostgreSQL, Flyway execution or real Redis is implied.
+
+Frontend commands:
+npm --prefix carepath/frontend run typecheck
+npm --prefix carepath/frontend run lint
+npm --prefix carepath/frontend run test
+npm --prefix carepath/frontend run build
+
+TypeScript PASS. ESLint PASS. 8 Node client tests PASS, 0 failures. Production build PASS.
+Routes include /records and /records/[id]. Build checked current Next 21 MiB proxy configuration.
+No rendered browser execution. Chromium install attempted with:
+node /opt/codex/runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright-core/cli.js install chromium
+Result: FAILED, repeated 30-second network timeouts and HTTP 502.
+
+Schema command:
+node carepath/scripts/schema-check/verify.mjs
+PASS: V1 + V2 + V3 applied; 24 schema invariants; 0 persisted test users
+PGlite check only: not Flyway/JDBC/Docker runtime verification.
+
+V1/V2 compared byte-for-byte to carepath-phase2.zip: unchanged.
+Native capability checks: docker/postgres/redis-server commands absent; no Docker socket;
+localhost ports 5432 and 6379 not listening. Compose/native Flyway/Redis/restart verification BLOCKED.
+
+Production HTTP flow: register -> login -> protected me -> upload >10 MiB synthetic PNG -> list
+-> preview/download exact original bytes -> delete -> missing original 404 -> refresh -> logout
+-> old refresh and access both 401. PASS. This is HTTP verification, not browser interaction.
+
+Initial failures fixed: strict PDFBox API call, H2 test DDL ordering, JSX syntax, PDStream test import,
+Next proxy default size mismatch. All final checks above succeeded after fixes.
+No raw HTTP bodies, access/refresh credentials or medical file contents retained in this summary.

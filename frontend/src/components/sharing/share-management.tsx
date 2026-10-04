@@ -1,0 +1,11 @@
+"use client";
+import {useEffect,useState} from "react";
+import Link from "next/link";
+import {shares,type Share} from "@/lib/share-client";
+import {Button} from "@/components/ui/button";
+import {ErrorNote,Loading} from "@/components/care/shared";
+export function ShareManagement(){const [items,setItems]=useState<Share[]>([]);const [page,setPage]=useState(0);const [total,setTotal]=useState(0);const [loading,setLoading]=useState(true);const [error,setError]=useState("");const [tick,setTick]=useState(0);const [busy,setBusy]=useState("");
+ useEffect(()=>{let active=true;shares.list(page).then(r=>{if(active){setItems(r.items);setTotal(r.total);setError("");}}).catch(e=>{if(active)setError(e instanceof Error?e.message:"Sharing unavailable.");}).finally(()=>{if(active)setLoading(false);});const timer=setTimeout(()=>setTick(t=>t+1),15000);return()=>{active=false;clearTimeout(timer);};},[page,tick]);
+ async function revoke(id:string){setBusy(id);try{await shares.revoke(id);setTick(t=>t+1);}catch(e){setError(e instanceof Error?e.message:"Revocation failed.");}finally{setBusy("");}}
+ return <><h1 className="text-2xl font-semibold">Temporary shares</h1><p className="mt-2 text-sm text-muted-foreground">Links are shown once when created. Revoking blocks future requests; it cannot recall previously viewed copies.</p><ErrorNote message={error}/>{loading?<Loading/>:!items.length?<p className="my-8">No shares yet. Open a generated Visit Pack to create one.</p>:<ul className="my-6 divide-y divide-border">{items.map(s=><li key={s.id} className="flex flex-wrap items-center justify-between gap-4 py-5"><div><Link className="text-primary underline" href={`/visit-packs/${encodeURIComponent(s.packId)}`}>View shared pack · Revision {s.revision}</Link><p className="mt-2 text-sm">{s.status} · Expires {new Date(s.expiresAt).toLocaleString()}</p></div>{s.status==="ACTIVE"&&<Button variant="outline" disabled={!!busy} onClick={()=>void revoke(s.id)}>{busy===s.id?"Revoking…":"Revoke"}</Button>}</li>)}</ul>}<div className="flex gap-3"><Button variant="outline" disabled={page===0} onClick={()=>setPage(p=>p-1)}>Previous</Button><Button variant="outline" disabled={(page+1)*20>=total} onClick={()=>setPage(p=>p+1)}>Next</Button><Button variant="outline" onClick={()=>setTick(t=>t+1)}>Refresh</Button></div></>;
+}

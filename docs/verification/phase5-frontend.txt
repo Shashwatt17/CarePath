@@ -1,0 +1,74 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 typecheck
+> tsc --noEmit
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 lint
+> eslint .
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 test
+> node --experimental-strip-types --test src/lib/*.test.ts
+
+✔ restoration is single-flight and access is sent only as bearer header (7.328282ms)
+✔ 401 refresh ends session; outage is surfaced (1.650154ms)
+✔ logout clears local session only after successful server revocation (1.631847ms)
+✔ invalid response cannot authenticate and raw errors are not reflected (4.267434ms)
+✔ vault requests restore memory access and retry one rejected bearer (16.516154ms)
+✔ vault API never sends access credentials to an arbitrary URL (0.473052ms)
+✔ processing client uses authenticated owner-scoped routes and encoded identifiers (5.932471ms)
+✔ processing errors never reflect raw extracted text or server internals (1.538406ms)
+✔ review writes allow only editable fields, version and explicit review acknowledgement (4.472793ms)
+✔ normalization preview preserves decimal strings and does not submit trust or provenance fields (0.389426ms)
+✔ review queue paginates on the server and observation identifiers are encoded (0.485882ms)
+✔ correction allowlist preserves missing fields without inferring medical context (0.126761ms)
+✔ upload feedback rejects empty, oversized and unsupported files (0.796109ms)
+✔ supported upload feedback permits all original formats (0.223216ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 208.060906
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 build
+> next build
+
+▲ Next.js 16.3.5 (Turbopack)
+✓ Running next.config.ts took 35ms
+- Experiments (use with caution):
+  · proxyClientMaxBodySize: "21mb"
+  · proxyTimeout: 120000
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 431ms
+  Running TypeScript ...
+  Finished TypeScript in 2.1s ...
+  Collecting page data using 8 workers ...
+  Generating static pages using 8 workers (0/7) ...
+  Generating static pages using 8 workers (1/7) 
+  Generating static pages using 8 workers (3/7) 
+  Generating static pages using 8 workers (5/7) 
+✓ Generating static pages using 8 workers (7/7) in 231ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ○ /app
+├ ○ /login
+├ ƒ /records
+├ ƒ /records/[id]
+├ ○ /register
+└ ○ /review
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

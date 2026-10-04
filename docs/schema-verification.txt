@@ -1,0 +1,16 @@
+V1 applied to PGlite PostgreSQL engine
+{
+  rows: [ { tables: 27 } ],
+  fields: [ { name: 'tables', dataTypeID: 23 } ],
+  command: 'SELECT',
+  affectedRows: 0,
+  rowCount: 1
+}
+PASS: 14 schema invariants; all synthetic rows rolled back
+{
+  rows: [ { remaining_users: 0 } ],
+  fields: [ { name: 'remaining_users', dataTypeID: 23 } ],
+  command: 'SELECT',
+  affectedRows: 0,
+  rowCount: 1
+}

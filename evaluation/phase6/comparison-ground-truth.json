@@ -1,0 +1,18 @@
+{
+  "label": "SYNTHETIC DEMO DATA — NOT A REAL PATIENT",
+  "scope": "Authored deterministic engine fixtures; not clinical accuracy",
+  "cases": [
+    {"before":"11.3","after":"10.4","unit":"g/dL","lab":"Lab","day":2,"low":"12","high":"16","direction":"DECREASED","comparable":true,"reference":"REMAINED_OUTSIDE"},
+    {"before":"12","after":"13","unit":"g/dL","lab":"Lab","day":2,"low":"12","high":"16","direction":"INCREASED","comparable":true,"reference":"REMAINED_INSIDE"},
+    {"before":"140","after":"140","unit":"g/dL","lab":"Lab","day":2,"low":"12","high":"16","direction":"APPROXIMATELY_STABLE","comparable":true,"reference":"REMAINED_OUTSIDE"},
+    {"before":"11","after":"12","unit":"g/dL","lab":"Lab","day":2,"low":"12","high":"16","direction":"INCREASED","comparable":true,"reference":"ENTERED_REFERENCE_INTERVAL"},
+    {"before":"12","after":"11","unit":"g/dL","lab":"Lab","day":2,"low":"12","high":"16","direction":"DECREASED","comparable":true,"reference":"EXITED_REFERENCE_INTERVAL"},
+    {"before":"11","after":"12","unit":"g/dL","lab":"Lab","day":2,"low":"10","high":"16","direction":"INCREASED","comparable":true,"reference":"REFERENCE_INTERVALS_DIFFER"},
+    {"before":"11","after":"12","unit":"g/dL","lab":"Lab","day":2,"low":null,"high":null,"direction":"INCREASED","comparable":true,"reference":"INSUFFICIENT_EVIDENCE"},
+    {"before":"11","after":"12","unit":"mmol/L","lab":"Lab","day":2,"low":"12","high":"16","direction":"INSUFFICIENT_EVIDENCE","comparable":false,"reference":"INSUFFICIENT_EVIDENCE"},
+    {"before":"11","after":"12","unit":"g/dL","lab":"Different lab","day":2,"low":"12","high":"16","direction":"INSUFFICIENT_EVIDENCE","comparable":false,"reference":"INSUFFICIENT_EVIDENCE"},
+    {"before":"11","after":"12","unit":"g/dL","lab":"Lab","day":1,"low":"12","high":"16","direction":"INSUFFICIENT_EVIDENCE","comparable":false,"reference":"INSUFFICIENT_EVIDENCE"},
+    {"before":"11","after":"12","unit":"g/dL","lab":"Lab","day":0,"low":"12","high":"16","direction":"INSUFFICIENT_EVIDENCE","comparable":false,"reference":"INSUFFICIENT_EVIDENCE"},
+    {"before":"0","after":"1","unit":"g/dL","lab":"Lab","day":2,"low":"12","high":"16","direction":"INCREASED","comparable":true,"reference":"REMAINED_OUTSIDE"}
+  ]
+}

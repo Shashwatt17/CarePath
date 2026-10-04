@@ -1,0 +1,15 @@
+{
+  "tests": 48,
+  "failures": 0,
+  "skipped": 0,
+  "typecheck": "passed",
+  "lint": "passed",
+  "productionBuild": "passed",
+  "renderedBrowser": "BLOCKED: ERR_BLOCKED_BY_CLIENT",
+  "logs": {
+    "p12-front-tests.log": "352640ed1c2557a3cc1bb23ae9d2377ff8d77c3191432e59af2e737889856e6f",
+    "p12-typecheck.log": "0601cf61bcb328b71d55977762915372c07dfd663e0ca165dc77b92e731219c4",
+    "p12-lint.log": "eb6dea407311f621c87a39bef1fde18d35b12539d0a803a90567038c15fec3f3",
+    "p12-build.log": "ceaede48a427f008376beb8f5ba90d281f6d56d445a351c4c115405dd5386edb"
+  }
+}

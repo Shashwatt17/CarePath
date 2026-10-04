@@ -1,0 +1,102 @@
+{
+  "engine" : "PDFBox 3.0.8 + locally installed Tesseract eng",
+  "executedAt" : "2026-09-30T02:10:12.889724205Z",
+  "metrics" : {
+    "classification" : {
+      "total" : 6,
+      "correct" : 6,
+      "ratio" : 1.0
+    },
+    "name" : {
+      "total" : 16,
+      "correct" : 16,
+      "ratio" : 1.0
+    },
+    "value" : {
+      "total" : 16,
+      "correct" : 16,
+      "ratio" : 1.0
+    },
+    "unit" : {
+      "total" : 16,
+      "correct" : 16,
+      "ratio" : 1.0
+    },
+    "reference" : {
+      "total" : 16,
+      "correct" : 16,
+      "ratio" : 1.0
+    },
+    "date" : {
+      "total" : 16,
+      "correct" : 16,
+      "ratio" : 1.0
+    },
+    "provider" : {
+      "total" : 16,
+      "correct" : 16,
+      "ratio" : 1.0
+    },
+    "flag" : {
+      "total" : 16,
+      "correct" : 16,
+      "ratio" : 1.0
+    },
+    "provenance" : {
+      "total" : 16,
+      "correct" : 16,
+      "ratio" : 1.0
+    },
+    "rowDetection" : {
+      "precision" : 1.0,
+      "expected" : 16,
+      "recall" : 1.0,
+      "predicted" : 16,
+      "matched" : 16
+    }
+  },
+  "documents" : [ {
+    "state" : "COMPLETED",
+    "predictedRows" : 3,
+    "expectedRows" : 3,
+    "mismatches" : [ ],
+    "file" : "january-lab.pdf",
+    "ocr" : false
+  }, {
+    "state" : "COMPLETED",
+    "predictedRows" : 3,
+    "expectedRows" : 3,
+    "mismatches" : [ ],
+    "file" : "april-lab.pdf",
+    "ocr" : false
+  }, {
+    "state" : "NEEDS_REVIEW",
+    "predictedRows" : 5,
+    "expectedRows" : 5,
+    "mismatches" : [ ],
+    "file" : "september-lab.pdf",
+    "ocr" : false
+  }, {
+    "state" : "NEEDS_REVIEW",
+    "predictedRows" : 2,
+    "expectedRows" : 2,
+    "mismatches" : [ ],
+    "file" : "scanned-lab.png",
+    "ocr" : true
+  }, {
+    "state" : "NEEDS_REVIEW",
+    "predictedRows" : 2,
+    "expectedRows" : 2,
+    "mismatches" : [ ],
+    "file" : "scanned-lab.pdf",
+    "ocr" : true
+  }, {
+    "state" : "COMPLETED",
+    "predictedRows" : 1,
+    "expectedRows" : 1,
+    "mismatches" : [ ],
+    "file" : "prompt-injection.pdf",
+    "ocr" : false
+  } ],
+  "dataset" : "synthetic phase4 only; not clinical accuracy"
+}

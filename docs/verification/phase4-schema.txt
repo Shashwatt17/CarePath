@@ -1,0 +1,2 @@
+PASS: V1 + V2 + V3 + V4 applied; 30 schema invariants; 0 persisted test users
+PGlite check only: not Flyway/JDBC/Docker runtime verification.

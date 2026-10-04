@@ -1,0 +1,12 @@
+{
+  "executed": "2026-09-24",
+  "suite": {
+    "tests": 172,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "build": "PASS",
+  "database": "H2 API integration; native PostgreSQL/Flyway/Redis not verified",
+  "proxy": "Actual Next production HTTP integration; not rendered-browser verification"
+}

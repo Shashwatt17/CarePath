@@ -1,0 +1,25 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+backend/target/
+.data/
+*.log
+*.zip
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.DS_Store
+*.pem
+*.key
+
+.verification/
+
+# Local OpenStreetMap source downloads
+backend/osm-data/
+*.osm.pbf
+*.osm.pbf.tmp

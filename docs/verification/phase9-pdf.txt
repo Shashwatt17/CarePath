@@ -1,0 +1,6 @@
+2026-09-29
+Production PDFBox renderer exercised by PackIntegrationTest and PackPdfTest.
+Poppler rendered synthetic-visit-pack.pdf (3 pages) and multipage stress fixture (4 pages).
+Contact sheets visually inspected; no visible overlap/clipping, readable typography, footer/page numbering intact.
+Final current synthetic PDF re-rendered after removal of internal calculation-policy display.
+Unsupported glyphs use explicit Unicode escapes; full-script support and tagged PDF accessibility not claimed.

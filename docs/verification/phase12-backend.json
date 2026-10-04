@@ -1,0 +1,237 @@
+{
+  "totals": {
+    "tests": 307,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "compile": "passed",
+  "package": "passed",
+  "scope": "Full regression including three evaluation ITs and real Next HTTP proxy IT; H2/test limiter, not native PostgreSQL/Redis",
+  "suites": [
+    {
+      "suite": "com.carepath.assistant.AssistantIntegrationTest",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "f5418b7c2f9276717ab193bdf414836e621f4fe6b68bdc26f90cac852f70417c"
+    },
+    {
+      "suite": "com.carepath.assistant.ProviderContractTest",
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "772244f7016857ba86999f803f4f843af868fb2525feb470722e27ca5ca0f3fc"
+    },
+    {
+      "suite": "com.carepath.care.CareIntegrationTest",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "4d4cde74043af39cc365961f53685c5b3346a287189af5104799d0de9bd3df33"
+    },
+    {
+      "suite": "com.carepath.care.CareRulesTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "d1dda14c27bd84ac3c3145a0062373e53b3944a4fd2608644df40a399bbe5212"
+    },
+    {
+      "suite": "com.carepath.foundation.FoundationSecurityTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "6e9e57640b3f302f1d04756bbf3b9f29bc062a8dd3ac9612983341e037cfe76b"
+    },
+    {
+      "suite": "com.carepath.foundation.LocalDocumentationSecurityTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "9f32e297a745cbf3ab8f90a919bda0d5740b93816a114615f259d6f5b26df6b6"
+    },
+    {
+      "suite": "com.carepath.foundation.ProductionGuardTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "cc0bb4da2c0d429a214e26969d63d801283ec8e060427b86726d85b724bad784"
+    },
+    {
+      "suite": "com.carepath.identity.AuthenticationIntegrationTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "815bdde34788f60d92ad65d9751904f8fc866ec7da0a7558331e86068bc37758"
+    },
+    {
+      "suite": "com.carepath.identity.FrontendProxyIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "ae4c18d09e2478eef54aa0fd3195ef6269d7fcb6f1e262524639e0a438f6f924"
+    },
+    {
+      "suite": "com.carepath.identity.HttpSecurityIntegrationTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "f08d5598dfb158a3af05713671254434eb6fd6a7dc5be50cd11efea62793cd94"
+    },
+    {
+      "suite": "com.carepath.identity.SecureCookieIntegrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "3fe33f8ec0a96b877b0d2d9427374b3442eb021e810a1ea0dca18815137a762e"
+    },
+    {
+      "suite": "com.carepath.intelligence.ExtractionEvaluationIT",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "3e1ab96964c456f720d44f7f9c5f471525d7149dc1822177238118a1f5ee94e6"
+    },
+    {
+      "suite": "com.carepath.intelligence.ExtractionRulesTest",
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "2886401cb5f45f5588519762d29574b6c95375fd4deb39b393cadb75de230a78"
+    },
+    {
+      "suite": "com.carepath.intelligence.ExtractionRuntimeTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "c687a2aa093888e7c10f7f65a52ad72a8afd31cc8a75b1cf966f63c944a7736b"
+    },
+    {
+      "suite": "com.carepath.intelligence.ProcessingIntegrationTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "9ecc7d3c57ce57030ac7e3fb0361a8e1602eb52cedd353d9814abfe75c81b3d8"
+    },
+    {
+      "suite": "com.carepath.intelligence.ScheduledProcessingIntegrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "87db1427b001d70275635b3706e92a12e2b4176f601640929547e58771c3d4a3"
+    },
+    {
+      "suite": "com.carepath.longitudinal.ComparisonTest",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "f73c760122aeb487b61cbd2dae10a1ef7dd8242b378800b1330e07d3da8ab1be"
+    },
+    {
+      "suite": "com.carepath.longitudinal.HistoryIntegrationTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "6397e01bdbff123bcc4be7d395fce36f80488cb857b90e97740a4e00de543457"
+    },
+    {
+      "suite": "com.carepath.longitudinal.LongitudinalEvaluationIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "2eee8ba29dc4b50a5ca17e431dd8df0f243ab27c9d702385a40122f63933ed82"
+    },
+    {
+      "suite": "com.carepath.nearby.NearbyIntegrationTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "5b52065c5fbb58e062aafebddc3167cb718d17d6ee0b5b481a44abe1e89d146f"
+    },
+    {
+      "suite": "com.carepath.nearby.NearbyTest",
+      "tests": 26,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "5307e44ddcaddc46998dc391df55353021129b73d9fee05115507ca0f5343119"
+    },
+    {
+      "suite": "com.carepath.review.NormalizationEvaluationIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "1a8b59d9ea3140549c8cf71e98d3a873e0d2f09df81d6b53657b749c11505bb3"
+    },
+    {
+      "suite": "com.carepath.review.NormalizationTest",
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "e00725a7b92060a329a2c2a3feff0215b8a2a51ac7025303ec54a8c9e850af02"
+    },
+    {
+      "suite": "com.carepath.review.ReviewIntegrationTest",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "c7ba48e315e18a3c458a8901e68e465f725e48140fc29c41e947a410bce83ce2"
+    },
+    {
+      "suite": "com.carepath.vault.VaultIntegrationTest",
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "803e744d565c185ce011fb2d3fdb95c66a8108196fbfe576d8faf561a3e228a2"
+    },
+    {
+      "suite": "com.carepath.visitpack.PackIntegrationTest",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "878cf6224d832d19fc20f6aeaaee229d9d26c228db7a360a7d93329397996610"
+    },
+    {
+      "suite": "com.carepath.visitpack.PackPdfTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "9a59e7d48cb0468cc50c7cc8c013e6107b7c7506317df20a05388ec55c1d1673"
+    },
+    {
+      "suite": "com.carepath.visitpack.SharingIntegrationTest",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "e02c24d9dbb7b75747159c420ffa149919d85cc6cfc3bacafc417b551062b4dd"
+    }
+  ]
+}

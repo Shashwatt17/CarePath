@@ -1,0 +1,4 @@
+PASS: V1 + V2 + V3 + V4 + V5 applied; 36 schema invariants; 0 persisted test users
+PGlite check only: not Flyway/JDBC/Docker runtime verification.
+Native PostgreSQL/Flyway/Redis/Compose and browser executables absent. NOT LIVE-VERIFIED.
+V1–V4 byte-identical to carepath-phase4.zip.

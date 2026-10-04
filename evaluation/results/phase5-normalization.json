@@ -1,0 +1,100 @@
+{
+  "label" : "SYNTHETIC DEMO DATA — NOT A REAL PATIENT",
+  "scope" : "Authored regression cases, not held-out clinical accuracy",
+  "executedAt" : "2026-10-04T10:26:53.022225700Z",
+  "cases" : 18,
+  "conceptMappingCorrect" : 18,
+  "unitOutcomeCorrect" : 18,
+  "normalizationAbstentions" : 8,
+  "rows" : [ {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "CONVERTED",
+    "term" : "Hb"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "CONVERTED",
+    "term" : "HGB"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "CONVERTED",
+    "term" : "Hemoglobin"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "CONVERTED",
+    "term" : "Haemoglobin"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "CONVERTED",
+    "term" : " hGb "
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "UNKNOWN_CONCEPT",
+    "term" : "Hemoglobbin"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "UNKNOWN_CONCEPT",
+    "term" : "Fasting Plasma Glucose"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "UNKNOWN_CONCEPT",
+    "term" : "Vitamin D3"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "UNKNOWN_CONCEPT",
+    "term" : "Unknown test"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "UNKNOWN_CONCEPT",
+    "term" : "urea/bun"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "CONVERTED",
+    "term" : "Glucose"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "CONVERTED",
+    "term" : "Glucose"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "CONVERTED",
+    "term" : "Glucose"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "SAME_UNIT",
+    "term" : "Creatinine"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "UNSUPPORTED_UNIT",
+    "term" : "Sodium"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "SAME_UNIT",
+    "term" : "Hemoglobin"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "UNSUPPORTED_UNIT",
+    "term" : "Hemoglobin"
+  }, {
+    "mappingCorrect" : true,
+    "conversionCorrect" : true,
+    "actualStatus" : "MISSING_UNIT",
+    "term" : "Hemoglobin"
+  } ]
+}

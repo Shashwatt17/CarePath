@@ -1,0 +1,203 @@
+{
+  "label": "SYNTHETIC DEMO DATA - NOT A REAL PATIENT",
+  "documents": [
+    {
+      "file": "january-lab.pdf",
+      "category": "LAB_REPORT",
+      "date": "2026-01-12",
+      "provider": "CarePath Synthetic Laboratory",
+      "method": "PDFBOX_TEXT",
+      "rows": [
+        {
+          "name": "Hemoglobin",
+          "value": "12.1",
+          "unit": "g/dL",
+          "reference": "12.0 - 16.0",
+          "flag": null,
+          "page": 1,
+          "evidence": "Hemoglobin | 12.1 | g/dL | 12.0 - 16.0 | "
+        },
+        {
+          "name": "Vitamin D",
+          "value": "19",
+          "unit": "ng/mL",
+          "reference": "30 - 100",
+          "flag": "LOW",
+          "page": 1,
+          "evidence": "Vitamin D | 19 | ng/mL | 30 - 100 | LOW"
+        },
+        {
+          "name": "Sodium",
+          "value": "140",
+          "unit": "mmol/L",
+          "reference": "135 - 145",
+          "flag": null,
+          "page": 1,
+          "evidence": "Sodium | 140 | mmol/L | 135 - 145 | "
+        }
+      ]
+    },
+    {
+      "file": "april-lab.pdf",
+      "category": "LAB_REPORT",
+      "date": "2026-04-12",
+      "provider": "CarePath Synthetic Laboratory",
+      "method": "PDFBOX_TEXT",
+      "rows": [
+        {
+          "name": "Hemoglobin",
+          "value": "11.3",
+          "unit": "g/dL",
+          "reference": "12.0 - 16.0",
+          "flag": "LOW",
+          "page": 1,
+          "evidence": "Hemoglobin | 11.3 | g/dL | 12.0 - 16.0 | LOW"
+        },
+        {
+          "name": "Vitamin D",
+          "value": "24",
+          "unit": "ng/mL",
+          "reference": "30 - 100",
+          "flag": "LOW",
+          "page": 1,
+          "evidence": "Vitamin D | 24 | ng/mL | 30 - 100 | LOW"
+        },
+        {
+          "name": "Sodium",
+          "value": "140",
+          "unit": "mmol/L",
+          "reference": "135 - 145",
+          "flag": null,
+          "page": 1,
+          "evidence": "Sodium | 140 | mmol/L | 135 - 145 | "
+        }
+      ]
+    },
+    {
+      "file": "september-lab.pdf",
+      "category": "LAB_REPORT",
+      "date": "2026-09-12",
+      "provider": "CarePath Synthetic Laboratory",
+      "method": "PDFBOX_TEXT",
+      "rows": [
+        {
+          "name": "Hemoglobin",
+          "value": "10.4",
+          "unit": "g/dL",
+          "reference": "12.0 - 16.0",
+          "flag": "LOW",
+          "page": 2,
+          "evidence": "Hemoglobin | 10.4 | g/dL | 12.0 - 16.0 | LOW"
+        },
+        {
+          "name": "Vitamin D",
+          "value": "31",
+          "unit": "ng/mL",
+          "reference": "30 - 100",
+          "flag": null,
+          "page": 2,
+          "evidence": "Vitamin D | 31 | ng/mL | 30 - 100 | "
+        },
+        {
+          "name": "Sodium",
+          "value": "140",
+          "unit": "mmol/L",
+          "reference": "135 - 145",
+          "flag": null,
+          "page": 2,
+          "evidence": "Sodium | 140 | mmol/L | 135 - 145 | "
+        },
+        {
+          "name": "Ferritin",
+          "value": "15",
+          "unit": "ng/mL",
+          "reference": "15 - 150",
+          "flag": null,
+          "page": 2,
+          "evidence": "Ferritin | 15 | ng/mL | 15 - 150 | "
+        },
+        {
+          "name": "TSH",
+          "value": "l.8?",
+          "unit": "mIU/L",
+          "reference": "0.4 - 4.0",
+          "flag": null,
+          "page": 2,
+          "evidence": "TSH | l.8? | mIU/L | 0.4 - 4.0 | "
+        }
+      ]
+    },
+    {
+      "file": "scanned-lab.png",
+      "category": "LAB_REPORT",
+      "date": "2026-09-12",
+      "provider": "CarePath Synthetic Laboratory",
+      "method": "TESSERACT_OCR",
+      "rows": [
+        {
+          "name": "Hemoglobin",
+          "value": "10.4",
+          "unit": "g/dL",
+          "reference": "12.0 - 16.0",
+          "flag": "LOW",
+          "page": 1,
+          "evidence": "Hemoglobin | 10.4 | g/dL | 12.0 - 16.0 | LOW"
+        },
+        {
+          "name": "Vitamin D",
+          "value": "31",
+          "unit": "ng/mL",
+          "reference": "30 - 100",
+          "flag": null,
+          "page": 1,
+          "evidence": "Vitamin D | 31 | ng/mL | 30 - 100 | "
+        }
+      ]
+    },
+    {
+      "file": "scanned-lab.pdf",
+      "category": "LAB_REPORT",
+      "date": "2026-09-12",
+      "provider": "CarePath Synthetic Laboratory",
+      "method": "TESSERACT_OCR",
+      "rows": [
+        {
+          "name": "Hemoglobin",
+          "value": "10.4",
+          "unit": "g/dL",
+          "reference": "12.0 - 16.0",
+          "flag": "LOW",
+          "page": 1,
+          "evidence": "Hemoglobin | 10.4 | g/dL | 12.0 - 16.0 | LOW"
+        },
+        {
+          "name": "Vitamin D",
+          "value": "31",
+          "unit": "ng/mL",
+          "reference": "30 - 100",
+          "flag": null,
+          "page": 1,
+          "evidence": "Vitamin D | 31 | ng/mL | 30 - 100 | "
+        }
+      ]
+    },
+    {
+      "file": "prompt-injection.pdf",
+      "category": "LAB_REPORT",
+      "date": "2026-09-12",
+      "provider": "CarePath Synthetic Laboratory",
+      "method": "PDFBOX_TEXT",
+      "rows": [
+        {
+          "name": "Hemoglobin",
+          "value": "10.4",
+          "unit": "g/dL",
+          "reference": "12.0 - 16.0",
+          "flag": "LOW",
+          "page": 1,
+          "evidence": "Hemoglobin | 10.4 | g/dL | 12.0 - 16.0 | LOW"
+        }
+      ]
+    }
+  ]
+}

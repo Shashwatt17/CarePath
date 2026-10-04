@@ -1,0 +1,11 @@
+"use client";
+import { useEffect, useState } from "react";
+import { authClient } from "@/lib/auth-client";
+import { checked } from "@/lib/vault-client";
+import { Button } from "@/components/ui/button";
+type Choice = { id: string; originalFilename?: string; name?: string; text?: string };
+export function RecordPicker({ kind, selected }: { kind: "document" | "symptom" | "question"; selected: string[] }) {
+ const [items, setItems] = useState<Choice[]>([]); const [ids, setIds] = useState(selected); const [page, setPage] = useState(0); const [total, setTotal] = useState(0); const [error, setError] = useState(false);
+ useEffect(() => { let active = true; const path = kind === "document" ? "/api/v1/documents" : kind === "symptom" ? "/api/v1/care/symptoms" : "/api/v1/assistant/questions"; authClient.api(`${path}?page=${page}&size=20`).then(checked).then((r) => r.json()).then((r: { items: Choice[]; total: number }) => { if (active) { setItems(r.items); setTotal(r.total); setError(false); } }).catch(() => { if (active) setError(true); }); return () => { active = false; }; }, [kind, page]);
+ return <fieldset className="rounded-lg border border-border p-3"><legend className="px-1 text-sm font-medium">Linked {kind}s ({ids.length}/20)</legend>{ids.map((key) => <input key={key} type="hidden" name={`${kind}Ids`} value={key} />)}{error ? <p role="alert" className="text-sm">Choices unavailable. Close and retry.</p> : <div className="max-h-36 space-y-2 overflow-y-auto">{items.map((item) => <label key={item.id} className="flex items-start gap-2 text-sm"><input type="checkbox" checked={ids.includes(item.id)} disabled={!ids.includes(item.id) && ids.length >= 20} onChange={(e) => setIds((old) => e.target.checked ? [...old, item.id] : old.filter((v) => v !== item.id))} /><span className="break-words">{item.originalFilename ?? item.name ?? item.text}</span></label>)}{!items.length && <p className="text-xs text-muted-foreground">No saved {kind}s.</p>}</div>}<div className="mt-2 flex gap-2"><Button type="button" variant="outline" size="sm" disabled={!page} onClick={() => setPage(page - 1)}>Previous</Button><Button type="button" variant="outline" size="sm" disabled={(page + 1) * 20 >= total} onClick={() => setPage(page + 1)}>More</Button></div></fieldset>;
+}

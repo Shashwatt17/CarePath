@@ -1,0 +1,70 @@
+{
+  "directionCorrect" : 12,
+  "comparabilityCorrect" : 12,
+  "executedAt" : "2026-10-04T10:26:49.836180200Z",
+  "cases" : 12,
+  "label" : "SYNTHETIC DEMO DATA — NOT A REAL PATIENT",
+  "scope" : "Authored deterministic engine fixtures; not clinical accuracy",
+  "referenceOutcomeCorrect" : 12,
+  "details" : [ {
+    "referenceCorrect" : true,
+    "case" : 1,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 2,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 3,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 4,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 5,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 6,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 7,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 8,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 9,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 10,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 11,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  }, {
+    "referenceCorrect" : true,
+    "case" : 12,
+    "comparabilityCorrect" : true,
+    "directionCorrect" : true
+  } ]
+}

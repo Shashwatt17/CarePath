@@ -1,0 +1,21 @@
+{
+  "scope": "H2 application integration, unit, local OCR/synthetic evaluation and production Next loopback HTTP proxy; not native PostgreSQL/Redis or rendered browser",
+  "command": "mvn -o -Dmaven.repo.local=/workspace/scratch/toolchains/m2 -B '-Dtest=*Test,ExtractionEvaluationIT,NormalizationEvaluationIT,LongitudinalEvaluationIT,FrontendProxyIT' package",
+  "result": "BUILD SUCCESS",
+  "counts": {
+    "tests": 320,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "baselineFilesCompared": 53,
+  "baselineFilesChanged": [],
+  "artifactRepair": {
+    "reason": "Retained executable jar was truncated after prior successful build; source/tests unchanged",
+    "command": "mvn -o -Dmaven.repo.local=/workspace/scratch/toolchains/m2 -f carepath/backend/pom.xml -B -DskipTests -Dmaven.jar.forceCreation=true package",
+    "result": "BUILD SUCCESS",
+    "jarBytes": 79861933,
+    "jarCrc": "PASS",
+    "testHandling": "Packaging-only repair reused earlier complete320-test regression; no baseline tests changed or removed."
+  }
+}

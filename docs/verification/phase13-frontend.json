@@ -1,0 +1,18 @@
+{
+  "commands": [
+    "npm test",
+    "npm run typecheck",
+    "npm run lint",
+    "npm run build"
+  ],
+  "tests": 58,
+  "pass": 58,
+  "fail": 0,
+  "cancelled": 0,
+  "skipped": 0,
+  "todo": 0,
+  "typecheck": "PASS",
+  "lint": "PASS",
+  "productionBuild": "PASS",
+  "scope": "Node test runner/client/static checks and build; not rendered browser"
+}

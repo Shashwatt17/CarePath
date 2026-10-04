@@ -1,0 +1,69 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 typecheck
+> tsc --noEmit
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 lint
+> eslint .
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 test
+> node --experimental-strip-types --test src/lib/*.test.ts
+
+✔ restoration is single-flight and access is sent only as bearer header (5.364844ms)
+✔ 401 refresh ends session; outage is surfaced (1.251253ms)
+✔ logout clears local session only after successful server revocation (1.320999ms)
+✔ invalid response cannot authenticate and raw errors are not reflected (1.887531ms)
+✔ vault requests restore memory access and retry one rejected bearer (1.518345ms)
+✔ vault API never sends access credentials to an arbitrary URL (0.267453ms)
+✔ processing client uses authenticated owner-scoped routes and encoded identifiers (5.206266ms)
+✔ processing errors never reflect raw extracted text or server internals (1.444434ms)
+✔ upload feedback rejects empty, oversized and unsupported files (1.089901ms)
+✔ supported upload feedback permits all original formats (0.293702ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 10
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 142.499818
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 build
+> next build
+
+▲ Next.js 16.3.5 (Turbopack)
+✓ Running next.config.ts took 29ms
+- Experiments (use with caution):
+  · proxyClientMaxBodySize: "21mb"
+  · proxyTimeout: 120000
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 371ms
+  Running TypeScript ...
+  Finished TypeScript in 1501ms ...
+  Collecting page data using 8 workers ...
+  Generating static pages using 8 workers (0/6) ...
+  Generating static pages using 8 workers (1/6) 
+  Generating static pages using 8 workers (2/6) 
+  Generating static pages using 8 workers (4/6) 
+✓ Generating static pages using 8 workers (6/6) in 181ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ƒ /
+├ ○ /_not-found
+├ ○ /app
+├ ○ /login
+├ ƒ /records
+├ ƒ /records/[id]
+└ ○ /register
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

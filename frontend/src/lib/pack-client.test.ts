@@ -1,0 +1,12 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { authClient } from "./auth-client.ts";
+import { packs, draftBody, packEvidenceUrl } from "./pack-client.ts";
+test("pack draft strips ownership, snapshot and forged source fields",()=>{
+ const x=draftBody({title:"Synthetic",reasonForVisit:"Review",appointmentId:null,packDate:null,version:1,items:[{type:"OBSERVATION",sourceId:"owned",...{owner:"foreign",snapshot:"forged"}}],...{owner:"foreign",status:"GENERATED",snapshot:"forged"}});
+ assert.equal("owner" in x,false);assert.equal("status" in x,false);assert.equal("snapshot" in x,false);assert.equal("owner" in x.items[0],false);assert.equal("snapshot" in x.items[0],false);
+});
+test("pack generation submits exact version and preview fingerprint",async()=>{const old=authClient.api;let path="",body:unknown;authClient.api=async(p,i)=>{path=p;body=JSON.parse(String(i?.body));return new Response("{}");};try{await packs.generate("a/b",2,"a".repeat(64));assert.equal(path,"/api/v1/visit-packs/a%2Fb/generate");assert.deepEqual(body,{version:2,previewHash:"a".repeat(64)});}finally{authClient.api=old;}});
+test("pack selection order and pack-only questions are retained",()=>{const x=draftBody({title:"Synthetic",reasonForVisit:"Review",appointmentId:null,packDate:null,version:0,items:[{type:"MANUAL_QUESTION",sourceId:null,questionText:"Second"},{type:"SAVED_QUESTION",sourceId:"saved",questionText:"First"}]});assert.equal(x.items[0].questionText,"Second");assert.equal(x.items[1].questionText,"First");});
+test("pack errors cannot echo backend content",async()=>{const old=authClient.api;authClient.api=async()=>new Response("private SQL and medical text",{status:503});try{await assert.rejects(packs.get("id"),(e:unknown)=>e instanceof Error&&!e.message.includes("SQL")&&!e.message.includes("medical text"));}finally{authClient.api=old;}});
+test("PDF download is authenticated binary and evidence uses internal page navigation",async()=>{const old=authClient.api;let path="";authClient.api=async p=>{path=p;return new Response("%PDF-synthetic",{headers:{"Content-Type":"application/pdf"}});};try{assert.equal(await(await packs.pdf("a/b")).text(),"%PDF-synthetic");assert.equal(path,"/api/v1/visit-packs/a%2Fb/pdf");assert.equal(packEvidenceUrl({documentId:"a/b",observationId:null,filename:"Synthetic",page:2,snippet:"Evidence"}),"/records/a%2Fb?page=2");}finally{authClient.api=old;}});

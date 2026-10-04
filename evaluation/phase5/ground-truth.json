@@ -1,0 +1,186 @@
+{
+  "label": "SYNTHETIC DEMO DATA \u2014 NOT A REAL PATIENT",
+  "scope": "Authored regression cases, not held-out clinical accuracy",
+  "cases": [
+    {
+      "term": "Hb",
+      "value": "104",
+      "unit": "g/L",
+      "concept": "Hemoglobin",
+      "mapping": "ALIAS_MATCH",
+      "normalized": "10.4",
+      "normalizedUnit": "g/dL",
+      "status": "CONVERTED"
+    },
+    {
+      "term": "HGB",
+      "value": "104",
+      "unit": "g/L",
+      "concept": "Hemoglobin",
+      "mapping": "ALIAS_MATCH",
+      "normalized": "10.4",
+      "normalizedUnit": "g/dL",
+      "status": "CONVERTED"
+    },
+    {
+      "term": "Hemoglobin",
+      "value": "104",
+      "unit": "g/L",
+      "concept": "Hemoglobin",
+      "mapping": "EXACT",
+      "normalized": "10.4",
+      "normalizedUnit": "g/dL",
+      "status": "CONVERTED"
+    },
+    {
+      "term": "Haemoglobin",
+      "value": "104",
+      "unit": "g/L",
+      "concept": "Hemoglobin",
+      "mapping": "ALIAS_MATCH",
+      "normalized": "10.4",
+      "normalizedUnit": "g/dL",
+      "status": "CONVERTED"
+    },
+    {
+      "term": " hGb ",
+      "value": "104",
+      "unit": "g/L",
+      "concept": "Hemoglobin",
+      "mapping": "ALIAS_MATCH",
+      "normalized": "10.4",
+      "normalizedUnit": "g/dL",
+      "status": "CONVERTED"
+    },
+    {
+      "term": "Hemoglobbin",
+      "value": "10",
+      "unit": "mg/dL",
+      "concept": null,
+      "mapping": "UNMAPPED",
+      "normalized": null,
+      "normalizedUnit": null,
+      "status": "UNKNOWN_CONCEPT"
+    },
+    {
+      "term": "Fasting Plasma Glucose",
+      "value": "10",
+      "unit": "mg/dL",
+      "concept": null,
+      "mapping": "UNMAPPED",
+      "normalized": null,
+      "normalizedUnit": null,
+      "status": "UNKNOWN_CONCEPT"
+    },
+    {
+      "term": "Vitamin D3",
+      "value": "10",
+      "unit": "mg/dL",
+      "concept": null,
+      "mapping": "UNMAPPED",
+      "normalized": null,
+      "normalizedUnit": null,
+      "status": "UNKNOWN_CONCEPT"
+    },
+    {
+      "term": "Unknown test",
+      "value": "10",
+      "unit": "mg/dL",
+      "concept": null,
+      "mapping": "UNMAPPED",
+      "normalized": null,
+      "normalizedUnit": null,
+      "status": "UNKNOWN_CONCEPT"
+    },
+    {
+      "term": "urea/bun",
+      "value": "10",
+      "unit": "mg/dL",
+      "concept": null,
+      "mapping": "AMBIGUOUS",
+      "normalized": null,
+      "normalizedUnit": null,
+      "status": "UNKNOWN_CONCEPT"
+    },
+    {
+      "term": "Glucose",
+      "value": "90",
+      "unit": "mg/dL",
+      "concept": "Glucose",
+      "mapping": "EXACT",
+      "normalized": "5.0",
+      "normalizedUnit": "mmol/L",
+      "status": "CONVERTED"
+    },
+    {
+      "term": "Glucose",
+      "value": "180",
+      "unit": "mg/dL",
+      "concept": "Glucose",
+      "mapping": "EXACT",
+      "normalized": "9.99",
+      "normalizedUnit": "mmol/L",
+      "status": "CONVERTED"
+    },
+    {
+      "term": "Glucose",
+      "value": "90.075662",
+      "unit": "mg/dL",
+      "concept": "Glucose",
+      "mapping": "EXACT",
+      "normalized": "5.000",
+      "normalizedUnit": "mmol/L",
+      "status": "CONVERTED"
+    },
+    {
+      "term": "Creatinine",
+      "value": "90",
+      "unit": "mg/dL",
+      "concept": "Creatinine",
+      "mapping": "EXACT",
+      "normalized": "90",
+      "normalizedUnit": "mg/dL",
+      "status": "SAME_UNIT"
+    },
+    {
+      "term": "Sodium",
+      "value": "90",
+      "unit": "mg/dL",
+      "concept": "Sodium",
+      "mapping": "EXACT",
+      "normalized": null,
+      "normalizedUnit": null,
+      "status": "UNSUPPORTED_UNIT"
+    },
+    {
+      "term": "Hemoglobin",
+      "value": "10.40",
+      "unit": "g/dL",
+      "concept": "Hemoglobin",
+      "mapping": "EXACT",
+      "normalized": "10.40",
+      "normalizedUnit": "g/dL",
+      "status": "SAME_UNIT"
+    },
+    {
+      "term": "Hemoglobin",
+      "value": "10",
+      "unit": "mmol/L",
+      "concept": "Hemoglobin",
+      "mapping": "EXACT",
+      "normalized": null,
+      "normalizedUnit": null,
+      "status": "UNSUPPORTED_UNIT"
+    },
+    {
+      "term": "Hemoglobin",
+      "value": "10",
+      "unit": null,
+      "concept": "Hemoglobin",
+      "mapping": "EXACT",
+      "normalized": null,
+      "normalizedUnit": null,
+      "status": "MISSING_UNIT"
+    }
+  ]
+}

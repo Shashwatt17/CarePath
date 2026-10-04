@@ -1,0 +1,7 @@
+2026-09-29
+Full 266-test suite passed with 0 failures/errors/skips; compile checks passed.
+Initial packaging failed: retained target JAR zip END header not found.
+Only generated target JAR and .original removed.
+Same offline Maven/JDK paths, -DskipTests package: BUILD SUCCESS.
+Packaging-only retry did not rerun the already-passed test suite; no baseline source disabled.
+Frontend TypeScript, lint and production build PASS.

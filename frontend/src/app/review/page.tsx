@@ -1,0 +1,2 @@
+import { ReviewPanel } from "@/components/review/review-panel";
+export default function ReviewPage() { return <><p className="text-xs font-medium uppercase tracking-widest text-primary">Your records · your review</p><h1 className="mt-2 text-3xl font-semibold">Verify extracted results</h1><p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">Confirm what your documents say, with the original evidence beside every reading. Verification records your review; it does not provide a medical diagnosis.</p><ReviewPanel /></>; }

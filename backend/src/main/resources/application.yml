@@ -1,0 +1,121 @@
+spring:
+  application:
+    name: carepath
+  config:
+    import: optional:file:../.env[.properties],optional:file:./.env[.properties]
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/carepath}
+    username: ${POSTGRES_USER:carepath}
+    password: ${POSTGRES_PASSWORD}
+    hikari:
+      maximum-pool-size: 10
+      connection-timeout: 5000
+  jdbc:
+    template:
+      query-timeout: ${DATABASE_QUERY_TIMEOUT_SECONDS:20}s
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+  flyway:
+    enabled: true
+    clean-disabled: true
+    validate-on-migrate: true
+    baseline-on-migrate: false
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+      password: ${REDIS_PASSWORD}
+      timeout: 2s
+      connect-timeout: 2s
+  servlet:
+    multipart:
+      max-file-size: ${VAULT_MAX_BYTES:20971520}B
+      max-request-size: 21MB
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+server:
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+  error:
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+  tomcat:
+    connection-timeout: 10s
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: readinessState,db,redis
+logging:
+  structured:
+    format:
+      console: ecs
+  level:
+    org.hibernate.engine.jdbc.spi.SqlExceptionHelper: OFF
+    org.apache.pdfbox: OFF
+    org.hibernate.SQL: OFF
+    org.hibernate.orm.jdbc.bind: OFF
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+carepath:
+  reminders:
+    enabled: ${REMINDERS_ENABLED:true}
+    poll-ms: ${REMINDER_POLL_MS:30000}
+  assistant:
+    enabled: ${LLM_ENABLED:false}
+    api-key: ${LLM_API_KEY:}
+    model: ${LLM_MODEL:gpt-4.1-mini}
+    endpoint: ${LLM_ENDPOINT:https://api.openai.com/v1/chat/completions}
+    timeout-seconds: ${LLM_TIMEOUT_SECONDS:15}
+    max-output-tokens: ${LLM_MAX_OUTPUT_TOKENS:1500}
+    max-response-bytes: ${LLM_MAX_RESPONSE_BYTES:32768}
+  history:
+    relative-tolerance: ${HISTORY_RELATIVE_TOLERANCE:0.01}
+    concept-tolerances: ${HISTORY_CONCEPT_TOLERANCES:}
+  processing:
+    temp-root: ${PROCESSING_TEMP_ROOT:../.data/processing-temp}
+    tesseract-command: ${TESSERACT_COMMAND:tesseract}
+    timeout-seconds: ${EXTRACTION_TIMEOUT_SECONDS:120}
+    ocr-timeout-seconds: ${OCR_TIMEOUT_SECONDS:30}
+    max-pages: ${EXTRACTION_MAX_PAGES:20}
+    max-characters: ${EXTRACTION_MAX_CHARACTERS:250000}
+    worker-enabled: ${PROCESSING_WORKER_ENABLED:true}
+  vault:
+    root: ${STORAGE_ROOT:../.data/documents}
+    max-bytes: ${VAULT_MAX_BYTES:20971520}
+  frontend-origin: ${FRONTEND_ORIGIN:http://localhost:3000}
+  auth:
+    issuer: ${JWT_ISSUER:https://carepath.local}
+    audience: ${JWT_AUDIENCE:carepath-api}
+    access-seconds: ${JWT_ACCESS_SECONDS:300}
+    refresh-seconds: ${REFRESH_SECONDS:604800}
+    bcrypt-cost: ${BCRYPT_COST:12}
+    private-key-path: ${JWT_PRIVATE_KEY_PATH}
+    public-key-path: ${JWT_PUBLIC_KEY_PATH}
+    cookie-secure: ${AUTH_COOKIE_SECURE:true}
+    frontend-origin: ${FRONTEND_ORIGIN:http://localhost:3000}
+    rate-key: ${AUTH_RATE_KEY}
+    ip-limit: ${AUTH_IP_LIMIT:60}
+    account-limit: ${AUTH_ACCOUNT_LIMIT:10}
+    rate-window-seconds: ${AUTH_RATE_WINDOW_SECONDS:60}

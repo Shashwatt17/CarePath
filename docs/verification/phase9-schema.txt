@@ -1,0 +1,4 @@
+2026-09-29
+npm --prefix carepath/scripts/schema-check test
+PASS: V1 + V2 + V3 + V4 + V5 + V6 + V7 + V8 + V9 applied; 40 schema invariants; 0 persisted test users
+PGlite only; native PostgreSQL/Flyway/JDBC runtime NOT verified. V1-V8 unchanged.

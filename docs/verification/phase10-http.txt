@@ -1,0 +1,7 @@
+2026-09-29
+Actual Next production server and Node fetch in same process/network namespace.
+GET /share: 200
+Cache-Control: no-store
+Referrer-Policy: no-referrer
+X-Robots-Tag: noindex, nofollow, noarchive
+Server stopped afterward. This was not rendered-browser or production TLS/cookie verification.

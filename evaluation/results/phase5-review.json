@@ -1,0 +1,11 @@
+{
+  "rejected" : 1,
+  "executedAt" : "2026-10-04T13:43:09.749449700Z",
+  "documents" : 3,
+  "confirmed" : 9,
+  "label" : "SYNTHETIC DEMO DATA — NOT A REAL PATIENT",
+  "sourceAndOriginalPreserved" : 11,
+  "scope" : "Three authored reports; API workflow/provenance assertions, not clinical accuracy",
+  "candidates" : 11,
+  "corrected" : 1
+}

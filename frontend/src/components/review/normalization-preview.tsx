@@ -1,0 +1,5 @@
+import type { Preview } from "@/lib/review-client";
+import { label } from "@/lib/vault-client";
+export function NormalizationPreview({ preview }: { preview: Preview }) {
+  return <div className="rounded-lg bg-muted/60 p-3 text-sm"><p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Normalized representation</p><p className="mt-1 font-medium">{preview.mapping.concept?.name ?? "No reliable concept mapping"} · {label(preview.mapping.status)}</p><p className="mt-1 tabular-nums">{preview.normalized.value !== null ? `${preview.normalized.value} ${preview.normalized.unit ?? ""}` : "No normalized value"} · {label(preview.normalized.status)}</p><p className="mt-1 text-xs text-muted-foreground">Supplied range comparison: {label(preview.derivedRangeStatus)}. This is separate from the source flag.</p>{preview.mapping.alternatives.length > 0 && <p className="mt-2">Ambiguous: {preview.mapping.alternatives.map((c) => c.name).join(", ")}</p>}{preview.warnings.length > 0 && <p className="mt-2 text-xs text-amber-900">{preview.warnings.map(label).join(" · ")}</p>}</div>;
+}

@@ -1,0 +1,7 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> test
+> node verify.mjs
+
+PASS: V1 + V2 applied; 19 schema invariants; 0 persisted test users
+PGlite check only: not Flyway/JDBC/Docker runtime verification.

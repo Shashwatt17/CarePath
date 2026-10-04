@@ -1,0 +1,13 @@
+@import "tailwindcss";
+:root { --background: #f7f9f8; --foreground: #172e29; --primary: #146a57; --primary-foreground: #ffffff; --muted: #edf2ef; --muted-foreground: #52665f; --border: #dce5df; }
+@theme inline { --color-background: var(--background); --color-foreground: var(--foreground); --color-primary: var(--primary); --color-primary-foreground: var(--primary-foreground); --color-muted: var(--muted); --color-muted-foreground: var(--muted-foreground); --color-border: var(--border); }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; }
+html { scroll-behavior: smooth; }
+.skip-link { position: absolute; top: -100px; left: 1rem; padding: .75rem; background: white; z-index: 100; }
+.skip-link:focus { top: 1rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+
+.field-label { display: block; margin-bottom: .5rem; font-size: .875rem; font-weight: 600; }
+.field-input { width: 100%; min-height: 2.75rem; padding: .65rem .8rem; border: 1px solid var(--border); border-radius: .5rem; background: white; }
+.field-input:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+.field-input:disabled { opacity: .6; }

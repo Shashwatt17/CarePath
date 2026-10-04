@@ -1,0 +1,122 @@
+{
+  "result": "BUILD SUCCESS",
+  "tests": 141,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "environment": "Java 21; Spring security/controllers/JDBC + H2 test schema; real PDFBox/Tesseract; production Next HTTP proxy; no native PostgreSQL/Flyway/Redis/browser",
+  "suites": [
+    {
+      "name": "com.carepath.foundation.FoundationSecurityTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.069"
+    },
+    {
+      "name": "com.carepath.foundation.LocalDocumentationSecurityTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.508"
+    },
+    {
+      "name": "com.carepath.identity.AuthenticationIntegrationTest",
+      "tests": "18",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "5.451"
+    },
+    {
+      "name": "com.carepath.identity.FrontendProxyIT",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "4.399"
+    },
+    {
+      "name": "com.carepath.identity.SecureCookieIntegrationTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "16.491"
+    },
+    {
+      "name": "com.carepath.intelligence.ExtractionEvaluationIT",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "5.497"
+    },
+    {
+      "name": "com.carepath.intelligence.ExtractionRulesTest",
+      "tests": "20",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.035"
+    },
+    {
+      "name": "com.carepath.intelligence.ExtractionRuntimeTest",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "6.401"
+    },
+    {
+      "name": "com.carepath.intelligence.ProcessingIntegrationTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "8.414"
+    },
+    {
+      "name": "com.carepath.intelligence.ScheduledProcessingIntegrationTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.68"
+    },
+    {
+      "name": "com.carepath.review.NormalizationEvaluationIT",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.011"
+    },
+    {
+      "name": "com.carepath.review.NormalizationTest",
+      "tests": "25",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.107"
+    },
+    {
+      "name": "com.carepath.review.ReviewIntegrationTest",
+      "tests": "14",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "16.655"
+    },
+    {
+      "name": "com.carepath.vault.VaultIntegrationTest",
+      "tests": "31",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "10.073"
+    }
+  ]
+}

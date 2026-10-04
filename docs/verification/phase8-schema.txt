@@ -1,0 +1,5 @@
+2026-09-28
+PGlite only: V1–V8 applied; 40 existing invariants PASS; zero remaining test users.
+V1–V7 byte-identical to Checkpoint V1 archive.
+Native PostgreSQL 17/Flyway, Redis and persistence restart: BLOCKED.
+No Docker/postgres/redis-server/chromium/chromium-browser/google-chrome executable found. Tesseract available.

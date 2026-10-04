@@ -1,0 +1,18 @@
+{
+  "executed": "2026-09-24",
+  "fullSuite": {
+    "tests": 203,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "compile": "PASS",
+  "package": "PASS",
+  "newAssistantApiTests": 14,
+  "newProviderContractTests": 17,
+  "realNextHttpProxy": "PASS; assistant/saved questions added to prior auth/vault/extraction/review/history flow",
+  "liveProvider": "NOT VERIFIED; controlled HttpClient contract only",
+  "nativePostgreSQLFlywayRedis": "BLOCKED",
+  "renderedBrowser": "BLOCKED",
+  "migrationsV1ThroughV6": "byte-identical to Phase 6 archive"
+}

@@ -1,0 +1,22 @@
+{
+  "requirements": 214,
+  "counts": {
+    "IMPLEMENTED + VERIFIED": 159,
+    "IMPLEMENTED + LIVE VERIFICATION PENDING": 44,
+    "INTENTIONALLY DEFERRED": 3,
+    "PARTIAL": 7,
+    "NOT APPLICABLE": 1,
+    "NOT IMPLEMENTED": 0
+  },
+  "recognizedSecretPatternMatches": [
+    {
+      "path": "backend/src/test/java/com/carepath/identity/AuthTestSupport.java",
+      "assessment": "False positive: PEM header string around freshly generated ephemeral RSA test key; no embedded private key"
+    }
+  ],
+  "unresolvedSecretMatches": 0,
+  "sourceFilesOver2MiB": [],
+  "jarCrc": "PASS after packaging-only repair",
+  "nativeVerification": "NOT EXECUTED",
+  "scope": "source/archive review, not comprehensive secret-scanner or dependency-advisory certification"
+}

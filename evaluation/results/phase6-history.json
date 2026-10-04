@@ -1,0 +1,11 @@
+{
+  "changeLabelsCorrect" : 5,
+  "groupedChronologicalPointsCorrect" : 3,
+  "executedAt" : "2026-10-04T13:42:46.324597600Z",
+  "groupedChronologicalPointsTotal" : 3,
+  "changeLabelsTotal" : 5,
+  "label" : "SYNTHETIC DEMO DATA — NOT A REAL PATIENT",
+  "scope" : "Actual upload/extract/verify/history API on authored synthetic reports; not clinical accuracy",
+  "sourceReferencesTotal" : 8,
+  "sourceReferencesCorrect" : 8
+}

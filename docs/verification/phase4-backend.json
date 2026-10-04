@@ -1,0 +1,96 @@
+{
+  "command": "JAVA_HOME=/workspace/scratch/toolchains/jdk-21.0.12.1+1 /workspace/scratch/toolchains/apache-maven-3.9.11/bin/mvn -o -Dmaven.repo.local=/workspace/scratch/toolchains/m2 -f carepath/backend/pom.xml -B '-Dtest=*Test,ExtractionEvaluationIT,FrontendProxyIT' package",
+  "suites": [
+    {
+      "name": "com.carepath.foundation.FoundationSecurityTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.foundation.LocalDocumentationSecurityTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.identity.AuthenticationIntegrationTest",
+      "tests": "18",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.identity.FrontendProxyIT",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.identity.SecureCookieIntegrationTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.intelligence.ExtractionEvaluationIT",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.intelligence.ExtractionRulesTest",
+      "tests": "20",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.intelligence.ExtractionRuntimeTest",
+      "tests": "11",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.intelligence.ProcessingIntegrationTest",
+      "tests": "9",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.intelligence.ScheduledProcessingIntegrationTest",
+      "tests": "1",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "com.carepath.vault.VaultIntegrationTest",
+      "tests": "31",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "total": 101,
+  "build": "SUCCESS",
+  "packagedWorkerSmoke": "PASS: Boot PropertiesLauncher, real PDFBox, 3 January candidates",
+  "nativePostgreSqlFlywayRedis": "NOT LIVE-VERIFIED",
+  "browser": "NOT LIVE-VERIFIED",
+  "extendedProxyRerun": {
+    "command": "mvn -o -Dmaven.repo.local=/workspace/scratch/toolchains/m2 -f carepath/backend/pom.xml -B -Dtest=FrontendProxyIT test",
+    "passed": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "flow": "auth + >10MiB vault lifecycle + September upload/process/status/candidates/evidence/page2 preview/delete + refresh/logout"
+  },
+  "finalPackageCompleted": "2026-09-23T11:06:00Z"
+}

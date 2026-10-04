@@ -1,0 +1,219 @@
+{
+  "evidence": "Retained complete Phase11 Surefire reports; all 26 suites specify the complete test selector. No tests rerun on closure. Packaging-only repair separately executed successfully.",
+  "totals": {
+    "tests": 296,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "suite": "com.carepath.assistant.AssistantIntegrationTest",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "2fff80106763db9156516dae61fc1161afeb5f62d03ccc06b34339c4966483ea"
+    },
+    {
+      "suite": "com.carepath.assistant.ProviderContractTest",
+      "tests": 17,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "b79dfb90ebb69a75dae8fc4ed172d905c7e22a7956fd21d2d0fddbefc743b9b1"
+    },
+    {
+      "suite": "com.carepath.care.CareIntegrationTest",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "fb4019e0ca158832145b3f3b427352248e1e28db07f921c6b5c2703516177140"
+    },
+    {
+      "suite": "com.carepath.care.CareRulesTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "05660358502cf41a6118547fe6b26f85d330fbe80ef072d8ee34461277ac0089"
+    },
+    {
+      "suite": "com.carepath.foundation.FoundationSecurityTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "4217dc8631a9928f7f5aadecb05f7b47952a37d26f49b1eb8d74087b1b8341c1"
+    },
+    {
+      "suite": "com.carepath.foundation.LocalDocumentationSecurityTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "b5ef89e447d8461d113ab7ee38ff217dfb4a6ea1093b3c92dc9e686e0cdddce8"
+    },
+    {
+      "suite": "com.carepath.identity.AuthenticationIntegrationTest",
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "c88e9c3ec757d0cb4a64a4e82c9fb922d29a82df6c267f91cc78d492c7cd631f"
+    },
+    {
+      "suite": "com.carepath.identity.FrontendProxyIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "0f6f814b892ea391c54b67fbc78265a02182a61f76d7cb2aa66f26a549878350"
+    },
+    {
+      "suite": "com.carepath.identity.SecureCookieIntegrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "428049240c339ba70a3d5db1c468b8eb455a0ad14c7e2db1187af63f4813ee59"
+    },
+    {
+      "suite": "com.carepath.intelligence.ExtractionEvaluationIT",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "21141ef9dd67a936d0fba4e4eed162d94725799ac8465ff697822e4974306255"
+    },
+    {
+      "suite": "com.carepath.intelligence.ExtractionRulesTest",
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "ca48fc2fb70d76f601a51a0a5da8ebb01d6671e32ed3df11cef63fe2016f8354"
+    },
+    {
+      "suite": "com.carepath.intelligence.ExtractionRuntimeTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "a318b09ee14d276098705066a04a6bcb759adddaac96def3c40f3a38e2fa0f17"
+    },
+    {
+      "suite": "com.carepath.intelligence.ProcessingIntegrationTest",
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "8fd7874eb69c05d9f7a11a3ab9a168b58e7ce53eebe9602d6863a4f22090ed13"
+    },
+    {
+      "suite": "com.carepath.intelligence.ScheduledProcessingIntegrationTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "a8ac79e13a441e2cd2d171889461411eb5e90804c5d7fa1b02ea5272b836de78"
+    },
+    {
+      "suite": "com.carepath.longitudinal.ComparisonTest",
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "5bbec2de3feec0c06ad7296dcce4e04c54ce9037ce8ac7bd119e8f1dfc0dcfbc"
+    },
+    {
+      "suite": "com.carepath.longitudinal.HistoryIntegrationTest",
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "eb38e3fadef867b26ac75215acb4a26dbb0ca7fec500d7006bf4f9fea6d2604e"
+    },
+    {
+      "suite": "com.carepath.longitudinal.LongitudinalEvaluationIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "c7d9e2c3683554cf79541e8c4ca6f69a1861f71c0cb6ff8adcce21bf5039608a"
+    },
+    {
+      "suite": "com.carepath.nearby.NearbyIntegrationTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "4d13d9a14ca67a02c283badd4ddc11400359589bd733e2fc132ed3f3277a1bcf"
+    },
+    {
+      "suite": "com.carepath.nearby.NearbyTest",
+      "tests": 26,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "9310ec697a2bf025237eabef1d9168e25cfa482e5e69e3f5b841289b51809a97"
+    },
+    {
+      "suite": "com.carepath.review.NormalizationEvaluationIT",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "244bf28c175e7a3c88d43c01e95b38a1c9b3746ee8d97a1cd4996409d0f068d0"
+    },
+    {
+      "suite": "com.carepath.review.NormalizationTest",
+      "tests": 25,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "37578de8b14d9709b521bc8204d850d5ee8da0c8992c8cac1e2441a35a51d960"
+    },
+    {
+      "suite": "com.carepath.review.ReviewIntegrationTest",
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "9c3cc2f70acb17b97e6836ea10a3da7c77424e3e5562b33fe91b5a14fa5c371c"
+    },
+    {
+      "suite": "com.carepath.vault.VaultIntegrationTest",
+      "tests": 31,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "b51dca32c49e58171d9af5202713bd2d818c59309393c3e8a7443d54e787fba4"
+    },
+    {
+      "suite": "com.carepath.visitpack.PackIntegrationTest",
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "a95472a295fba3b4a201b97f3c531a9e80b8573e59139a6e0e7427fa646b4756"
+    },
+    {
+      "suite": "com.carepath.visitpack.PackPdfTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "787eefeb3f4742f9f888f2eefb11fa63b12fff7aa187f38e29e5b500a2f34413"
+    },
+    {
+      "suite": "com.carepath.visitpack.SharingIntegrationTest",
+      "tests": 16,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reportSha256": "b875686ab80c62681904e288fbdaa00b8c5a72e8fe9a457da3b4a7d4166dbbc8"
+    }
+  ]
+}

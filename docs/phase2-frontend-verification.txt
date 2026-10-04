@@ -1,0 +1,27 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 typecheck
+> tsc --noEmit
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 lint
+> eslint .
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> carepath-frontend@0.1.0 test
+> node --experimental-strip-types --test src/lib/auth-client.test.ts
+
+✔ restoration is single-flight and access is sent only as bearer header (4.716832ms)
+✔ 401 refresh ends session; outage is surfaced (1.215617ms)
+✔ logout clears local session only after successful server revocation (0.854753ms)
+✔ invalid response cannot authenticate and raw errors are not reflected (3.223551ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 151.840889
