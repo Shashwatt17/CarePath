@@ -98,10 +98,12 @@ separately. Revocation stops future public access but cannot erase a recipient's
 - **LLM:** disabled by default. Configure LLM_ENABLED/API_KEY/MODEL/ENDPOINT/timeouts only if desired;
   users also opt in per request. Only bounded relevant verified facts leave the app. Deterministic
   explanations work without a key. Arbitrary narrative interpretation/diagnosis is not supported.
-- **Nearby Care:** GOOGLE_PLACES_API_KEY (Places API New, billing/quota restrictions) remains backend
-  only. Search requires explicit browser location action or manual coordinates. No continuous
-  tracking or coordinate persistence. Approximate straight-line distances are not driving routes.
-  Missing fields stay unavailable; no invented booking slots or URLs. No key means unavailable UI.
+- **Nearby Care:** local healthcare discovery uses an OpenStreetMap-derived dataset with required
+  attribution. Search requires explicit browser location action or manual coordinates, supports
+  category and radius filtering, and ranks results by approximate straight-line distance. The
+  verified Central Zone dataset contains 9,767 healthcare facilities with 9,767 unique provider IDs.
+  Missing metadata remains unavailable and facility details should be confirmed before visiting.
+  The Google Places provider abstraction remains available for separately configured deployments.
 - **Email:** interface/disabled implementation only; no external adapter or delivery. Database-backed
   in-app notifications remain available. Configure offsets on actual appointments/follow-ups.
 - **Storage:** real local adapter; S3-compatible port exists but no S3 implementation is claimed.
