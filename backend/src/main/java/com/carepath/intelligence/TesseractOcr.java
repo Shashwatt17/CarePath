@@ -11,7 +11,7 @@ public class TesseractOcr implements OcrProvider {
     public Page recognize(Path image,int page,int width,int height) {
         Path output=image.resolveSibling("ocr-"+UUID.randomUUID()+".tsv");Process process=null;
         try {
-            var builder=new ProcessBuilder(command,image.toAbsolutePath().toString(),"stdout","-l","eng","--psm","6","tsv");
+           var builder=new ProcessBuilder(command,image.toAbsolutePath().toString(),"stdout","-l","eng","--psm","3","tsv");
             builder.environment().put("OMP_THREAD_LIMIT","1");
             builder.redirectOutput(output.toFile()).redirectError(ProcessBuilder.Redirect.DISCARD);
             process=builder.start();
