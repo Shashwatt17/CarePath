@@ -8,7 +8,7 @@ spring:
     username: ${POSTGRES_USER:carepath}
     password: ${POSTGRES_PASSWORD}
     hikari:
-      maximum-pool-size: 10
+      maximum-pool-size: ${DATABASE_POOL_SIZE:10}
       connection-timeout: 5000
   jdbc:
     template:
@@ -31,6 +31,8 @@ spring:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
       password: ${REDIS_PASSWORD}
+      ssl:
+        enabled: ${REDIS_SSL_ENABLED:false}
       timeout: 2s
       connect-timeout: 2s
   servlet:
@@ -43,7 +45,7 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 20s
 server:
-  port: ${SERVER_PORT:8080}
+  port: ${SERVER_PORT:${PORT:8080}}
   shutdown: graceful
   error:
     include-message: never
@@ -102,6 +104,7 @@ carepath:
     max-characters: ${EXTRACTION_MAX_CHARACTERS:250000}
     worker-enabled: ${PROCESSING_WORKER_ENABLED:true}
   vault:
+    backend: ${STORAGE_BACKEND:local}
     root: ${STORAGE_ROOT:../.data/documents}
     max-bytes: ${VAULT_MAX_BYTES:20971520}
   frontend-origin: ${FRONTEND_ORIGIN:http://localhost:3000}
