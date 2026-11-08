@@ -2,6 +2,8 @@
 
 **Evidence-Grounded Longitudinal Health Record Intelligence & Care Navigation Platform**
 
+**Hosting repair (November 2026):** see [current verification and deployment status](docs/HOSTING_REPAIR.md). Native PostgreSQL/Redis, PDF processing and restart persistence now pass in the tested local environment; production restoration is still pending.
+
 **Final Phase13: RELEASE CANDIDATE — test-verified, not production certified.**
 320 backend tests and58 frontend tests pass, with zero failures/errors/skips. Backend package,
 TypeScript, lint and frontend production build pass. Native PostgreSQL/Flyway/Redis, restart,

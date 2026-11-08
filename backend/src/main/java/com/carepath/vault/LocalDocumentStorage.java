@@ -4,6 +4,7 @@ import java.nio.file.*;
 import java.nio.file.attribute.PosixFilePermissions;
 import org.springframework.stereotype.Component;
 @Component
+@org.springframework.boot.autoconfigure.condition.ConditionalOnProperty(name="carepath.vault.backend", havingValue="local", matchIfMissing=true)
 public class LocalDocumentStorage implements DocumentStorage {
     private final Path root; private final int maxBytes;
     public LocalDocumentStorage(VaultProperties properties) throws IOException {

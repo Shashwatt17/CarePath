@@ -1714,3 +1714,12 @@ This invocation deliberately reused the already completed320-test regression; it
 regression pass or a removed/disabled test. Final test totals remain320/58 with zero recorded skips.
 The source archive excludes build artifacts. A secret-pattern scan matched only a PEM-header string
 in AuthTestSupport around freshly generated ephemeral test keys, not an embedded credential.
+
+
+## Hosting repair — 7–8 November 2026
+
+Added optional database-backed originals (STORAGE_BACKEND=database), Flyway V11, six storage regression tests, configurable database pool/Redis TLS/PORT fallback and scripts/verify-native.py. V1–V10 remain unchanged.
+
+Fresh verification: 328 backend tests, zero failures/errors/skips and executable package; 58 frontend tests, TypeScript, lint and production build pass. Real PostgreSQL 16.2/Flyway V1–V11, authenticated Redis, production Next HTTP proxy, text and scanned PDFs, review, evidence-grounded explanation, restart persistence and deletion passed. The final native run used an isolated carepath schema.
+
+Production is NOT restored yet. Render's old database is expired; new database/account configuration, hosted memory/upload behavior and browser/mobile/TLS verification remain open. No live LLM integration is claimed. See docs/HOSTING_REPAIR.md and docs/verification/native-runtime-latest.json.
