@@ -1,6 +1,6 @@
 {
   "passed": [
-    "Native PostgreSQL/Flyway V1-V11 and authenticated Redis readiness",
+    "Native PostgreSQL/Flyway V1-V14 and authenticated Redis readiness",
     "Production Next.js starts against native backend",
     "Registration and login through Next proxy with real Redis",
     "january-lab.pdf upload, real extraction, review, preview and identical download",
@@ -10,6 +10,7 @@
     "Trusted observations appear in native PostgreSQL timeline",
     "Evidence-grounded explanation from verified measurements",
     "Unconfigured LLM falls back explicitly without losing facts",
+    "Patient profile, immutable PDF snapshot, anonymous selected-original download and revocation on PostgreSQL",
     "Backend + PostgreSQL + Redis restart preserves session, PDF bytes and timeline",
     "Deletion removes durable original and denies subsequent download"
   ]

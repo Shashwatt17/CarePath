@@ -11,3 +11,5 @@ html { scroll-behavior: smooth; }
 .field-input { width: 100%; min-height: 2.75rem; padding: .65rem .8rem; border: 1px solid var(--border); border-radius: .5rem; background: white; }
 .field-input:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
 .field-input:disabled { opacity: .6; }
+
+@media print { body { background:white; } body > header, header.sticky, .print\:hidden { display:none!important; } main { padding:0!important; max-width:none!important; } article section { break-inside:avoid; box-shadow:none!important; } }

@@ -4,7 +4,7 @@ import type { Page } from "./history-client.ts";
 import type { PackType } from "./pack-client.ts";
 export const expiryOptions = [15, 30, 60, 1440] as const;
 export type Share = { id: string; packId: string; revision: number; createdAt: string; expiresAt: string; revokedAt: string | null; status: "ACTIVE" | "EXPIRED" | "REVOKED"; version: number };
-export type PublicSnapshot = { title: string; reasonForVisit: string; packDate: string | null; revision: number; generatedAt: string; expiresAt: string; items: { type: PackType; heading: string; fields: {label: string; value: string}[]; evidence: {filename: string; page: number; snippet: string}[] }[] };
+export type PublicSnapshot = { title: string; reasonForVisit: string; packDate: string | null; revision: number; generatedAt: string; expiresAt: string; items: { type: PackType; heading: string; fields: {label: string; value: string}[]; evidence: {filename: string; page: number; snippet: string; downloadable?: boolean}[] }[] };
 const unavailable = () => new Error("This shared Visit Pack is unavailable. It may have expired or been revoked.");
 async function owner<T>(path: string, method = "GET", body?: unknown): Promise<T> {
  const r = await authClient.api(`/api/v1/shares${path}`, {method, ...(body === undefined ? {} : {headers:{"Content-Type":"application/json"},body:JSON.stringify(body)})});
@@ -12,7 +12,7 @@ async function owner<T>(path: string, method = "GET", body?: unknown): Promise<T
  return r.json() as Promise<T>;
 }
 export const shares = {
- create: (packId: string, expiryMinutes: number) => owner<{share: Share; token: string}>("", "POST", {packId,expiryMinutes}),
+ create: (packId: string, expiryMinutes: number, includeReports = false) => owner<{share: Share; token: string}>("", "POST", {packId,expiryMinutes,includeReports}),
  list: (page=0) => owner<Page<Share>>(`?page=${page}`),
  revoke: (id:string) => owner<Share>(`/${encodeURIComponent(id)}/revoke`,"POST"),
 };
@@ -27,4 +27,10 @@ export async function accessShare(token: string, signal?: AbortSignal): Promise<
  const r=await fetch("/api/v1/public/share/access",{method:"POST",credentials:"omit",cache:"no-store",referrerPolicy:"no-referrer",headers:{"Content-Type":"application/json"},body:JSON.stringify({token}),signal:signal?AbortSignal.any([signal,AbortSignal.timeout(10000)]):AbortSignal.timeout(10000)});
  if(!r.ok)throw unavailable();
  return r.json() as Promise<PublicSnapshot>;
+}
+
+export async function downloadSharedReport(token: string, itemIndex: number, evidenceIndex: number): Promise<Blob> {
+ const r=await fetch("/api/v1/public/share/report",{method:"POST",credentials:"omit",cache:"no-store",referrerPolicy:"no-referrer",headers:{"Content-Type":"application/json"},body:JSON.stringify({token,itemIndex,evidenceIndex}),signal:AbortSignal.timeout(30000)});
+ if(!r.ok)throw unavailable();
+ return r.blob();
 }

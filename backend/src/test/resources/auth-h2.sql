@@ -681,7 +681,7 @@ appointment_id uuid REFERENCES appointment(id) ON DELETE SET NULL,follow_up_id u
 UNIQUE(visit_pack_id,position), FOREIGN KEY(visit_pack_id,owner_id) REFERENCES visit_pack(id,owner_id) ON DELETE CASCADE);
 CREATE TABLE visit_pack_snapshot_item (
  id uuid PRIMARY KEY, owner_id uuid NOT NULL, visit_pack_id uuid NOT NULL, position integer NOT NULL CHECK(position>=0),
- item_type varchar(24) NOT NULL CHECK(item_type IN ('SYMPTOM','OBSERVATION','CHANGE','DOCUMENT','APPOINTMENT','FOLLOW_UP','SAVED_QUESTION','MANUAL_QUESTION')),
+ item_type varchar(24) NOT NULL CHECK(item_type IN ('PROFILE','SYMPTOM','OBSERVATION','CHANGE','DOCUMENT','APPOINTMENT','FOLLOW_UP','SAVED_QUESTION','MANUAL_QUESTION')),
  heading varchar(255) NOT NULL,
  UNIQUE(id,owner_id), UNIQUE(visit_pack_id,position),
  FOREIGN KEY(visit_pack_id,owner_id) REFERENCES visit_pack(id,owner_id) ON DELETE CASCADE
@@ -711,3 +711,15 @@ last_accessed_at timestamp with time zone, access_count bigint NOT NULL DEFAULT 
 updated_at timestamp with time zone NOT NULL DEFAULT CURRENT_TIMESTAMP, version bigint NOT NULL DEFAULT 0,
 CHECK(expires_at>created_at), CHECK(expires_at<=DATEADD('HOUR',24,created_at)),
 FOREIGN KEY(visit_pack_id,owner_id,pack_revision) REFERENCES visit_pack(id,owner_id,revision) ON DELETE CASCADE);
+
+CREATE TABLE patient_profile (
+ owner_id uuid PRIMARY KEY REFERENCES app_user(id) ON DELETE CASCADE,
+ introduction varchar(2000) NOT NULL DEFAULT '',
+ medical_history varchar(4000) NOT NULL DEFAULT '',
+ medications varchar(2000) NOT NULL DEFAULT '',
+ allergies varchar(2000) NOT NULL DEFAULT '',
+ reason_for_visit varchar(2000) NOT NULL DEFAULT '',
+ updated_at timestamp with time zone NOT NULL DEFAULT now()
+);
+
+ALTER TABLE share_token ADD COLUMN include_reports boolean NOT NULL DEFAULT false;

@@ -35,7 +35,7 @@ public class PackRepository {
     }
     public UUID child(UUID id,UUID owner) {return db.query("SELECT id FROM visit_pack WHERE previous_pack_id=? AND owner_id=?",(r,n)->r.getObject(1,UUID.class),id,owner).stream().findFirst().orElse(null);}
     private static String column(Type type) {
-        return switch(type) {case SYMPTOM->"symptom_id";case OBSERVATION,CHANGE->"observation_id";case DOCUMENT->"document_id";case APPOINTMENT->"appointment_id";case FOLLOW_UP->"follow_up_id";case SAVED_QUESTION->"question_id";case MANUAL_QUESTION->null;};
+        return switch(type) {case SYMPTOM->"symptom_id";case OBSERVATION,CHANGE->"observation_id";case DOCUMENT->"document_id";case APPOINTMENT->"appointment_id";case FOLLOW_UP->"follow_up_id";case SAVED_QUESTION->"question_id";case PROFILE,MANUAL_QUESTION->null;};
     }
     private List<Selection> selections(UUID id,UUID owner) {
         return db.query("SELECT * FROM visit_pack_item WHERE visit_pack_id=? AND owner_id=? ORDER BY position",(r,n)->{

@@ -48,7 +48,7 @@ try:
     env=os.environ.copy(); env.update({'DATABASE_URL':'jdbc:postgresql://127.0.0.1:55432/carepath?currentSchema=carepath','SPRING_FLYWAY_SCHEMAS':'carepath','POSTGRES_USER':'carepath','POSTGRES_PASSWORD':pgpass,'REDIS_HOST':'127.0.0.1','REDIS_PORT':'56379','REDIS_PASSWORD':redispass,'AUTH_RATE_KEY':secrets.token_hex(32),'JWT_PRIVATE_KEY_PATH':str(R/'private.pem'),'JWT_PUBLIC_KEY_PATH':str(R/'public.pem'),'AUTH_COOKIE_SECURE':'false','FRONTEND_ORIGIN':'http://localhost:3000','STORAGE_BACKEND':'database','STORAGE_ROOT':str(R/'documents'),'PROCESSING_TEMP_ROOT':str(R/'processing'),'SERVER_PORT':'8080','LLM_ENABLED':'false'})
     jar=ROOT/'backend/target/carepath-backend-0.1.0-SNAPSHOT.jar'
     def backend():return start([JAVA,'-Xmx256m','-jar',jar],'backend-native',ROOT/'backend',env)
-    app=backend();wait_http('http://127.0.0.1:8080/actuator/health/readiness',app);passed('Native PostgreSQL/Flyway V1-V11 and authenticated Redis readiness')
+    app=backend();wait_http('http://127.0.0.1:8080/actuator/health/readiness',app);passed('Native PostgreSQL/Flyway V1-V14 and authenticated Redis readiness')
     front=start(['node','node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3000'],'frontend-native',ROOT/'frontend',env)
     wait_http('http://127.0.0.1:3000/login',front);passed('Production Next.js starts against native backend')
     api='http://127.0.0.1:3000/api/v1';s=requests.Session();s.headers.update({'Origin':'http://localhost:3000','X-CarePath-Client':'web'})
@@ -82,12 +82,31 @@ try:
     assert answer['mode']=='DETERMINISTIC' and answer['evidence'] and '12.1' in json.dumps(answer),answer
     passed('Evidence-grounded explanation from verified measurements')
     fallback=req('POST','/assistant/ask',json={'question':'How has my hemoglobin changed?','useAi':True}).json();assert fallback['providerStatus']=='NOT_CONFIGURED' and fallback['facts'];passed('Unconfigured LLM falls back explicitly without losing facts')
+    profile={'introduction':'SYNTHETIC DEMO PATIENT','medicalHistory':'Synthetic history for verification','medications':'Patient-reported example','allergies':'Not provided','reasonForVisit':'Review selected reports'}
+    assert req('PUT','/patient-profile',json=profile).json()==profile
+    assert req('GET','/patient-profile').json()==profile
+    pack=req('POST','/visit-packs',201,json={'title':'Synthetic patient summary','reasonForVisit':'Review reports','items':[{'type':'PROFILE'},{'type':'DOCUMENT','sourceId':docs[0][0]}],'version':0}).json()
+    pack_id=pack['id'];preview=req('GET',f'/visit-packs/{pack_id}/preview').json()
+    frozen=req('POST',f'/visit-packs/{pack_id}/generate',json={'version':pack['version'],'previewHash':preview['hash']}).json()
+    assert profile['introduction'] in json.dumps(frozen['snapshot'])
+    assert req('GET',f'/visit-packs/{pack_id}/pdf').content.startswith(b'%PDF')
+    share=req('POST','/shares',201,json={'packId':pack_id,'expiryMinutes':15,'includeReports':True}).json()
+    anon=requests.Session();token=share['token']
+    assert anon.post(api+'/public/share/access',json={'token':token},timeout=30).status_code==200
+    download=anon.post(api+'/public/share/report',json={'token':token,'itemIndex':1,'evidenceIndex':0},timeout=30)
+    assert download.status_code==200 and download.content==docs[0][1]
+    assert 'no-store' in download.headers.get('Cache-Control','').split(', '), download.headers.get('Cache-Control')
+    req('POST',f"/shares/{share['share']['id']}/revoke")
+    assert anon.post(api+'/public/share/report',json={'token':token,'itemIndex':1,'evidenceIndex':0},timeout=30).status_code==404
+    passed('Patient profile, immutable PDF snapshot, anonymous selected-original download and revocation on PostgreSQL')
     # Original bearer token, keys and data must remain usable after all three backend services restart.
     stop(app);stop(redis);stop(pg)
     pg=start([PG/'postgres','-D',R/'postgres','-h','127.0.0.1','-p','55432'],'postgres-restart')
     redis=start([args.redis_bin.resolve(),R/'redis.conf'],'redis-restart')
     app=backend();wait_http('http://127.0.0.1:8080/actuator/health/readiness',app)
     req('GET','/auth/me')
+    assert req('GET','/patient-profile').json()==profile
+    assert req('GET',f'/visit-packs/{pack_id}').json()['snapshot']==frozen['snapshot']
     for did,data in docs:assert req('GET',f'/documents/{did}/download').content==data
     assert req('GET','/history/events?size=100').json()['items']
     passed('Backend + PostgreSQL + Redis restart preserves session, PDF bytes and timeline')

@@ -18,9 +18,11 @@ import com.carepath.longitudinal.HistoryDtos.Page;
 @Transactional
 public class ShareService {
     private final JdbcTemplate db; private final Ownership ownership; private final PackRepository packs;
+    private final com.carepath.vault.DocumentRepository documents;
+    private final com.carepath.vault.DocumentService files;
     private final Clock clock; private final AuditService audit;
-    public ShareService(JdbcTemplate db, Ownership ownership, PackRepository packs, Clock clock, AuditService audit) {
-        this.db=db; this.ownership=ownership; this.packs=packs; this.clock=clock; this.audit=audit;
+    public ShareService(JdbcTemplate db, Ownership ownership, PackRepository packs, Clock clock, AuditService audit, com.carepath.vault.DocumentRepository documents, com.carepath.vault.DocumentService files) {
+        this.db=db; this.ownership=ownership; this.packs=packs; this.clock=clock; this.audit=audit;this.documents=documents;this.files=files;
     }
     private static Instant time(ResultSet r,String c)throws SQLException {var v=r.getObject(c,OffsetDateTime.class);return v==null?null:v.toInstant();}
     private Summary summary(ResultSet r,int n)throws SQLException {
@@ -34,7 +36,7 @@ public class ShareService {
         var pack=packs.get(input.packId(),owner);
         if(!pack.status().equals("GENERATED")||pack.snapshot()==null)throw new ApiFailure(409,"PACK_NOT_GENERATED","Generate the Visit Pack before sharing.");
         String raw=ShareTokens.create();UUID id=UUID.randomUUID();Instant now=clock.instant(),expiry=now.plusSeconds(input.expiryMinutes()*60L);
-        db.update("INSERT INTO share_token(id,owner_id,visit_pack_id,pack_revision,token_hash,created_at,expires_at) VALUES(?,?,?,?,?,?,?)",id,owner,pack.id(),pack.revision(),ShareTokens.digest(raw),now.atOffset(ZoneOffset.UTC),expiry.atOffset(ZoneOffset.UTC));
+        db.update("INSERT INTO share_token(id,owner_id,visit_pack_id,pack_revision,token_hash,created_at,expires_at,include_reports) VALUES(?,?,?,?,?,?,?,?)",id,owner,pack.id(),pack.revision(),ShareTokens.digest(raw),now.atOffset(ZoneOffset.UTC),expiry.atOffset(ZoneOffset.UTC),input.includeReports());
         audit.care(owner,Action.SHARE_CREATED,"SHARE",id,false);
         return new Created(new Summary(id,pack.id(),pack.revision(),now,expiry,null,"ACTIVE",0),raw);
     }
@@ -65,10 +67,11 @@ public class ShareService {
         if(!row.status().equals("ACTIVE"))throw unavailable();
         var pack=packs.get(key[2],key[1]);
         if(!pack.status().equals("GENERATED")||pack.snapshot()==null||pack.revision()!=row.revision())throw unavailable();
+        boolean includeReports=Boolean.TRUE.equals(db.queryForObject("SELECT include_reports FROM share_token WHERE id=?",Boolean.class,key[0]));
         List<Item> items=new ArrayList<>();
         for(int i=0;i<pack.snapshot().items().size();i++) {
             var source=pack.snapshot().items().get(i);List<Citation> citations=new ArrayList<>();
-            for(int j=0;j<source.evidence().size();j++){var e=source.evidence().get(j);citations.add(new Citation(e.filename(),e.page(),e.snippet()));}
+            for(int j=0;j<source.evidence().size();j++){var e=source.evidence().get(j);citations.add(new Citation(e.filename(),e.page(),e.snippet(),includeReports));}
             items.add(new Item(source.type(),source.heading(),source.fields(),List.copyOf(citations)));
         }
         // Recheck the actual clock after assembly; equality is expired. No cached authorization.
@@ -77,4 +80,19 @@ public class ShareService {
         audit.shareAccess(key[1],key[0]);
         var c=pack.snapshot();return new Snapshot(c.title(),c.reasonForVisit(),c.packDate(),c.revision(),pack.generatedAt(),row.expiresAt(),List.copyOf(items));
     }
+    /** Capability is checked on every download; only frozen evidence in this exact pack is eligible. */
+    public com.carepath.vault.DocumentService.Content report(ReportAccess input) {
+        var snapshot=access(input.token()); // Locks pack and token until this transaction completes.
+        if(input.itemIndex()>=snapshot.items().size())throw unavailable();
+        var item=snapshot.items().get(input.itemIndex());
+        if(input.evidenceIndex()>=item.evidence().size() || !item.evidence().get(input.evidenceIndex()).downloadable())throw unavailable();
+        var key=db.queryForObject("SELECT owner_id,visit_pack_id FROM share_token WHERE token_hash=?",(r,n)->new UUID[]{r.getObject(1,UUID.class),r.getObject(2,UUID.class)},ShareTokens.digest(input.token()));
+        var pack=packs.get(key[1],key[0]);
+        var evidence=pack.snapshot().items().get(input.itemIndex()).evidence().get(input.evidenceIndex());
+        var document=documents.findByIdAndOwnerId(evidence.documentId(),key[0]).orElseThrow(ShareService::unavailable);
+        byte[] bytes=files.verifyIntegrity(document);
+        if(!clock.instant().isBefore(snapshot.expiresAt()))throw unavailable();
+        return new com.carepath.vault.DocumentService.Content(bytes,document.view().mimeType(),document.view().originalFilename());
+    }
+
 }

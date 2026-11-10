@@ -48,7 +48,7 @@ public class PackPdf {
     }
     static ApiFailure limit(){return new ApiFailure(422,"PACK_PDF_LIMIT","Reduce selected items or long notes before generating.");}
     public static String section(Type type) {
-        return switch(type) {case SYMPTOM->"USER-REPORTED SYMPTOMS";case OBSERVATION->"VERIFIED RECORD SUMMARY";case CHANGE->"OBSERVED CHANGES";case DOCUMENT->"SELECTED DOCUMENTS";case APPOINTMENT->"APPOINTMENT CONTEXT";case FOLLOW_UP->"CONFIRMED FOLLOW-UPS";case SAVED_QUESTION,MANUAL_QUESTION->"QUESTIONS FOR CLINICIAN";};
+        return switch(type) {case PROFILE->"PATIENT-REPORTED BACKGROUND";case SYMPTOM->"USER-REPORTED SYMPTOMS";case OBSERVATION->"VERIFIED RECORD SUMMARY";case CHANGE->"OBSERVED CHANGES";case DOCUMENT->"SELECTED DOCUMENTS";case APPOINTMENT->"APPOINTMENT CONTEXT";case FOLLOW_UP->"CONFIRMED FOLLOW-UPS";case SAVED_QUESTION,MANUAL_QUESTION->"QUESTIONS FOR CLINICIAN";};
     }
     private static final class Writer {
         private final PDDocument doc;private final PDFont regular,bold;private PDPageContentStream stream;

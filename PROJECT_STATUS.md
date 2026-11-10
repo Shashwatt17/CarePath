@@ -1723,3 +1723,13 @@ Added optional database-backed originals (STORAGE_BACKEND=database), Flyway V11,
 Fresh verification: 328 backend tests, zero failures/errors/skips and executable package; 58 frontend tests, TypeScript, lint and production build pass. Real PostgreSQL 16.2/Flyway V1–V11, authenticated Redis, production Next HTTP proxy, text and scanned PDFs, review, evidence-grounded explanation, restart persistence and deletion passed. The final native run used an isolated carepath schema.
 
 Production is NOT restored yet. Render's old database is expired; new database/account configuration, hosted memory/upload behavior and browser/mobile/TLS verification remain open. No live LLM integration is claimed. See docs/HOSTING_REPAIR.md and docs/verification/native-runtime-latest.json.
+
+## Patient summary and release simplification — 10 November 2026
+
+Added private patient introduction, medical history, medications, allergies and reason for visit (V12). Explicit PROFILE selections freeze this patient-reported background in visit-pack previews, PDFs and temporary shares (V13). Original reports cited by a frozen pack can be downloaded only when its owner opts in at share creation (V14); the anonymous endpoint validates the capability, expiry/revocation, snapshot indices, ownership and file integrity on every download. Existing shares default to no report access. No new patient data is inferred.
+
+Simplified the green/white navigation to Overview, My Reports, Patient Summary, Health History and Find Care. Added skippable account-specific first-use guidance and a replayable Help guide. Appointments, reminders and advanced assistance show Coming soon; existing saved data is retained.
+
+Verification: 333 backend tests with zero failures/errors/skips; 58 frontend tests pass. Production frontend build and lint pass. Native PostgreSQL/Flyway V1–V14, Redis, Next proxy, synthetic text/scanned PDF extraction/review, profile persistence, immutable snapshot/PDF, explicitly shared original byte equality, revocation and complete service restart pass. See docs/verification/native-runtime-latest.json.
+
+Hosting: the prior Render failure was traced to an untrusted Supabase CA. Commit 69af6fb imports the public CA supplied in Supabase Database Settings while keeping JDBC verify-full. Its deployment connected and applied V1–V11. Final feature deployment and live browser verification are still pending at this checkpoint. Old Render database contents are not recovered by creating the new Supabase database.

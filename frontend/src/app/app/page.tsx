@@ -1,15 +1,5 @@
 "use client";
-import { CareDashboard } from "@/components/care/dashboard";
-import { useEffect, useState } from "react";
-import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
 import { useAuth } from "@/components/auth/auth-provider";
-import { Button } from "@/components/ui/button";
-export default function Workspace() {
-  const { user } = useAuth(); const [verified, setVerified] = useState(false); const [error, setError] = useState("");
-  async function verify() {
-    setError(""); setVerified(false);
-    try { await authClient.me(); setVerified(true); } catch { setError("The protected API could not confirm your session. Please retry or sign in again."); }
-  }
-  useEffect(() => { let active = true; authClient.me().then(() => { if (active) setVerified(true); }).catch(() => { if (active) setError("The protected API could not confirm your session."); }); return () => { active = false; }; }, []);
-  return <><p className="text-xs font-semibold uppercase tracking-widest text-primary">Personal workspace</p><h1 className="mt-4 text-3xl font-semibold tracking-tight">Welcome, {user?.displayName}.</h1><p className="mt-4 max-w-xl leading-relaxed text-muted-foreground">Your private document vault is ready. Open Records to upload and manage your medical documents. Verify readings in Review, then explore Timeline and What Changed? for evidence-linked numerical history.</p><CareDashboard /><section className="mt-10 max-w-xl rounded-xl border border-border bg-white p-6"><h2 className="font-semibold">Account connection</h2><p className="mt-3 text-sm" role="status">{verified ? "Your authenticated session was verified by the backend." : error || "Verifying your protected API connection…"}</p>{error && <Button className="mt-4" variant="outline" onClick={verify}>Retry verification</Button>}</section></>;
-}
+import { CareDashboard } from "@/components/care/dashboard";
+export default function Workspace() { const {user}=useAuth(); return <><p className="text-xs font-semibold uppercase tracking-widest text-primary">Your health, in one place</p><h1 className="mt-3 text-3xl font-semibold tracking-tight">Welcome, {user?.displayName}.</h1><p className="mt-3 max-w-2xl text-muted-foreground">Keep your reports together, review your readings and prepare a clear summary for your next doctor visit.</p><div className="mt-7 grid gap-4 sm:grid-cols-3">{[["01","Add your reports","Keep the original PDFs in your private library.","/records"],["02","Review your readings","Check extracted values against the source report.","/review"],["03","Prepare for your doctor","Bring your history and supporting reports together.","/patient-summary"]].map(([n,title,text,href])=><Link key={n} href={href} className="rounded-2xl border border-border bg-white p-6 transition-shadow hover:shadow-md"><span className="text-xs font-semibold text-primary">{n}</span><h2 className="mt-4 font-semibold">{title} →</h2><p className="mt-2 text-sm leading-relaxed text-muted-foreground">{text}</p></Link>)}</div><CareDashboard /></>; }

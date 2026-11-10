@@ -21,9 +21,10 @@ public class PackAssembler {
     private final SavedQuestionService questions;
     private final DocumentRepository documents;
     private final Ownership ownership;
+    private final com.carepath.profile.PatientProfileService profiles;
     public PackAssembler(HistoryService h,SymptomService s,AppointmentService a,FollowUpService f,
-                         SavedQuestionService q,DocumentRepository d,Ownership o) {
-        history=h;symptoms=s;appointments=a;followUps=f;questions=q;documents=d;ownership=o;
+                         SavedQuestionService q,DocumentRepository d,Ownership o,com.carepath.profile.PatientProfileService profiles) {
+        history=h;symptoms=s;appointments=a;followUps=f;questions=q;documents=d;ownership=o;this.profiles=profiles;
     }
     public static ApiFailure invalid() { return new ApiFailure(422,"PACK_SELECTION_INVALID","Review selected records, field lengths and missing sources."); }
     public Content assemble(Pack p, boolean appointmentSelected) {
@@ -46,6 +47,16 @@ public class PackAssembler {
         validate(x);
         List<Field> fields=new ArrayList<>();List<Evidence> evidence=new ArrayList<>();String heading;
         switch(x.type()) {
+            case PROFILE -> {
+                var p=profiles.get();heading="Patient background";
+                field(fields,"Data type","Patient-reported; not independently verified");
+                field(fields,"Introduction",p.introduction());
+                field(fields,"Medical history",p.medicalHistory());
+                field(fields,"Medications",p.medications());
+                field(fields,"Allergies",p.allergies());
+                field(fields,"Reason for visit",p.reasonForVisit());
+                field(fields,"Completeness","Blank fields mean not provided, not absence of a condition or allergy.");
+            }
             case SYMPTOM -> {
                 var s=symptoms.get(x.sourceId());heading=s.name();
                 field(fields,"Data type","User-reported symptom");field(fields,"Started (UTC)",s.startedAt());
@@ -111,7 +122,8 @@ public class PackAssembler {
         if(x==null||x.type()==null)throw invalid();
         if(x.type()==Type.MANUAL_QUESTION) {
             if(x.sourceId()!=null||x.otherId()!=null||x.questionText()==null||x.questionText().isBlank())throw invalid();
-        } else if(x.sourceId()==null)throw invalid();
+        } else if(x.type()==Type.PROFILE) { if(x.sourceId()!=null)throw invalid(); }
+        else if(x.sourceId()==null)throw invalid();
         if(x.type()==Type.CHANGE) { if(x.otherId()==null||x.sourceId().equals(x.otherId()))throw invalid(); }
         else if(x.otherId()!=null)throw invalid();
         if(x.questionText()!=null&&(x.questionText().isBlank()||x.questionText().length()>1000||!Set.of(Type.SAVED_QUESTION,Type.MANUAL_QUESTION).contains(x.type())))throw invalid();

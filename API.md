@@ -299,3 +299,11 @@ calendar date while preserving the actual instant; follow-ups use confirmed date
 page. Only CONFIRMED/EDITED follow-ups appear. Concept filters exclude non-observation event types;
 document filters retain linked documents/observations/follow-ups. Symptoms and appointments have no
 fabricated document ID. These event rows do not feed laboratory comparisons.
+
+### Patient profile and selected report sharing
+
+`GET /api/v1/patient-profile` and `PUT /api/v1/patient-profile` require the owner's bearer session. The body contains `introduction` (2000 chars), `medicalHistory` (4000), `medications` (2000), `allergies` (2000), and `reasonForVisit` (2000); all are strings, and empty means not supplied. Owner IDs are never accepted from clients.
+
+Visit-pack selections accept `{ "type": "PROFILE" }`. The saved profile is included only when explicitly selected. Preview hashing detects profile changes before generation; generated snapshots remain unchanged by subsequent edits.
+
+Share creation accepts optional `includeReports`, default false. When enabled, anonymous snapshot citations include `downloadable: true`. `POST /api/v1/public/share/report` accepts `{ "token": "...", "itemIndex": 0, "evidenceIndex": 0 }` and returns an attachment only for that frozen citation. No source identifier or arbitrary path is accepted. Expired/revoked shares, out-of-range indices and deleted originals return unavailable; original-file integrity is checked before release. Tokens stay in POST bodies, not request URLs.

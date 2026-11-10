@@ -8,7 +8,7 @@ import { type PackType, type Selection } from "@/lib/pack-client";
 import { Button } from "@/components/ui/button";
 import { fieldClass, ErrorNote, Loading } from "@/components/care/shared";
 type Choice = { id: string; title: string; context: string };
-export function PackPicker({ kind, add, target = false }: { kind: Exclude<PackType, "MANUAL_QUESTION">; add: (selection: Selection, label: string) => void; target?: boolean }) {
+export function PackPicker({ kind, add, target = false }: { kind: Exclude<PackType, "MANUAL_QUESTION" | "PROFILE">; add: (selection: Selection, label: string) => void; target?: boolean }) {
  const [items, setItems] = useState<Choice[]>([]); const [page, setPage] = useState(0); const [total, setTotal] = useState(0); const [concepts, setConcepts] = useState<Concept[]>([]); const [concept, setConcept] = useState(""); const [error, setError] = useState(""); const [loading, setLoading] = useState(false); const [previous, setPrevious] = useState<Choice | null>(null);
  const numeric = kind === "OBSERVATION" || kind === "CHANGE";
  useEffect(() => { if (!numeric) return; let active = true; historyClient.concepts().then((p) => { if (active) setConcepts(p.items); }).catch(() => { if (active) setError("Verified concepts unavailable."); }); return () => { active = false; }; }, [numeric]);

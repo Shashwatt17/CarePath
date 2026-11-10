@@ -1,6 +1,6 @@
 import { authClient, ApiError } from "./auth-client.ts";
 import type { Page } from "./history-client.ts";
-export type PackType = "SYMPTOM" | "OBSERVATION" | "CHANGE" | "DOCUMENT" | "APPOINTMENT" | "FOLLOW_UP" | "SAVED_QUESTION" | "MANUAL_QUESTION";
+export type PackType = "PROFILE" | "SYMPTOM" | "OBSERVATION" | "CHANGE" | "DOCUMENT" | "APPOINTMENT" | "FOLLOW_UP" | "SAVED_QUESTION" | "MANUAL_QUESTION";
 export type Selection = { type: PackType; sourceId: string | null; otherId?: string | null; includeNotes?: boolean; questionText?: string | null };
 export type PackInput = { title: string; reasonForVisit: string; appointmentId: string | null; packDate: string | null; items: Selection[]; version: number };
 export type PackEvidence = { documentId: string; observationId: string | null; filename: string; page: number; snippet: string };
@@ -28,4 +28,4 @@ export const packs = {
  pdf: async (key: string) => (await response(`/${id(key)}/pdf`)).blob(),
 };
 export const packEvidenceUrl = (e: PackEvidence) => `/records/${id(e.documentId)}?page=${e.page}`;
-export const packSections: Record<PackType, string> = { SYMPTOM: "User-reported symptoms", OBSERVATION: "Verified record summary", CHANGE: "Observed changes", DOCUMENT: "Selected documents", APPOINTMENT: "Appointment context", FOLLOW_UP: "Confirmed follow-ups", SAVED_QUESTION: "Questions for clinician", MANUAL_QUESTION: "Questions for clinician" };
+export const packSections: Record<PackType, string> = { PROFILE: "Patient background", SYMPTOM: "User-reported symptoms", OBSERVATION: "Verified record summary", CHANGE: "Observed changes", DOCUMENT: "Selected documents", APPOINTMENT: "Appointment context", FOLLOW_UP: "Confirmed follow-ups", SAVED_QUESTION: "Questions for clinician", MANUAL_QUESTION: "Questions for clinician" };

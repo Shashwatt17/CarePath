@@ -7,7 +7,7 @@ import jakarta.validation.constraints.*;
 
 public final class PackDtos {
     private PackDtos() {}
-    public enum Type { SYMPTOM, OBSERVATION, CHANGE, DOCUMENT, APPOINTMENT, FOLLOW_UP, SAVED_QUESTION, MANUAL_QUESTION }
+    public enum Type { PROFILE, SYMPTOM, OBSERVATION, CHANGE, DOCUMENT, APPOINTMENT, FOLLOW_UP, SAVED_QUESTION, MANUAL_QUESTION }
     public record Selection(@NotNull Type type, UUID sourceId, UUID otherId, boolean includeNotes,
                             @Size(max=1000) String questionText) {}
     public record Input(@NotBlank @Size(max=160) String title, @NotBlank @Size(max=2000) String reasonForVisit,
