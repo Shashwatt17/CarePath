@@ -1,0 +1,28 @@
+{
+  "passed": [
+    "Hosted signup, login, secure HttpOnly cookie and authenticated access",
+    "Private patient profile saved and reloaded on hosted database",
+    "january-lab.pdf upload, extraction, review, preview and exact original download",
+    "scanned-lab.pdf upload, extraction, review, preview and exact original download",
+    "Reviewed readings appear in health history",
+    "Doctor summary preview, frozen profile snapshot and generated PDF",
+    "Anonymous selected-report download and immediate revocation",
+    "Find Care accepts an explicit city-centre search; 20 provider results"
+  ],
+  "verifiedAt": "2026-11-12",
+  "release": "88b9097c357f48e8b59da1c695aa92f74264ce35",
+  "frontendTests": 59,
+  "backendTestsPreviouslyPassed": 333,
+  "browserChecks": [
+    "Patient summary renders and saves",
+    "Desktop and 390px mobile layout",
+    "Replayable six-step help guide",
+    "Lucknow city-centre provider results"
+  ],
+  "limitations": [
+    "Free backend cold start caused an initial 504",
+    "Expired Render database data not restored",
+    "Stored provider directory; no live opening-hours guarantee",
+    "Production load and backup/restore not verified"
+  ]
+}

@@ -99,3 +99,13 @@ Do not describe the app as fully hosted or production certified until the releva
 - https://supabase.com/docs/guides/getting-started/quickstarts/spring-boot
 - https://supabase.com/docs/guides/platform/free-project-pausing
 - https://docs.netlify.com/build/functions/configuration/
+
+## Hosted release verification — 12 November 2026
+
+Release 88b9097 fixes the frontend API allowlist omission that blocked Patient Summary in the browser. It also labels Find Care accurately as a stored OpenStreetMap directory and defers the actual /notifications route. 59 frontend tests, lint and production build pass; the unchanged backend retains its 333-test passing regression.
+
+The live Netlify-to-Render-to-Supabase workflow passed with synthetic fixtures: authenticated access and Secure/HttpOnly cookies, private profile save/reload, original text and scanned PDF extraction/review/preview/download, history, frozen doctor profile snapshot and PDF, explicitly enabled original-report download and immediate revocation. OCR readings were explicitly verified against independently authored synthetic fixture values; they were not eligible for one-click confirmation by design. Existing synthetic document IDs were reused on reruns.
+
+Browser verification: profile renders, Edit/Save succeeds, desktop and 390px mobile layout checked, replayable six-step Help guide opens, and Find Care returns 20 Lucknow city-centre hospital results. No external direction link was opened. First-use guide skip was verified in the earlier release session. See docs/verification/hosted-runtime-latest.json.
+
+Hosting uses existing free Render compute/Redis, Supabase database and database-backed originals, plus Netlify frontend. Render's earlier restart was automatic port discovery (10000), followed by a successful live deployment. TLS verify-full remains enabled with the official Supabase CA. Cold start is an observed limitation: one login through Netlify returned 504 while waking; a later attempt succeeded. This is a working demonstration deployment, not an uptime or load guarantee. Old expired Render database contents have not been recovered. Provider listings are not real-time availability; backup/restore and production load testing remain open. Advanced AI, appointments and reminders remain Coming soon.
