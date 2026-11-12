@@ -78,7 +78,7 @@ export function createAuthClient(transport: typeof fetch = (...args) => fetch(..
   }
   return {
     async api(path: string, init: RequestInit = {}): Promise<Response> {
-      if (!/^\/api\/v1\/(?:activity|search|nearby-care|care|visit-packs|shares|documents|history|assistant|review\/candidates|observations|terminology\/concepts)(?:[/?]|$)/.test(path) || path.includes("..")) throw new Error("Invalid API path");
+      if (!/^\/api\/v1\/(?:patient-profile|activity|search|nearby-care|care|visit-packs|shares|documents|history|assistant|review\/candidates|observations|terminology\/concepts)(?:[/?]|$)/.test(path) || path.includes("..")) throw new Error("Invalid API path");
       let token = await refresh();
       if (!token) throw new ApiError(401, "SESSION_INVALID", "Please sign in again.");
       const send = () => transport(path, { ...init, credentials: "same-origin", cache: "no-store", signal: init.signal ?? AbortSignal.timeout(30000), headers: { ...init.headers, Authorization: `Bearer ${token!.accessToken}` } });

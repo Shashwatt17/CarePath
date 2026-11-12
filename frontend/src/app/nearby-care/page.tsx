@@ -89,9 +89,10 @@ export default function NearbyCarePage() {
 
       <p className="my-5">
         Location is optional. Use your location once, or enter coordinates
-        manually. Searching sends these coordinates and your chosen category
-        through CarePath to OpenStreetMap-based services. CarePath does not
-        save your location or send your medical records.
+        manually. Searching sends coordinates to CarePath to search its stored
+        OpenStreetMap directory. CarePath does not save your location or send
+        your medical records. Listings may be incomplete or out of date; confirm
+        details with the provider before visiting.
       </p>
 
       <p className="mb-5 text-sm">

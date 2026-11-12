@@ -28,6 +28,6 @@ export const onboardingSteps = [
  {title:"Review before trust",text:"Processing produces candidates. Compare each result with its source before you confirm or correct it. Rejected and pending results do not drive trends.",href:"/review",action:"Open Review"},
  {title:"Follow the evidence",text:"The timeline and What Changed? use verified readings and deterministic comparisons. Every reading links back to its uploaded source.",href:"/timeline",action:"Explore Timeline"},
  {title:"Your patient summary",text:"Save your introduction, history, medications and allergies. Include your profile in a visit pack only after reviewing the preview.",href:"/patient-summary",action:"Edit Patient Summary"},
- {title:"Find nearby care",text:"Search for nearby healthcare providers. Location is shared with the search provider only when you choose to search.",href:"/nearby-care",action:"Find Care"},
+ {title:"Find nearby care",text:"Search for nearby healthcare providers. Your location is used only when you choose to search. Listings come from a stored directory; confirm details before visiting.",href:"/nearby-care",action:"Find Care"},
  {title:"Prepare for your clinician",text:"Select relevant records and questions for a Visit Pack. Share your selected snapshot using a temporary link. You can optionally allow downloads of cited reports, and revoke access.",href:"/visit-packs",action:"Prepare a Visit Pack"},
 ] as const;

@@ -51,3 +51,17 @@ test("vault API never sends access credentials to an arbitrary URL", async () =>
   await assert.rejects(client.api("/api/v1/documents/../../auth"));
   assert.equal(called, false);
 });
+
+ test("patient profile loads and saves through the authenticated API boundary", async () => {
+  const calls: string[] = [];
+  const client = createAuthClient(async (url, init) => {
+    if (String(url).endsWith("refresh")) return reply(grant);
+    assert.equal((init?.headers as Record<string,string>).Authorization, "Bearer test-only-access");
+    calls.push(`${init?.method ?? "GET"} ${url}`);
+    return reply({ introduction: "Synthetic background" });
+  });
+  await client.api("/api/v1/patient-profile");
+  await client.api("/api/v1/patient-profile", { method: "PUT", body: JSON.stringify({ introduction: "Synthetic background" }) });
+  assert.deepEqual(calls, ["GET /api/v1/patient-profile", "PUT /api/v1/patient-profile"]);
+  await assert.rejects(client.api("/api/v1/patient-profile-evil"));
+});
