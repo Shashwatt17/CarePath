@@ -23,7 +23,7 @@ public class LabObservationExtractor {
         "fL",
         "pg",
         "mg/L",
-        "ug/L",
+        "ug/L", "ug/dL", "µg/dL", "μg/dL", "mg/dl",
         "Âµg/L",
         "umol/L",
         "Âµmol/L"
@@ -71,8 +71,12 @@ public class LabObservationExtractor {
         List<Candidate> candidates = new ArrayList<>();
 
         for (Page page : pages) {
+            var table=new TableLabRows();
             for (Line line : page.lines()) {
 
+                if(table.header(page,line))continue;
+                var tableRows=table.extract(page,line,information);
+                if(tableRows!=null){candidates.addAll(tableRows);if(candidates.size()>500)throw new ProcessingFailure("RESOURCE_LIMIT",false);continue;}
                 Source source = TextPages.source(page, line);
                 String raw = source.text().strip();
 
@@ -233,7 +237,7 @@ public class LabObservationExtractor {
                 BigDecimal number = null;
                 String comparator = null;
 
-                if (numeric.matches()) {
+                if (numeric.matches() && !(uncertainOcrFallback && unit.matches(".*[0-9].*"))) {
                     number = new BigDecimal(
                         numeric.group(2)
                     );
@@ -242,6 +246,9 @@ public class LabObservationExtractor {
                 }
 
                 var range = ranges.parse(reference);
+                // Column spacing alone must not turn address/footer text into a lab result.
+                if(structured && unit!=null && !UNITS.contains(unit)
+                    && (unit.matches(".*[0-9].*") || value==null || !value.matches(".*[0-9].*")))continue;
 
                 var score = confidence.score(
                     number != null,
@@ -305,7 +312,7 @@ public class LabObservationExtractor {
 
         for (var candidate : candidates) {
             values.computeIfAbsent(
-                candidate.originalTestName(),
+                candidate.originalTestName()+"@"+candidate.reportDate(),
                 k -> new HashSet<>()
             ).add(
                 String.valueOf(
@@ -318,7 +325,7 @@ public class LabObservationExtractor {
             .map(c -> {
 
                 if (
-                    values.get(c.originalTestName())
+                    values.get(c.originalTestName()+"@"+c.reportDate())
                         .size() < 2
                 ) {
                     return c;

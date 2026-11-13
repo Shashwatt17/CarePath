@@ -15,7 +15,7 @@ public class DocumentInformationExtractor {
      */
     private static final Pattern INFORMATION_PATTERN = Pattern.compile(
         "(?i)^(Report date|Reporting date(?:/time)?|Sample date|" +
-        "Collection date(?:/time)?|Laboratory|Lab|Provider):\\s*(.+)$"
+        "Collection date(?:/time)?|Laboratory|Lab|Provider)(?:\\s*:\\s*|\\s+)(.+)$"
     );
 
     public Information extract(List<Page> pages) {
@@ -34,6 +34,14 @@ public class DocumentInformationExtractor {
                 );
 
                 if (!match.matches()) {
+                    String text=source.text().strip();
+                    var pageCount=Pattern.compile("(?i)\\bPage\\s+[1-9Il]\\d*\\s*(?:of|[Il]of)\\s+(\\d+)\\b").matcher(text);
+                    if(pageCount.find() && Integer.parseInt(pageCount.group(1))>pages.size())warnings.add("POSSIBLE_MISSING_PAGES");
+                    if(page.method()==Method.TESSERACT_OCR && line.ocrConfidence()!=null && line.ocrConfidence()<.70)warnings.add("LOW_IMAGE_READABILITY");
+                    if(text.matches("(?i)^Date(?:\\s|:|\\|).*") && dates.tokens(text).size()>1)warnings.add("MULTIPLE_DATED_COLUMNS");
+                    // A facility-like heading is only a candidate, never an inferred identity.
+                    String first=text.split("\\t| {2,}")[0];
+                    if(first.length()<160 && first.matches("(?i)^[\\p{L}][\\p{L} .&'-]{1,80}(?:Hospital|Laboratory|Diagnostics|Healthcare)(?:, [\\p{L} .'-]+)?$"))providers.add(new Fact(first,source));
                     continue;
                 }
 
@@ -41,6 +49,7 @@ public class DocumentInformationExtractor {
                     .toLowerCase(Locale.ROOT);
 
                 String value = match.group(2).strip();
+                if(Set.of("lab","laboratory","provider").contains(label) && !source.text().contains(":"))continue;
 
                 /*
                  * Report/Reporting dates take precedence over
@@ -52,7 +61,8 @@ public class DocumentInformationExtractor {
                     label.startsWith("collection")
                 ) {
 
-                    var date = dates.parse(value);
+                    var tokens=dates.tokens(value);
+                    var date = tokens.size()==1?dates.parse(tokens.getFirst()):null;
 
                     if (date == null) {
                         warnings.add("UNPARSED_DATE");

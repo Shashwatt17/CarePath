@@ -238,7 +238,7 @@ public class DocumentClassifier {
 
         if (
             structuralSignals >= 2
-            && unitSignals >= 2
+            && (unitSignals >= 2 || !strongEvidence.isEmpty())
         ) {
 
             return new Classification(

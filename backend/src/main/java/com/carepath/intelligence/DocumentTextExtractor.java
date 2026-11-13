@@ -41,8 +41,13 @@ public class DocumentTextExtractor {
                     var reader=readers.next();try { reader.setInput(stream);int width=reader.getWidth(0),height=reader.getHeight(0);
                         if(width<=0 || height<=0 || (long)width*height>20000000) throw new ProcessingFailure("RESOURCE_LIMIT",false);
                         // Decode here too, so corrupt originals never go straight to a native OCR process.
-                        var image=reader.read(0);if(image==null) throw new ProcessingFailure("INVALID_DOCUMENT",false);image.flush();
-                        Page result=ocr.recognize(input,1,width,height);if(result.text().length()>Math.min(maxCharacters,50000)) throw new ProcessingFailure("RESOURCE_LIMIT",false);pages.add(result);
+                        var image=reader.read(0);if(image==null) throw new ProcessingFailure("INVALID_DOCUMENT",false);
+                        Path prepared=temporaryDirectory.resolve("prepared.png");
+                        var enhanced=OcrImagePreparation.prepare(image);image.flush();
+                        Page result;
+                        try { ImageIO.write(enhanced,"png",prepared.toFile());result=ocr.recognize(prepared,1,enhanced.getWidth(),enhanced.getHeight()); }
+                        finally { enhanced.flush();Files.deleteIfExists(prepared); }
+                        if(result.text().length()>Math.min(maxCharacters,50000)) throw new ProcessingFailure("RESOURCE_LIMIT",false);pages.add(result);
                     } finally { reader.dispose(); }
                 }
             } else throw new ProcessingFailure("INVALID_DOCUMENT",false);

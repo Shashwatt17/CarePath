@@ -116,7 +116,9 @@ public class ProvenanceValidator {
             if (candidate.reportDate() != null &&
                 (result.information().date() == null ||
                  !candidate.reportDate().toString()
-                     .equals(result.information().date().value()))) {
+                     .equals(result.information().date().value())) &&
+                !(candidate.reasons().contains("TABLE_CELL_REVIEW_REQUIRED") &&
+                  new MedicalDateParser().tokens(evidence).stream().anyMatch(t -> candidate.reportDate().equals(new MedicalDateParser().parse(t))))) {
 
                 fail(
                     "CANDIDATE_DATE_MISMATCH date=" +
