@@ -1768,3 +1768,12 @@ The memory revision passed 71 targeted processing/review/extraction tests; after
 ### Hosted correction verified — 13 November 2026
 
 Render successfully deployed 733e128. The new synthetic 900x1600 image completed on the 512 MB instance: v2 returned two distinct readings with their separate full dates, warned about missing pages and multiple date columns, retained source-review requirements, and returned byte-identical originals. Live browser sign-in and the review screen passed; OCR one-click confirmation remains disabled. See docs/verification/hosted-ocr-latest.json. The first OOM test did not pass; these results refer to the subsequent memory-corrected release. This is a single fixture verification, not a load or OCR accuracy guarantee. Upload a new copy to use the improved reader on previously processed reports. The supplied private photo still needs manual checking or a clearer original.
+
+
+## Laboratory layout reliability — 13 November 2026
+
+Implemented v3 administrative-row filtering, expanded metadata labels and secondary-column facility detection, ordered multiline reference preservation with validated source spans, and explicit ambiguous-numeric-punctuation warnings. Reference categories remain unverified text; no clinical interpretation or guessed numeric repair is added. Review UI preserves line breaks and identifies old reader versions.
+
+Verification: 78 targeted extraction/runtime/processing/review tests passed. After tightening implicit facility headings to avoid lowercase marketing text, all 33 affected metadata/extraction rule tests passed and the package built. All 59 frontend tests, lint and production build passed. A new synthetic raster fixture produced exactly three measurements, correct date/provider and preserved reference continuations locally. The supplied private report, checked locally only, now yields nine actual measurement candidates (three administrative false positives removed), with report date and provider captured; one numeric punctuation error remains explicitly unverified. No source image or private OCR output is committed.
+
+The production rollout and hosted v3 image check are pending at this checkpoint. Follow docs/RELIABILITY_PLAN.md for remaining work; region-specific OCR retries, calibrated quality checks, broader terminology/reference semantics, multipage integrity and additional document-type extraction are not claimed complete.

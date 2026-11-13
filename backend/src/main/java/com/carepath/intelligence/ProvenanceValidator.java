@@ -104,7 +104,7 @@ public class ProvenanceValidator {
             }
 
             if (candidate.referenceText() != null &&
-                !evidence.contains(candidate.referenceText())) {
+                !referenceInEvidence(candidate.referenceText(),evidence,candidate.reasons().contains("MULTILINE_REFERENCE_REVIEW_REQUIRED"))) {
 
                 fail(
                     "CANDIDATE_REFERENCE_NOT_IN_EVIDENCE reference=[" +
@@ -238,6 +238,19 @@ public class ProvenanceValidator {
                 );
             }
         }
+    }
+
+    static boolean referenceInEvidence(String reference,String evidence,boolean multiline) {
+        if(evidence.contains(reference))return true;
+        if(!multiline)return false;
+        int position=0;
+        for(String fragment:reference.split("\\n",-1)){
+            if(fragment.isBlank())return false;
+            int found=evidence.indexOf(fragment,position);
+            if(found<0)return false;
+            position=found+fragment.length();
+        }
+        return true;
     }
 
     private static void fail(String reason) {

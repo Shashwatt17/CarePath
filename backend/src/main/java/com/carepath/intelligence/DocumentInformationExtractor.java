@@ -14,8 +14,8 @@ public class DocumentInformationExtractor {
      * deterministic and evidence-backed.
      */
     private static final Pattern INFORMATION_PATTERN = Pattern.compile(
-        "(?i)^(Report date|Reporting date(?:/time)?|Sample date|" +
-        "Collection date(?:/time)?|Laboratory|Lab|Provider)(?:\\s*:\\s*|\\s+)(.+)$"
+        "(?i)(?:^|\\t)(Report date|Report generated on|Reporting date(?:/time)?|Sample collected on|Sample date|" +
+        "Collection date(?:/time)?|Laboratory|Lab|Provider)(?:\\s*:\\s*|\\s+)([^\\t]+)"
     );
 
     public Information extract(List<Page> pages) {
@@ -33,15 +33,17 @@ public class DocumentInformationExtractor {
                     source.text().strip()
                 );
 
-                if (!match.matches()) {
+                if (!match.find()) {
                     String text=source.text().strip();
                     var pageCount=Pattern.compile("(?i)\\bPage\\s+[1-9Il]\\d*\\s*(?:of|[Il]of)\\s+(\\d+)\\b").matcher(text);
                     if(pageCount.find() && Integer.parseInt(pageCount.group(1))>pages.size())warnings.add("POSSIBLE_MISSING_PAGES");
                     if(page.method()==Method.TESSERACT_OCR && line.ocrConfidence()!=null && line.ocrConfidence()<.70)warnings.add("LOW_IMAGE_READABILITY");
                     if(text.matches("(?i)^Date(?:\\s|:|\\|).*") && dates.tokens(text).size()>1)warnings.add("MULTIPLE_DATED_COLUMNS");
                     // A facility-like heading is only a candidate, never an inferred identity.
-                    String first=text.split("\\t| {2,}")[0];
-                    if(first.length()<160 && first.matches("(?i)^[\\p{L}][\\p{L} .&'-]{1,80}(?:Hospital|Laboratory|Diagnostics|Healthcare)(?:, [\\p{L} .'-]+)?$"))providers.add(new Fact(first,source));
+                    for(String cell:text.split("\\t| {2,}")){
+                    String first=cell.split("\\s*\\(",2)[0].strip();
+                    if(!first.isEmpty() && Character.isUpperCase(first.codePointAt(0)) && first.length()<160 && first.matches("(?i)^[\\p{L}][\\p{L} .&'-]{1,80}(?:Hospital|Laboratory|Laboratories|Labs|Diagnostics|Healthcare)(?:, [\\p{L} .'-]+)?$"))providers.add(new Fact(first,source));
+                    }
                     continue;
                 }
 

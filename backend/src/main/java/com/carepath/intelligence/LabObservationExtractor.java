@@ -74,6 +74,7 @@ public class LabObservationExtractor {
             var table=new TableLabRows();
             for (Line line : page.lines()) {
 
+                if(LabSections.administrative(TextPages.source(page,line).text()))continue;
                 if(table.header(page,line))continue;
                 var tableRows=table.extract(page,line,information);
                 if(tableRows!=null){candidates.addAll(tableRows);if(candidates.size()>500)throw new ProcessingFailure("RESOURCE_LIMIT",false);continue;}
@@ -264,6 +265,8 @@ public class LabObservationExtractor {
 
                 List<String> reasons =
                     new ArrayList<>(score.reasons());
+
+                if(value!=null && value.matches(".*\\d[:;,]\\d.*")){reasons.add("AMBIGUOUS_NUMERIC_PUNCTUATION");candidateBand=Band.LOW;}
 
                 if (uncertainOcrFallback) {
                     candidateBand = Band.LOW;
