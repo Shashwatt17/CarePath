@@ -47,7 +47,7 @@ try:
     os.chmod(R/'private.pem',0o600)
     env=os.environ.copy(); env.update({'DATABASE_URL':'jdbc:postgresql://127.0.0.1:55432/carepath?currentSchema=carepath','SPRING_FLYWAY_SCHEMAS':'carepath','POSTGRES_USER':'carepath','POSTGRES_PASSWORD':pgpass,'REDIS_HOST':'127.0.0.1','REDIS_PORT':'56379','REDIS_PASSWORD':redispass,'AUTH_RATE_KEY':secrets.token_hex(32),'JWT_PRIVATE_KEY_PATH':str(R/'private.pem'),'JWT_PUBLIC_KEY_PATH':str(R/'public.pem'),'AUTH_COOKIE_SECURE':'false','FRONTEND_ORIGIN':'http://localhost:3000','STORAGE_BACKEND':'database','STORAGE_ROOT':str(R/'documents'),'PROCESSING_TEMP_ROOT':str(R/'processing'),'SERVER_PORT':'8080','LLM_ENABLED':'false'})
     jar=ROOT/'backend/target/carepath-backend-0.1.0-SNAPSHOT.jar'
-    def backend():return start([JAVA,'-Xmx256m','-jar',jar],'backend-native',ROOT/'backend',env)
+    def backend():return start([JAVA,'-Xmx192m','-XX:+UseSerialGC','-jar',jar],'backend-native',ROOT/'backend',env)
     app=backend();wait_http('http://127.0.0.1:8080/actuator/health/readiness',app);passed('Native PostgreSQL/Flyway V1-V14 and authenticated Redis readiness')
     front=start(['node','node_modules/next/dist/bin/next','start','--hostname','127.0.0.1','--port','3000'],'frontend-native',ROOT/'frontend',env)
     wait_http('http://127.0.0.1:3000/login',front);passed('Production Next.js starts against native backend')

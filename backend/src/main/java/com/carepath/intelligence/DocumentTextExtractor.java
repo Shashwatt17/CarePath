@@ -41,7 +41,10 @@ public class DocumentTextExtractor {
                     var reader=readers.next();try { reader.setInput(stream);int width=reader.getWidth(0),height=reader.getHeight(0);
                         if(width<=0 || height<=0 || (long)width*height>20000000) throw new ProcessingFailure("RESOURCE_LIMIT",false);
                         // Decode here too, so corrupt originals never go straight to a native OCR process.
-                        var image=reader.read(0);if(image==null) throw new ProcessingFailure("INVALID_DOCUMENT",false);
+                        var readParameters=reader.getDefaultReadParam();
+                        int sampling=Math.max(1,(int)Math.ceil(Math.sqrt((double)width*height/4000000)));
+                        readParameters.setSourceSubsampling(sampling,sampling,0,0);
+                        var image=reader.read(0,readParameters);if(image==null) throw new ProcessingFailure("INVALID_DOCUMENT",false);
                         Path prepared=temporaryDirectory.resolve("prepared.png");
                         var enhanced=OcrImagePreparation.prepare(image);image.flush();
                         Page result;

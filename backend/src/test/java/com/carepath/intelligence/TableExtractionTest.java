@@ -58,6 +58,13 @@ class TableExtractionTest {
         assertTrue(result.candidates().stream().allMatch(c->c.confidence()==Band.LOW));
         new ProvenanceValidator().validate(result,20,250000);
     }
+    @Test void preparedPhotoUsesBoundedSingleChannelPixels(){
+        var input=new java.awt.image.BufferedImage(900,1600,java.awt.image.BufferedImage.TYPE_INT_RGB);
+        var prepared=OcrImagePreparation.prepare(input);
+        assertTrue((long)prepared.getWidth()*prepared.getHeight()<=6000000);
+        assertEquals(java.awt.image.BufferedImage.TYPE_BYTE_GRAY,prepared.getType());
+        input.flush();prepared.flush();
+    }
     @Test void damagedReferenceIsPreservedWithoutInventingAnInterval(){
         var result=parse("Iron\t28.6\tug/dL\t37 . 145");
         assertEquals("37 . 145",result.candidates().getFirst().referenceText());

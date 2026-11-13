@@ -52,7 +52,7 @@ public class IsolatedExtractionEngine implements ExtractionEngine {
     }
     public static List<String> workerCommand() throws IOException {
         String classpath=System.getProperty("surefire.test.class.path",System.getProperty("java.class.path"));
-        List<String> result=new ArrayList<>(List.of(Path.of(System.getProperty("java.home"),"bin","java").toString(),"-Xmx256m","-XX:MaxDirectMemorySize=64m","-XX:+ExitOnOutOfMemoryError","-Djava.awt.headless=true"));
+        List<String> result=new ArrayList<>(List.of(Path.of(System.getProperty("java.home"),"bin","java").toString(),"-Xmx128m","-XX:+UseSerialGC","-XX:MaxDirectMemorySize=16m","-XX:+ExitOnOutOfMemoryError","-Djava.awt.headless=true"));
         boolean boot=false;
         if(!classpath.contains(File.pathSeparator) && classpath.endsWith(".jar")) try(var jar=new java.util.jar.JarFile(classpath)) { boot=jar.getJarEntry("BOOT-INF/classes/")!=null; }
         if(boot) result.add("-Dloader.main="+ExtractionWorkerMain.class.getName());
