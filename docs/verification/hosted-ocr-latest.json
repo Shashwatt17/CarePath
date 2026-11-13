@@ -1,0 +1,15 @@
+{
+  "pipeline": "deterministic-candidates-v2",
+  "checks": [
+    "Hosted 900x1600 image processing",
+    "Two separate values with separate dates",
+    "Incomplete-page warning",
+    "Source review required for OCR",
+    "Original download byte equality"
+  ],
+  "passed": true,
+  "release": "733e128",
+  "date": "2026-11-13",
+  "browser": "Verified missing-page warning, separate dated values and disabled one-click OCR confirmation",
+  "limitations": "Synthetic fixture success does not establish accuracy on unclear medical photographs."
+}
