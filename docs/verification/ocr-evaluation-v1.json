@@ -1,0 +1,392 @@
+{
+  "corpusVersion": "synthetic-ocr-v1",
+  "pipelineVersion": "deterministic-candidates-v3",
+  "javaVersion": "21.0.12.1",
+  "note": "Synthetic authored regression fixtures. Validation layouts are frozen, not an independent clinical dataset. Raw lexical exactness is measured, not diagnosis or normalized-unit accuracy.",
+  "retryPolicy": "Experiment only: at most two ambiguous rows, 5 seconds per process, 8 seconds total budget, 1 MP maximum crop; alternatives never replace originals.",
+  "cases": [
+    {
+      "id": "native-decimals",
+      "split": "development",
+      "kind": "text",
+      "error": null,
+      "metrics": {
+        "expected": 2,
+        "returned": 2,
+        "matchedRows": 2,
+        "exactValues": 2,
+        "exactUnits": 2,
+        "exactDates": 2,
+        "missingRows": 0,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "Glucose",
+          "value": "92.4",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Creatinine",
+          "value": "0.87",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "retries": [],
+      "elapsedMillis": 60
+    },
+    {
+      "id": "native-comparators",
+      "split": "development",
+      "kind": "text",
+      "error": null,
+      "metrics": {
+        "expected": 2,
+        "returned": 2,
+        "matchedRows": 2,
+        "exactValues": 2,
+        "exactUnits": 2,
+        "exactDates": 2,
+        "missingRows": 0,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "Marker A",
+          "value": "<0.05",
+          "unit": "mg/L",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Marker B",
+          "value": ">=12",
+          "unit": "U/L",
+          "date": "2026-07-18"
+        }
+      ],
+      "retries": [],
+      "elapsedMillis": 3
+    },
+    {
+      "id": "native-ambiguous-punctuation",
+      "split": "development",
+      "kind": "text",
+      "error": null,
+      "metrics": {
+        "expected": 1,
+        "returned": 1,
+        "matchedRows": 1,
+        "exactValues": 1,
+        "exactUnits": 1,
+        "exactDates": 1,
+        "missingRows": 0,
+        "extraRows": 0,
+        "numericAbstentions": 1
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "LDL / HDL Ratio",
+          "value": "2:34",
+          "unit": "Ratio",
+          "date": "2026-07-18"
+        }
+      ],
+      "retries": [],
+      "elapsedMillis": 1
+    },
+    {
+      "id": "image-decimals",
+      "split": "development",
+      "kind": "image",
+      "error": null,
+      "metrics": {
+        "expected": 2,
+        "returned": 2,
+        "matchedRows": 2,
+        "exactValues": 2,
+        "exactUnits": 0,
+        "exactDates": 2,
+        "missingRows": 0,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "Glucose",
+          "value": "92.4",
+          "unit": "mag/dL",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Creatinine",
+          "value": "0.87",
+          "unit": "mag/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "retries": [],
+      "elapsedMillis": 842
+    },
+    {
+      "id": "image-administrative",
+      "split": "development",
+      "kind": "image",
+      "error": null,
+      "metrics": {
+        "expected": 1,
+        "returned": 1,
+        "matchedRows": 1,
+        "exactValues": 1,
+        "exactUnits": 1,
+        "exactDates": 1,
+        "missingRows": 0,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "Glucose",
+          "value": "96.2",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "retries": [],
+      "elapsedMillis": 481
+    },
+    {
+      "id": "image-reference-wrap",
+      "split": "development",
+      "kind": "image",
+      "error": null,
+      "metrics": {
+        "expected": 1,
+        "returned": 1,
+        "matchedRows": 1,
+        "exactValues": 1,
+        "exactUnits": 0,
+        "exactDates": 1,
+        "missingRows": 0,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "Cholesterol",
+          "value": "181.5",
+          "unit": "mag/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "retries": [],
+      "elapsedMillis": 409
+    },
+    {
+      "id": "validation-native-missing-unit",
+      "split": "validation",
+      "kind": "text",
+      "error": null,
+      "metrics": {
+        "expected": 1,
+        "returned": 0,
+        "matchedRows": 0,
+        "exactValues": 0,
+        "exactUnits": 0,
+        "exactDates": 0,
+        "missingRows": 1,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [],
+      "retries": [],
+      "elapsedMillis": 0
+    },
+    {
+      "id": "validation-image-small-text",
+      "split": "validation",
+      "kind": "small",
+      "error": null,
+      "metrics": {
+        "expected": 2,
+        "returned": 1,
+        "matchedRows": 1,
+        "exactValues": 1,
+        "exactUnits": 0,
+        "exactDates": 1,
+        "missingRows": 1,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "Glucose",
+          "value": "88.6",
+          "unit": "mg/dl",
+          "date": "2026-07-18"
+        }
+      ],
+      "retries": [],
+      "elapsedMillis": 387
+    },
+    {
+      "id": "validation-image-low-contrast",
+      "split": "validation",
+      "kind": "contrast",
+      "error": null,
+      "metrics": {
+        "expected": 2,
+        "returned": 2,
+        "matchedRows": 2,
+        "exactValues": 2,
+        "exactUnits": 0,
+        "exactDates": 2,
+        "missingRows": 0,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "Glucose",
+          "value": "103.7",
+          "unit": "mag/dL",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Creatinine",
+          "value": "1.08",
+          "unit": "mag/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "retries": [],
+      "elapsedMillis": 381
+    },
+    {
+      "id": "validation-image-punctuation",
+      "split": "validation",
+      "kind": "image",
+      "error": null,
+      "metrics": {
+        "expected": 1,
+        "returned": 1,
+        "matchedRows": 0,
+        "exactValues": 0,
+        "exactUnits": 0,
+        "exactDates": 0,
+        "missingRows": 1,
+        "extraRows": 1,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "LDL/ HDL Ratio",
+          "value": "2:57",
+          "unit": "Ratio",
+          "date": "2026-07-18"
+        }
+      ],
+      "retries": [
+        {
+          "name": "LDL/ HDL Ratio",
+          "originalValue": "2:57",
+          "status": "UNCHANGED_UNVERIFIED",
+          "alternativeText": "LDL/ HDL Ratio\t2:57\tRatio\t0.5-3\n",
+          "alternativeValues": [
+            "2:57"
+          ],
+          "requiresReview": true,
+          "canAutoReplace": false
+        }
+      ],
+      "elapsedMillis": 631
+    },
+    {
+      "id": "validation-image-rotated",
+      "split": "validation",
+      "kind": "rotated",
+      "error": null,
+      "metrics": {
+        "expected": 1,
+        "returned": 0,
+        "matchedRows": 0,
+        "exactValues": 0,
+        "exactUnits": 0,
+        "exactDates": 0,
+        "missingRows": 1,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": false,
+      "providerExact": true,
+      "actual": [],
+      "retries": [],
+      "elapsedMillis": 421
+    },
+    {
+      "id": "validation-historical-columns",
+      "split": "validation",
+      "kind": "text",
+      "error": null,
+      "metrics": {
+        "expected": 2,
+        "returned": 2,
+        "matchedRows": 2,
+        "exactValues": 2,
+        "exactUnits": 2,
+        "exactDates": 2,
+        "missingRows": 0,
+        "extraRows": 0,
+        "numericAbstentions": 0
+      },
+      "dateExact": true,
+      "providerExact": true,
+      "actual": [
+        {
+          "name": "Glucose",
+          "value": "97.6",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Glucose",
+          "value": "101.2",
+          "unit": "mg/dL",
+          "date": "2025-09-12"
+        }
+      ],
+      "retries": [],
+      "elapsedMillis": 1
+    }
+  ],
+  "environment": {
+    "os": "Linux",
+    "architecture": "x86_64",
+    "tesseract": "tesseract 5.5.0",
+    "renderFont": "Java logical SansSerif plain; host font substitution can change OCR output",
+    "manifestSha256": "1a0d35cb61de081eb6654ced8149fe25c82a9b5339a1ce59383a4549d3181497"
+  }
+}

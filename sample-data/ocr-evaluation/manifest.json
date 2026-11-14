@@ -1,0 +1,863 @@
+{
+  "version": "synthetic-ocr-v1",
+  "note": "Synthetic authored regression fixtures. Validation layouts are frozen, not an independent clinical dataset. Raw lexical exactness is measured, not diagnosis or normalized-unit accuracy.",
+  "cases": [
+    {
+      "id": "native-decimals",
+      "split": "development",
+      "kind": "text",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nGlucose\t92.4\tmg/dL\t70 - 140\nCreatinine\t0.87\tmg/dL\t0.5 - 1.2",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Glucose"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "92.4"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "70 - 140"
+        },
+        {
+          "x": 25,
+          "y": 206,
+          "text": "Creatinine"
+        },
+        {
+          "x": 340,
+          "y": 206,
+          "text": "0.87"
+        },
+        {
+          "x": 500,
+          "y": 206,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 206,
+          "text": "0.5 - 1.2"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Glucose",
+          "value": "92.4",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Creatinine",
+          "value": "0.87",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "native-comparators",
+      "split": "development",
+      "kind": "text",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nMarker A\t<0.05\tmg/L\t0 - 1\nMarker B\t>=12\tU/L\t0 - 20",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Marker A"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "<0.05"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "mg/L"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "0 - 1"
+        },
+        {
+          "x": 25,
+          "y": 206,
+          "text": "Marker B"
+        },
+        {
+          "x": 340,
+          "y": 206,
+          "text": ">=12"
+        },
+        {
+          "x": 500,
+          "y": 206,
+          "text": "U/L"
+        },
+        {
+          "x": 650,
+          "y": 206,
+          "text": "0 - 20"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Marker A",
+          "value": "<0.05",
+          "unit": "mg/L",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Marker B",
+          "value": ">=12",
+          "unit": "U/L",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "native-ambiguous-punctuation",
+      "split": "development",
+      "kind": "text",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nLDL / HDL Ratio\t2:34\tRatio\t0.5 - 3",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "LDL / HDL Ratio"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "2:34"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "Ratio"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "0.5 - 3"
+        }
+      ],
+      "expected": [
+        {
+          "name": "LDL / HDL Ratio",
+          "value": "2:34",
+          "unit": "Ratio",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "image-decimals",
+      "split": "development",
+      "kind": "image",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nGlucose\t92.4\tmg/dL\t70 - 140\nCreatinine\t0.87\tmg/dL\t0.5 - 1.2",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Glucose"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "92.4"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "70 - 140"
+        },
+        {
+          "x": 25,
+          "y": 206,
+          "text": "Creatinine"
+        },
+        {
+          "x": 340,
+          "y": 206,
+          "text": "0.87"
+        },
+        {
+          "x": 500,
+          "y": 206,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 206,
+          "text": "0.5 - 1.2"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Glucose",
+          "value": "92.4",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Creatinine",
+          "value": "0.87",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "image-administrative",
+      "split": "development",
+      "kind": "image",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nAge/Gender\t: 24Y Male\nOrder Id\t: 123456\nGlucose\t96.2\tmg/dL\t70 - 140",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Age/Gender"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": ": 24Y Male"
+        },
+        {
+          "x": 25,
+          "y": 206,
+          "text": "Order Id"
+        },
+        {
+          "x": 340,
+          "y": 206,
+          "text": ": 123456"
+        },
+        {
+          "x": 25,
+          "y": 242,
+          "text": "Glucose"
+        },
+        {
+          "x": 340,
+          "y": 242,
+          "text": "96.2"
+        },
+        {
+          "x": 500,
+          "y": 242,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 242,
+          "text": "70 - 140"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Glucose",
+          "value": "96.2",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "image-reference-wrap",
+      "split": "development",
+      "kind": "image",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nCholesterol\t181.5\tmg/dL\tDesirable: <190\nMethod: Enzymatic\t\t\tBorderline: 190-229\n\t\t\tHigh: >=230",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Cholesterol"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "181.5"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "Desirable: <190"
+        },
+        {
+          "x": 25,
+          "y": 206,
+          "text": "Method: Enzymatic"
+        },
+        {
+          "x": 340,
+          "y": 206,
+          "text": ""
+        },
+        {
+          "x": 500,
+          "y": 206,
+          "text": ""
+        },
+        {
+          "x": 650,
+          "y": 206,
+          "text": "Borderline: 190-229"
+        },
+        {
+          "x": 25,
+          "y": 242,
+          "text": ""
+        },
+        {
+          "x": 340,
+          "y": 242,
+          "text": ""
+        },
+        {
+          "x": 500,
+          "y": 242,
+          "text": ""
+        },
+        {
+          "x": 650,
+          "y": 242,
+          "text": "High: >=230"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Cholesterol",
+          "value": "181.5",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "validation-native-missing-unit",
+      "split": "validation",
+      "kind": "text",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nNovel Analyte\t4.6\t\t1 - 7",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Novel Analyte"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "4.6"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": ""
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "1 - 7"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Novel Analyte",
+          "value": "4.6",
+          "unit": null,
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "validation-image-small-text",
+      "split": "validation",
+      "kind": "small",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nGlucose\t88.6\tmg/dL\t70 - 140\nPlatelets\t243\t10^9/L\t150 - 400",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Glucose"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "88.6"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "70 - 140"
+        },
+        {
+          "x": 25,
+          "y": 206,
+          "text": "Platelets"
+        },
+        {
+          "x": 340,
+          "y": 206,
+          "text": "243"
+        },
+        {
+          "x": 500,
+          "y": 206,
+          "text": "10^9/L"
+        },
+        {
+          "x": 650,
+          "y": 206,
+          "text": "150 - 400"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Glucose",
+          "value": "88.6",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Platelets",
+          "value": "243",
+          "unit": "10^9/L",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "validation-image-low-contrast",
+      "split": "validation",
+      "kind": "contrast",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nGlucose\t103.7\tmg/dL\t70 - 140\nCreatinine\t1.08\tmg/dL\t0.5 - 1.2",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Glucose"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "103.7"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "70 - 140"
+        },
+        {
+          "x": 25,
+          "y": 206,
+          "text": "Creatinine"
+        },
+        {
+          "x": 340,
+          "y": 206,
+          "text": "1.08"
+        },
+        {
+          "x": 500,
+          "y": 206,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 206,
+          "text": "0.5 - 1.2"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Glucose",
+          "value": "103.7",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Creatinine",
+          "value": "1.08",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "validation-image-punctuation",
+      "split": "validation",
+      "kind": "image",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nLDL / HDL Ratio\t2:57\tRatio\t0.5 - 3",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "LDL / HDL Ratio"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "2:57"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "Ratio"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "0.5 - 3"
+        }
+      ],
+      "expected": [
+        {
+          "name": "LDL / HDL Ratio",
+          "value": "2:57",
+          "unit": "Ratio",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "validation-image-rotated",
+      "split": "validation",
+      "kind": "rotated",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nGlucose\t85.9\tmg/dL\t70 - 140",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Glucose"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "85.9"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "mg/dL"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "70 - 140"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Glucose",
+          "value": "85.9",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    },
+    {
+      "id": "validation-historical-columns",
+      "split": "validation",
+      "kind": "text",
+      "text": "LAB REPORT\nLaboratory: Example Lab\nReport date: 18/Jul/2026\nDate\t18/Jul/2026 12/Sep/2025\tUnit\tReference\nGlucose\t97.6\t101.2\tmg/dL\t70 - 140",
+      "draws": [
+        {
+          "x": 25,
+          "y": 40,
+          "text": "LAB REPORT"
+        },
+        {
+          "x": 25,
+          "y": 75,
+          "text": "Laboratory: Example Lab"
+        },
+        {
+          "x": 25,
+          "y": 110,
+          "text": "Report date: 18/Jul/2026"
+        },
+        {
+          "x": 25,
+          "y": 170,
+          "text": "Date"
+        },
+        {
+          "x": 340,
+          "y": 170,
+          "text": "18/Jul/2026 12/Sep/2025"
+        },
+        {
+          "x": 500,
+          "y": 170,
+          "text": "Unit"
+        },
+        {
+          "x": 650,
+          "y": 170,
+          "text": "Reference"
+        },
+        {
+          "x": 25,
+          "y": 206,
+          "text": "Glucose"
+        },
+        {
+          "x": 340,
+          "y": 206,
+          "text": "97.6"
+        },
+        {
+          "x": 500,
+          "y": 206,
+          "text": "101.2"
+        },
+        {
+          "x": 650,
+          "y": 206,
+          "text": "mg/dL"
+        },
+        {
+          "x": 790,
+          "y": 206,
+          "text": "70 - 140"
+        }
+      ],
+      "expected": [
+        {
+          "name": "Glucose",
+          "value": "97.6",
+          "unit": "mg/dL",
+          "date": "2026-07-18"
+        },
+        {
+          "name": "Glucose",
+          "value": "101.2",
+          "unit": "mg/dL",
+          "date": "2025-09-12"
+        }
+      ],
+      "date": "2026-07-18",
+      "provider": "Example Lab"
+    }
+  ]
+}
