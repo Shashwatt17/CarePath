@@ -2,7 +2,7 @@
 
 Target: explicit supported document types, source-grounded extraction, and safe review or rejection outside those limits. No universal medical-document accuracy guarantee. Existing hosting, authentication, ownership, private originals, patient summaries, sharing and dated-column separation are retained rather than rebuilt.
 
-## Release A: laboratory layout reliability (current implementation)
+## Release A: laboratory layout reliability (deployed and verified 14 November 2026)
 - Exclude administrative labels without restricting measurements to a known analyte list.
 - Recognize report-generated/sample-collected labels and provider headings in secondary columns.
 - Preserve ordered, verbatim reference continuations and their full source span. Do not turn category bands into a single numeric interval.

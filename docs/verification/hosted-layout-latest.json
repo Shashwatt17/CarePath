@@ -1,0 +1,16 @@
+{
+  "pipeline": "deterministic-candidates-v3",
+  "checks": [
+    "Hosted 900x1600 image processing",
+    "Three real measurements; administrative rows excluded; report date and provider recovered; multiline references preserved",
+    "Incomplete-page warning",
+    "Source review required for OCR",
+    "Original download byte equality"
+  ],
+  "passed": true,
+  "release": "34c5405",
+  "verifiedOn": "2026-11-14",
+  "browserVerified": true,
+  "coldStartLimitation": "Initial login returned 504/503 while the backend recovered; direct and proxied login subsequently passed.",
+  "scope": "One synthetic image; not an accuracy or load guarantee."
+}
