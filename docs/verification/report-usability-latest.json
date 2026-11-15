@@ -1,0 +1,26 @@
+{
+  "date": "2026-11-14",
+  "scope": "Report UI usability; extraction engine unchanged",
+  "frontendTests": 61,
+  "lint": "passed",
+  "productionBuild": "passed",
+  "renderedChecks": [
+    "Local production build; synthetic API replay only",
+    "Search filters three readings to one",
+    "One-click source modal with original image and source-region highlight",
+    "Close restores filtered view and keyboard focus",
+    "OCR confirmation remains disabled"
+  ],
+  "liveApiChecks": [
+    "Existing synthetic account login",
+    "Document, extraction and review retrieval",
+    "Three candidates retained",
+    "OCR canConfirm false"
+  ],
+  "limits": [
+    "No signed-in production browser check this release",
+    "No mobile viewport verification",
+    "No OCR accuracy improvement claimed"
+  ],
+  "temporaryReplayRoutePublished": false
+}

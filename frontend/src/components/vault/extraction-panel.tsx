@@ -2,12 +2,14 @@
 import { useEffect, useRef, useState } from "react";
 import { FileSearch, LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ReportOverview } from "./report-overview";
 import { ReviewPanel } from "@/components/review/review-panel";
 import { label } from "@/lib/vault-client";
 import { extractionClient, type Extraction, type ProcessingStatus, type Source } from "@/lib/extraction-client";
 export function ExtractionPanel({ id, onSource, onStateChange }: { id: string; onSource: (source: Source) => void; onStateChange: () => void }) {
   const [status, setStatus] = useState<ProcessingStatus | null>(null);
   const [extraction, setExtraction] = useState<Extraction | null>(null);
+  const [reviewOpen, setReviewOpen] = useState(false);
   const [error, setError] = useState(""); const [busy, setBusy] = useState(false); const [refresh, setRefresh] = useState(0);
   const callbacks = useRef({ onStateChange }); useEffect(() => { callbacks.current = { onStateChange }; }, [onStateChange]);
   const previous = useRef<string | null>(null);
@@ -32,8 +34,8 @@ export function ExtractionPanel({ id, onSource, onStateChange }: { id: string; o
     catch (e) { setError(e instanceof Error ? e.message : "Processing could not be started."); }
     finally { setBusy(false); }
   }
-  return <section className="mt-8 rounded-xl border border-border bg-white p-5 sm:p-7" aria-labelledby="extraction-title">
-    <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-medium uppercase tracking-widest text-primary">Document intelligence</p><h2 id="extraction-title" className="mt-2 text-xl font-semibold">Extracted results</h2></div>
+  return <section className="report-surface mt-6 rounded-2xl border border-border p-5 shadow-sm sm:p-7" aria-labelledby="extraction-title">
+    <div className="flex flex-wrap items-center justify-between gap-3"><div><p className="text-xs font-medium uppercase tracking-widest text-primary">Document intelligence</p><h2 id="extraction-title" className="mt-2 text-xl font-semibold">Understand your report</h2></div>
       {status && <span role="status" className="rounded-full bg-muted px-3 py-1 text-sm">{label(status.state)}</span>}</div>
     {error && <p role="alert" className="mt-4 text-sm text-red-800">{error} <button className="underline" onClick={() => setRefresh((v) => v + 1)}>Reload status</button></p>}
     {!status && !error && <div role="status" className="mt-5 h-24 rounded bg-muted motion-safe:animate-pulse"><span className="sr-only">Loading processing status</span></div>}
@@ -41,19 +43,24 @@ export function ExtractionPanel({ id, onSource, onStateChange }: { id: string; o
     {status?.state === "PROCESSING" && <p role="status" className="mt-5 flex items-center gap-3 text-sm text-muted-foreground"><LoaderCircle size={18} className="motion-safe:animate-spin" aria-hidden="true" />Reading your document. You can leave this page; processing continues on the server.{status.attempts > 1 ? ` Attempt ${status.attempts}.` : ""}</p>}
     {status?.state === "FAILED" && <div className="mt-5"><p role="alert">We couldn&apos;t process this document.</p><p className="mt-2 text-sm text-muted-foreground">Your original remains in the vault. {status.retryAllowed ? "You can try again." : "Check the file before uploading a corrected copy."}</p>{status.retryAllowed && <Button className="mt-4" variant="outline" disabled={busy} onClick={() => start(true)}>Retry processing</Button>}</div>}
     {extraction && <div className="mt-5">
-      <p className="rounded-lg bg-amber-50 p-4 text-sm leading-relaxed text-amber-950">{extraction.result.needsReview ? "CarePath couldn't confidently read every part of this document. Check the source before relying on these results." : "Extraction completed. These are unverified candidates from your document, not confirmed medical observations."} Review decisions below are stored separately from the original extraction.</p>
+      <p className="rounded-lg bg-amber-50 p-4 text-sm leading-relaxed text-amber-950">{extraction.result.needsReview ? "These machine readings need source review before you rely on them." : "Extraction completed. These are unverified candidates from your document, not confirmed medical observations."} Your original stays unchanged.</p>
       {extraction.result.information.warnings.includes("LOW_IMAGE_READABILITY") && <p role="alert" className="mt-3 rounded-lg bg-amber-50 p-3 text-sm">Parts of this image are difficult to read. Some names, decimals or units may be wrong. A clearer photo or original PDF is recommended.</p>}
       {extraction.result.pipelineVersion !== "deterministic-candidates-v3" && <p className="mt-3 text-sm">These results were produced by an earlier extraction version. Upload a new copy to use the improved reader; existing review decisions stay unchanged.</p>}
-      {extraction.result.ocrUsed && <p className="mt-3 text-sm">For clearer results, upload the original PDF or a straight, close photo with even lighting and all page edges visible. Check decimals and units against the source; CarePath does not repair uncertain numbers.</p>}
+
       {extraction.result.information.warnings.includes("POSSIBLE_MISSING_PAGES") && <p role="alert" className="mt-3 rounded-lg bg-amber-50 p-3 text-sm">This document refers to more pages than were uploaded. Other results may be missing. Upload the complete report if available.</p>}
       {extraction.result.information.warnings.includes("MULTIPLE_DATED_COLUMNS") && <p className="mt-3 text-sm">This report contains multiple dated result columns. Check the date attached to every reading; an ambiguous date stays unknown.</p>}
+      <dl className="mt-5 grid gap-3 rounded-xl border border-emerald-100 bg-emerald-50/70 p-4 text-sm sm:grid-cols-3"><div><dt className="text-xs text-muted-foreground">Report type</dt><dd className="mt-1 font-medium">{label(extraction.result.classification.category)}</dd></div><div><dt className="text-xs text-muted-foreground">Reported date</dt><dd className="mt-1 font-medium">{extraction.result.information.date?.value ?? "Not found"}</dd></div><div><dt className="text-xs text-muted-foreground">Provider / lab</dt><dd className="mt-1 break-words font-medium">{extraction.result.information.provider?.value ?? "Not found"}</dd></div></dl>
+      {!!extraction.result.candidates.length && <ReportOverview candidates={extraction.result.candidates} onSource={onSource} />}
+      <details className="mt-5 rounded-xl border border-border bg-white/80 p-4"><summary className="cursor-pointer text-sm font-medium">How this report was read · metadata evidence</summary>
+      {extraction.result.ocrUsed && <p className="mt-3 text-sm">For clearer results, upload the original PDF or a straight, close photo with even lighting and all page edges visible. Check decimals and units against the source; CarePath does not repair uncertain numbers.</p>}
       <h3 className="mt-6 font-semibold">Document information</h3>
       <dl className="mt-3 grid gap-4 text-sm sm:grid-cols-3"><div><dt className="text-muted-foreground">Predicted category</dt><dd className="mt-1">{label(extraction.result.classification.category)} · {label(extraction.result.classification.confidence)} confidence</dd></div>
         <div><dt className="text-muted-foreground">Reported date</dt><dd className="mt-1">{extraction.result.information.date?.value ?? "Not found"}</dd></div>
         <div><dt className="text-muted-foreground">Reported provider / lab</dt><dd className="mt-1 break-words">{extraction.result.information.provider?.value ?? "Not found"}</dd></div></dl>
       <div className="mt-3 flex flex-wrap gap-4 text-xs">{extraction.result.information.date && <button className="text-primary underline" onClick={() => onSource(extraction.result.information.date!.source)}>View date source</button>}{extraction.result.information.provider && <button className="text-primary underline" onClick={() => onSource(extraction.result.information.provider!.source)}>View provider source</button>}{extraction.result.classification.evidence.map((source, i) => <button key={i} className="text-primary underline" onClick={() => onSource(source)}>View classification source · page {source.page}</button>)}</div>
       <p className="mt-3 text-xs text-muted-foreground">{extraction.result.ocrUsed ? "OCR was used. Recognition errors are possible." : "Read from embedded PDF text."} Your saved category and metadata were not changed.</p>
-      {extraction.result.candidates.length ? <ReviewPanel documentId={id} onSource={onSource} onChanged={() => { setRefresh((v) => v + 1); onStateChange(); }} /> : <p className="mt-6 text-sm text-muted-foreground">No supported lab rows were found. This does not mean the document contains no medical information.</p>}
+      </details>
+      {extraction.result.candidates.length ? <details className="mt-5 rounded-xl border border-emerald-200 bg-white p-4" onToggle={event => setReviewOpen(event.currentTarget.open)}><summary className="cursor-pointer font-semibold text-primary">Review readings · verify or correct</summary>{reviewOpen && <ReviewPanel documentId={id} onSource={onSource} onChanged={() => { setRefresh((v) => v + 1); onStateChange(); }} />}</details> : <p className="mt-6 text-sm text-muted-foreground">No supported lab rows were found. This does not mean the document contains no medical information.</p>}
     </div>}
   </section>;
 }
