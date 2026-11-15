@@ -14,7 +14,7 @@ final class TableLabRows {
     }
     List<Candidate> extract(Page page,Line line,Information info) {
         String raw=TextPages.source(page,line).text().strip();
-        String[] cells=raw.split("\\t|\\|\\s*| {2,}",-1);
+        String[] cells=raw.split(raw.contains("\t") ? "\t" : raw.contains("|") ? "\\|" : " {2,}",-1);
         if(!raw.contains("\t") && headers.size()<2)return null;
         if(cells.length<4 || cells.length>8)return null;
         for(int i=0;i<cells.length;i++)cells[i]=cells[i].strip();

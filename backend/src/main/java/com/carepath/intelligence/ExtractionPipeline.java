@@ -3,7 +3,7 @@ import static com.carepath.intelligence.ExtractionData.*;
 import java.nio.file.Path;
 import java.util.*;
 public class ExtractionPipeline {
-    public static final String VERSION="deterministic-candidates-v3";
+    public static final String VERSION="deterministic-candidates-v4";
     private final DocumentTextExtractor text;
     public ExtractionPipeline(DocumentTextExtractor text) { this.text=text; }
     public Result extract(Path input,String mime,Path directory) {

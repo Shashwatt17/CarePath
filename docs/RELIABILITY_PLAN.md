@@ -38,3 +38,6 @@ The current photo reader still misreads some characters/decimals. This release f
 
 ## Release B checkpoint — 14 November 2026
 Synthetic evaluation tooling and per-case regression checks completed: 12 cases / 18 expected readings, with exact values for 14/18 under strict name matching and raw units for 8/18. Three expected readings are absent and one name-spacing mismatch contributes both a missing and extra row. Six targeted scoring/guard tests pass. The retry experiment preserved the same ambiguous reading; production rollout is deferred. Missing-unit retention, unit handling, orientation recovery and a broader independent corpus remain open. See `docs/verification/ocr-evaluation-v1.json` for case-level evidence.
+
+## Reader v4 checkpoint — 16 November 2026
+Fixed internal empty-cell loss in explicit tab/pipe laboratory rows. The previously omitted missing-unit fixture is retained with review warnings. The existing synthetic corpus improves to 15/18 exact values and 9/18 raw-unit matches; no per-case metric regression. See `EMPTY_CELL_RELEASE.md` and `verification/ocr-evaluation-v4.json`. This known corpus now guides development and is not an independent holdout. Broader OCR/unit/orientation work remains pending.

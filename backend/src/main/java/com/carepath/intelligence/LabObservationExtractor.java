@@ -96,7 +96,7 @@ public class LabObservationExtractor {
                     ? raw.split(
                         raw.contains("|")
                             ? "\\|"
-                            : "\\s{2,}|\\t",
+                            : raw.contains("\t") ? "\t" : " {2,}",
                         -1
                     )
                     : new String[0];
