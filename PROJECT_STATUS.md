@@ -1804,3 +1804,7 @@ Initial login returned 504/503 around a cold start. Backend health/readiness and
 
 ## 16 November 2026 — Empty laboratory cells / reader v4
 Fixed delimiter collapsing that shifted an empty unit/value/reference cell into neighboring columns. Explicit tab/pipe columns retain internal blanks; arbitrary two-column numbers remain excluded and missing fields stay unverified. Five new regression tests plus existing extraction/runtime/review checks: 74 backend tests passed; 61 frontend tests passed. Existing 12-case synthetic corpus improves from 14/18 to 15/18 exact values and from 8/18 to 9/18 raw-unit matches, including correct null units; per-case regression guard passes. See docs/EMPTY_CELL_RELEASE.md and docs/verification/ocr-evaluation-v4.json. Previously frozen cases now inform development and are not an independent holdout. Old results stay immutable. Hosted v4 rollout is not verified; decimal/unit OCR, orientation and small-text work remains open.
+
+
+## 16 November 2026 — Explicit litre-unit spelling aliases
+Added migration V15 with 16 additive, concept-specific lowercase-litre aliases; terminology loads v1 and v2 rules. Existing factors, original source text and stored normalization snapshots remain unchanged. No fuzzy repair of mag/dL, Mg/dL or similar damaged/prefix-case strings. Updated H2 seed to exercise migration content. 45 targeted normalization/review tests passed. See docs/UNIT_ALIAS_RELEASE.md. Hosted migration/deployment remains unverified; this is normalization coverage, not improved raw OCR recognition.

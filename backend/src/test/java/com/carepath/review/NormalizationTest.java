@@ -29,4 +29,20 @@ class NormalizationTest extends AuthTestSupport {
     @Test void rangeComparisonUsesSuppliedOriginalUnitsBeforeRounding() {var p=policy.preview(new ReviewDtos.Fields("Glucose","90","mg/dL","90 - 100",null,null),true);assertEquals("WITHIN",p.derivedRangeStatus());var q=policy.preview(new ReviewDtos.Fields("Glucose","89.999","mg/dL","90 - 100",null,null),true);assertEquals("BELOW",q.derivedRangeStatus());}
     @Test void textualMissingAndReversedRanges() {var p=policy.preview(new ReviewDtos.Fields("Hb","10","g/dL","See laboratory note",null,null),true);assertEquals("NOT_COMPARABLE",p.derivedRangeStatus());assertNull(p.referenceLow());assertFalse(policy.preview(new ReviewDtos.Fields("Hb","10","g/dL","16 - 12",null,null),true).canVerify());}
     @Test void negativeOrMalformedValueFailsVerification() {for(String v:List.of("-1","NaN","1e100","10.4junk","l.8?")) assertFalse(policy.preview(new ReviewDtos.Fields("Hb",v,"g/dL",null,null,null),true).canVerify());}
+    @Test void explicitLitreAliasesHaveSeparateProvenance() {
+        int checked=0;
+        for(var concept:terms.concepts()) for(String source:List.of("mg/dL","g/dL","mmol/L","ng/mL","pg/mL")) {
+            if(terms.rule(concept.id(),source).isEmpty())continue;
+            var original=units.normalize(concept,new BigDecimal("90"),source,null);
+            var alias=units.normalize(concept,new BigDecimal("90"),source.substring(0,source.length()-1)+"l",null);
+            assertEquals(original.value(),alias.value());assertEquals(original.unit(),alias.unit());
+            assertNotEquals(original.ruleId(),alias.ruleId());assertEquals("carepath-units-v2",alias.version());
+            assertEquals("carepath-units-v1",original.version());checked++;
+        }
+        assertEquals(16,checked);
+    }
+    @ParameterizedTest @ValueSource(strings={"mag/dL","mgid)","MG/DL","Mg/dL","m9/dl"})
+    void corruptedOrCaseChangedPrefixesAreNotRepaired(String unit) {
+        assertEquals("UNSUPPORTED_UNIT",units.normalize(terms.normalize("Glucose").concept(),new BigDecimal("90"),unit,null).status());
+    }
 }

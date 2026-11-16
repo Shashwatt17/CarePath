@@ -20,7 +20,7 @@ public class Terminology {
         if(rows.size()>5000) throw new IllegalStateException("Alias capacity exceeded");
         for(var row:rows) { var c=byId.get((UUID)row.get("concept_id"));if(c!=null) index.computeIfAbsent(key((String)row.get("normalized_alias")),k->new ArrayList<>()).add(c); }
         Map<String,List<Concept>> immutable=new HashMap<>();index.forEach((k,v)->immutable.put(k,List.copyOf(v)));aliases=Map.copyOf(immutable);
-        rules=List.copyOf(jdbc.query("SELECT * FROM unit_conversion_rule WHERE reviewed=true AND rule_version='carepath-units-v1' AND offset_value=0 LIMIT 5001",(r,n)->new Rule(r.getObject("id",UUID.class),r.getObject("concept_id",UUID.class),r.getString("source_unit"),r.getString("target_unit"),r.getBigDecimal("multiplier"),r.getString("rule_version"))));
+        rules=List.copyOf(jdbc.query("SELECT * FROM unit_conversion_rule WHERE reviewed=true AND rule_version IN ('carepath-units-v1','carepath-units-v2') AND offset_value=0 LIMIT 5001",(r,n)->new Rule(r.getObject("id",UUID.class),r.getObject("concept_id",UUID.class),r.getString("source_unit"),r.getString("target_unit"),r.getBigDecimal("multiplier"),r.getString("rule_version"))));
         if(rules.size()>5000) throw new IllegalStateException("Unit rule capacity exceeded");
     }
     public static String key(String term) { return term==null?"":term.strip().replaceAll("\\s+"," ").toLowerCase(Locale.ROOT); }
