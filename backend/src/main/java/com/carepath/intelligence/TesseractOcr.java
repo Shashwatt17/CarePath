@@ -29,6 +29,13 @@ public class TesseractOcr implements OcrProvider {
     }
     public static void terminate(Process process) { process.descendants().forEach(p->p.destroyForcibly());process.destroyForcibly();try { process.waitFor(5,TimeUnit.SECONDS); } catch(InterruptedException e) { Thread.currentThread().interrupt(); } }
     public static Page parse(String tsv,int page,int width,int height) {
+        int turns=OcrOrientation.detect(tsv);
+        if(turns==0)return parseUpright(tsv,page,width,height);
+        Page upright=parseUpright(OcrOrientation.transform(tsv,turns,width,height),page,turns%2==1?height:width,turns%2==1?width:height);
+        return new Page(upright.number(),upright.text(),upright.method(),upright.ocrConfidence(),upright.lines().stream()
+            .map(l->new Line(l.start(),l.end(),l.ocrConfidence(),OcrOrientation.original(l.box(),turns))).toList());
+    }
+    private static Page parseUpright(String tsv,int page,int width,int height) {
         record Word(String text,int x,int y,int w,int h,double confidence) { double center(){return y+h/2.0;} }
         class Row {
             final List<Word> words=new ArrayList<>();double center=0,height=0;

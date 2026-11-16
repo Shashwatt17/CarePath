@@ -1808,3 +1808,9 @@ Fixed delimiter collapsing that shifted an empty unit/value/reference cell into 
 
 ## 16 November 2026 — Explicit litre-unit spelling aliases
 Added migration V15 with 16 additive, concept-specific lowercase-litre aliases; terminology loads v1 and v2 rules. Existing factors, original source text and stored normalization snapshots remain unchanged. No fuzzy repair of mag/dL, Mg/dL or similar damaged/prefix-case strings. Updated H2 seed to exercise migration content. 45 targeted normalization/review tests passed. See docs/UNIT_ALIAS_RELEASE.md. Hosted migration/deployment remains unverified; this is normalization coverage, not improved raw OCR recognition.
+
+## 2026-11-16 — Main report reader: rotation geometry v5
+
+Completed a targeted fix for sideways OCR words being merged as horizontal rows. At least three OCR lines and 80% reading-direction agreement are required; evidence boxes are mapped back to the original page. No additional OCR passes, raster copies, or memory-limit increases. Existing saved results remain unchanged until explicitly reprocessed.
+
+Validation: 81 backend tests passed, including seven new orientation cases and review integration. Unchanged 12-case synthetic benchmark: exact values improved 15/18 to 16/18, exact raw units 9/18 to 10/18, missing strict matches 3 to 2, extra rows unchanged at 1; no measured per-case regression. Details and limits in `docs/OCR_ORIENTATION_RELEASE.md` and `docs/verification/ocr-evaluation-v5.json`. Live deployment remains unverified; small-text/punctuation failures and raw-unit recognition remain open. No universal accuracy claim.
