@@ -81,6 +81,11 @@ springdoc:
   swagger-ui:
     enabled: false
 carepath:
+  vision:
+    enabled: ${VISION_ENABLED:false}
+    privacy-reviewed: ${VISION_PRIVACY_REVIEWED:false}
+    api-key: ${VISION_API_KEY:}
+    model: ${VISION_MODEL:}
   reminders:
     enabled: ${REMINDERS_ENABLED:true}
     poll-ms: ${REMINDER_POLL_MS:30000}

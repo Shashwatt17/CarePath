@@ -59,6 +59,8 @@ public class SecurityConfiguration {
                 .requestMatchers(HttpMethod.PUT,"/api/v1/patient-profile").authenticated()
                 .requestMatchers(HttpMethod.GET,"/api/v1/auth/me").authenticated()
                 .requestMatchers(HttpMethod.GET,"/api/v1/documents","/api/v1/documents/config","/api/v1/documents/*","/api/v1/documents/*/download","/api/v1/documents/*/preview").authenticated()
+                .requestMatchers(HttpMethod.GET,"/api/v1/documents/*/vision","/api/v1/documents/*/vision/*").authenticated()
+                .requestMatchers(HttpMethod.POST,"/api/v1/documents/*/vision").authenticated()
                 .requestMatchers(HttpMethod.GET,"/api/v1/documents/*/processing-status","/api/v1/documents/*/extraction","/api/v1/documents/*/extraction/evidence/*").authenticated()
                 .requestMatchers(HttpMethod.POST,"/api/v1/documents/*/process","/api/v1/documents/*/retry").authenticated()
                 .requestMatchers(HttpMethod.POST,"/api/v1/documents").authenticated()

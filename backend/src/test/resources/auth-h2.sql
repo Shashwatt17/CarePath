@@ -740,3 +740,25 @@ INSERT INTO unit_conversion_rule(id,concept_id,source_unit,target_unit,multiplie
 INSERT INTO unit_conversion_rule(id,concept_id,source_unit,target_unit,multiplier,rule_version,source_citation,reviewed) VALUES('cfc61c8c-7135-5c9c-b39e-6a8ff88702f3','493c1c25-6017-55d8-8d10-5203e36f517f','mg/dl','mg/dL',1,'carepath-units-v2','SI identity for explicitly listed concept/unit; explicit lowercase litre symbol alias, no OCR repair',true);
 INSERT INTO unit_conversion_rule(id,concept_id,source_unit,target_unit,multiplier,rule_version,source_citation,reviewed) VALUES('a6259187-81a7-5c93-bdb0-5050003168e3','9dc5252b-62d7-52bf-9d8f-9575b89c52b8','mg/dl','mg/dL',1,'carepath-units-v2','SI identity for explicitly listed concept/unit; explicit lowercase litre symbol alias, no OCR repair',true);
 INSERT INTO unit_conversion_rule(id,concept_id,source_unit,target_unit,multiplier,rule_version,source_citation,reviewed) VALUES('c9ee2254-7def-578f-8550-1211b140c321','5eb67839-1e9c-5b2e-a853-a3cb7815f512','ng/ml','ng/mL',1,'carepath-units-v2','SI identity for explicitly listed concept/unit; explicit lowercase litre symbol alias, no OCR repair',true);
+
+-- Separate model proposals: never substitute them into extraction or verified observations.
+CREATE TABLE vision_page_proposal (
+    id UUID PRIMARY KEY,
+    owner_id UUID NOT NULL,
+    document_id UUID NOT NULL,
+    extraction_id UUID NOT NULL,
+    page_number INTEGER NOT NULL CHECK (page_number > 0),
+    state VARCHAR(16) NOT NULL CHECK (state IN ('REQUESTED','SUCCEEDED','FAILED')),
+    provider VARCHAR(32) NOT NULL,
+    model VARCHAR(100) NOT NULL,
+    consent_version VARCHAR(40) NOT NULL,
+    policy_version VARCHAR(40) NOT NULL,
+    result_json TEXT,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (document_id,owner_id) REFERENCES medical_document(id,owner_id) ON DELETE CASCADE,
+    FOREIGN KEY (extraction_id,document_id,owner_id) REFERENCES document_extraction(id,document_id,owner_id) ON DELETE CASCADE,
+    UNIQUE (extraction_id,page_number)
+);
+CREATE INDEX vision_owner_created ON vision_page_proposal(owner_id,created_at);
+
+CREATE INDEX vision_audit_budget ON audit_event(action,created_at);

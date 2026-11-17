@@ -307,3 +307,10 @@ fabricated document ID. These event rows do not feed laboratory comparisons.
 Visit-pack selections accept `{ "type": "PROFILE" }`. The saved profile is included only when explicitly selected. Preview hashing detects profile changes before generation; generated snapshots remain unchanged by subsequent edits.
 
 Share creation accepts optional `includeReports`, default false. When enabled, anonymous snapshot citations include `downloadable: true`. `POST /api/v1/public/share/report` accepts `{ "token": "...", "itemIndex": 0, "evidenceIndex": 0 }` and returns an attachment only for that frozen citation. No source identifier or arbitrary path is accepted. Expired/revoked shares, out-of-range indices and deleted originals return unavailable; original-file integrity is checked before release. Tokens stay in POST bodies, not request URLs.
+
+### Optional vision second reading (disabled by default)
+- `GET /api/v1/documents/{id}/vision`: owner-scoped availability, provider/model, consent version and eligible pages.
+- `GET /api/v1/documents/{id}/vision/{page}`: stored proposal state for the latest extraction. Never calls a provider.
+- `POST /api/v1/documents/{id}/vision`: `{extractionId,page,consent:true,consentVersion:"external-page-v1"}`. Explicit consent, current extraction, configured provider and budget required. Cached replies prevent duplicate paid calls. Output is unverified and separate from extraction/observations.
+
+See `docs/HYBRID_REPORT_READING.md` for limits, enablement and verification status.

@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FileSearch, LoaderCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { VisionPanel } from "./vision-panel";
 import { ReportOverview } from "./report-overview";
 import { ReviewPanel } from "@/components/review/review-panel";
 import { label } from "@/lib/vault-client";
@@ -51,6 +52,7 @@ export function ExtractionPanel({ id, onSource, onStateChange }: { id: string; o
       {extraction.result.information.warnings.includes("MULTIPLE_DATED_COLUMNS") && <p className="mt-3 text-sm">This report contains multiple dated result columns. Check the date attached to every reading; an ambiguous date stays unknown.</p>}
       <dl className="mt-5 grid gap-3 rounded-xl border border-emerald-100 bg-emerald-50/70 p-4 text-sm sm:grid-cols-3"><div><dt className="text-xs text-muted-foreground">Report type</dt><dd className="mt-1 font-medium">{label(extraction.result.classification.category)}</dd></div><div><dt className="text-xs text-muted-foreground">Reported date</dt><dd className="mt-1 font-medium">{extraction.result.information.date?.value ?? "Not found"}</dd></div><div><dt className="text-xs text-muted-foreground">Provider / lab</dt><dd className="mt-1 break-words font-medium">{extraction.result.information.provider?.value ?? "Not found"}</dd></div></dl>
       {!!extraction.result.candidates.length && <ReportOverview candidates={extraction.result.candidates} onSource={onSource} />}
+      <VisionPanel key={extraction.id} id={id} extractionId={extraction.id} />
       <details className="mt-5 rounded-xl border border-border bg-white/80 p-4"><summary className="cursor-pointer text-sm font-medium">How this report was read · metadata evidence</summary>
       {extraction.result.ocrUsed && <p className="mt-3 text-sm">For clearer results, upload the original PDF or a straight, close photo with even lighting and all page edges visible. Check decimals and units against the source; CarePath does not repair uncertain numbers.</p>}
       <h3 className="mt-6 font-semibold">Document information</h3>
