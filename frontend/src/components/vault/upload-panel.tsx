@@ -18,7 +18,7 @@ export function UploadPanel({ onUploaded }: { onUploaded: () => void }) {
     catch (e) { setError(e instanceof Error ? e.message : "Upload could not be completed."); }
     finally { setBusy(false); }
   }
-  return <details className="my-7 rounded-xl border border-border bg-white p-5" open><summary className="cursor-pointer font-semibold">Upload a medical document</summary><form className="mt-5 space-y-5" onSubmit={upload}>
+  return <details className="my-7 rounded-xl border border-border bg-white p-5" open><summary data-tour-target className="cursor-pointer font-semibold">Upload a medical document</summary><form className="mt-5 space-y-5" onSubmit={upload}>
     <div className="rounded-lg border-2 border-dashed border-border bg-background p-6 text-center" onDragOver={(e) => e.preventDefault()} onDrop={(e) => { e.preventDefault(); choose(e.dataTransfer.files[0]); }}>
       <UploadCloud className="mx-auto mb-3 text-primary" aria-hidden="true" /><label className="cursor-pointer font-medium">Choose a file or drop it here<input ref={input} className="mt-3 block w-full text-sm file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-4 file:py-2" aria-label="Medical document file" type="file" accept=".pdf,.jpg,.jpeg,.png" disabled={busy || !maximum} onChange={(e) => choose(e.target.files?.[0])} /></label>
       <p className="mt-3 text-sm text-muted-foreground">PDF, JPG, JPEG or PNG · {maximum ? `Maximum ${fileSize(maximum)}` : "Loading upload limit…"}</p>{file && <p className="mt-3 break-all text-sm">Selected: {file.name} · {fileSize(file.size)}</p>}

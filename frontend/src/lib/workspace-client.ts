@@ -24,10 +24,12 @@ export function timelineLink(e: TimelineEvent): string {
  return e.documentId ? `/records/${encodeURIComponent(e.documentId)}` : "/timeline";
 }
 export const onboardingSteps = [
- {title:"Keep originals private",text:"Upload PDF, JPG or PNG records in your private vault. Files are not automatically shared.",href:"/records",action:"Open Records"},
- {title:"Review before trust",text:"Processing produces candidates. Compare each result with its source before you confirm or correct it. Rejected and pending results do not drive trends.",href:"/review",action:"Open Review"},
- {title:"Follow the evidence",text:"The timeline and What Changed? use verified readings and deterministic comparisons. Every reading links back to its uploaded source.",href:"/timeline",action:"Explore Timeline"},
- {title:"Your patient summary",text:"Save your introduction, history, medications and allergies. Include your profile in a visit pack only after reviewing the preview.",href:"/patient-summary",action:"Edit Patient Summary"},
- {title:"Find nearby care",text:"Search for nearby healthcare providers. Your location is used only when you choose to search. Listings come from a stored directory; confirm details before visiting.",href:"/nearby-care",action:"Find Care"},
- {title:"Prepare for your clinician",text:"Select relevant records and questions for a Visit Pack. Share your selected snapshot using a temporary link. You can optionally allow downloads of cited reports, and revoke access.",href:"/visit-packs",action:"Prepare a Visit Pack"},
+ {title:"My Reports",text:"Upload a PDF or photo here. Open a report to see its readings beside the original page. You can explore the tour with an empty account.",href:"/records",action:"Open My Reports"},
+ {title:"Review readings",text:"Compare an extracted value with the printed result before confirming or correcting it. You can leave a reading pending and return later.",href:"/review",action:"Open Review"},
+ {title:"Patient Summary",text:"Add your introduction, medical history, medications and allergies here so your clinician can get to know you before a visit.",href:"/patient-summary",action:"Open Patient Summary"},
+ {title:"Health History",text:"Follow your readings over time. Open a reading to trace it back to its report.",href:"/timeline",action:"Open Health History"},
+ {title:"Find Care",text:"Search the directory for nearby providers. Check the listing before arranging a visit.",href:"/nearby-care",action:"Open Find Care"},
+ {title:"Visit Packs",text:"Choose which records and questions to include in a summary for your clinician. Preview the pack before sharing.",href:"/visit-packs",action:"Open Visit Packs"},
+ {title:"Manage sharing",text:"Check your temporary links here and revoke access when you no longer want to share a pack.",href:"/shares",action:"Open sharing"},
+ {title:"Overview",text:"Return here to find recent reports and pick up where you left off. Replay this walkthrough from My account.",href:"/app",action:"Open Overview"},
 ] as const;

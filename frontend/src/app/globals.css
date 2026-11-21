@@ -19,3 +19,12 @@ html { scroll-behavior: smooth; }
 .report-surface { background: linear-gradient(155deg, #ffffff 0%, #f0f7f2 100%); }
 :focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
 ::selection { background: #cee9da; color: #123e32; }
+
+.care-landing { min-height:100vh; background:radial-gradient(ellipse at 75% 25%,#b4dbcb 0,transparent 44%),linear-gradient(145deg,#f7faf5,#e3eee8 65%,#d6e5e2); }
+.sample-stage { padding:clamp(1rem,4vw,3rem); border:1px solid #ffffffaa; border-radius:2rem; background:radial-gradient(ellipse at 90% 100%,#abc6c7,transparent 58%),linear-gradient(135deg,#d2e2d5,#c4dbcd); }
+.sample-frame { position:relative; isolation:isolate; padding:clamp(.9rem,2vw,1.6rem); border:1px solid #ffffffda; border-radius:1.35rem; background:#f6faf6df; box-shadow:0 22px 48px -24px #31594775; }
+.sample-paper { padding:clamp(1rem,3vw,2rem); border-radius:.85rem; border:1px solid #d5e4dc; background:linear-gradient(130deg,#fff,#f5f9f5); box-shadow:3px 5px 0 #dce8e0,5px 8px 0 #cbdcd2; }
+.sample-tab { display:inline-flex; align-items:center; gap:.35rem; border-radius:2rem; padding:.55rem .7rem; font-size:.78rem; color:#284c40; }
+.sample-tab[aria-pressed=true] { background:#164c3d; color:white; }
+main:has([data-guiding=true]) [data-tour-target] { outline:3px solid #498b73; outline-offset:4px; scroll-margin-block-start:10rem; }
+@media (prefers-reduced-motion:no-preference) { .sample-paper,.tour-card { animation:care-arrive .32s ease-out both; } @keyframes care-arrive { from { opacity:.25; transform:translateY(7px); } to { opacity:1; transform:none; } } }
