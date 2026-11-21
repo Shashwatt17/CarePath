@@ -22,7 +22,7 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
     } catch (e) { setError(e instanceof ApiError ? e.message : "The request could not be completed. Please try again."); }
     finally { setBusy(false); }
   }
-  if (created) return <div role="status"><h1 className="text-3xl font-semibold">Your account is ready.</h1><p className="my-5 text-muted-foreground">Take a short introduction, then sign in to your workspace.</p><Button asChild><Link href="/onboarding">Get started</Link></Button></div>;
+  if (created) return <div role="status"><h1 className="text-3xl font-semibold">Your account is ready.</h1><p className="my-5 text-muted-foreground">Sign in to explore your workspace.</p><Button asChild><Link href="/login">Sign in</Link></Button></div>;
   return <>
     <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">Your CarePath account</p>
     <h1 className="text-3xl font-semibold tracking-tight">{register ? "Start with a secure account." : "Welcome back."}</h1>
