@@ -87,7 +87,7 @@ export default function NearbyCarePage() {
         offer appointment slots.
       </p>
 
-      <p className="my-5">
+      <p data-tour-target tabIndex={-1} className="my-5">
         Location is optional. Use your location once, or enter coordinates
         manually. Searching sends coordinates to CarePath to search its stored
         OpenStreetMap directory. CarePath does not save your location or send

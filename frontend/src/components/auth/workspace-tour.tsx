@@ -47,7 +47,7 @@ export function WorkspaceTour({ userId }: { userId: string }) {
   }, [stored, path, onPage, next, index, userId, router]);
 
   if (stored === "loading" || stored === "done") return null;
-  return <aside aria-label="Workspace tour" className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 p-4 sm:p-5 print:hidden">
+  return <aside key={step.href} data-guiding={onPage && path === step.href} aria-label="Workspace tour" className="tour-card mb-6 rounded-2xl border border-emerald-200 bg-gradient-to-br from-white to-emerald-50 p-4 shadow-sm sm:p-5 print:hidden">
     <div className="flex items-center justify-between gap-4">
       <span className="text-xs font-semibold text-emerald-800">Workspace tour · {index + 1} of {onboardingSteps.length}</span>
       <button type="button" className="rounded px-2 py-1 text-sm underline" onClick={() => save(userId, "done")}>Skip tour</button>
@@ -58,6 +58,13 @@ export function WorkspaceTour({ userId }: { userId: string }) {
       {!onPage ? <Button size="sm" asChild><Link href={step.href}>{step.action}</Link></Button>
         : next ? <Button size="sm" asChild><Link href={next.href}>{next.action} →</Link></Button>
         : <Button size="sm" onClick={() => save(userId, "done")}>Finish tour</Button>}
+      {onPage && path === step.href && <button type="button" className="text-sm font-semibold text-primary underline" onClick={() => {
+        const target = document.querySelector<HTMLElement>("[data-tour-target]");
+        if (target) {
+          target.scrollIntoView({block:"center"});
+          target.focus({preventScroll:true});
+        }
+      }}>Show me where</button>}
       {onPage && next?.href === "/review" && <Link className="text-sm underline" href={onboardingSteps[index + 2].href}
         onClick={() => save(userId, String(index + 2))}>Skip review step</Link>}
     </div>
