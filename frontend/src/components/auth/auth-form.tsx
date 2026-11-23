@@ -7,7 +7,8 @@ import { authClient, ApiError } from "@/lib/auth-client";
 import { useAuth } from "./auth-provider";
 
 export function AuthForm({ mode }: { mode: "login" | "register" }) {
-  const register = mode === "register";
+  const [recovering, setRecovering] = useState(false);
+  const register = mode === "register" && !recovering;
   const router = useRouter();
   const { notify } = useAuth();
   const [busy, setBusy] = useState(false), [error, setError] = useState(""), [created, setCreated] = useState(false);
@@ -19,7 +20,14 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
     try {
       if (register) { await authClient.register(email, password, String(form.get("displayName") ?? "").trim()); setCreated(true); }
       else { await authClient.login(email, password); notify("signed-in"); router.replace("/app"); }
-    } catch (e) { setError(e instanceof ApiError ? e.message : "The request could not be completed. Please try again."); }
+    } catch (e) {
+      if (register && e instanceof ApiError && ["REGISTRATION_UNAVAILABLE", "NETWORK_ERROR", "SERVICE_UNAVAILABLE"].includes(e.code)) {
+        setRecovering(true);
+        setError("Your account may already be ready. Try signing in with the details you just entered.");
+      } else {
+        setError(e instanceof ApiError ? e.message : "The request could not be completed. Please try again.");
+      }
+    }
     finally { setBusy(false); }
   }
   if (created) return <div role="status"><h1 className="text-3xl font-semibold">Your account is ready.</h1><p className="my-5 text-muted-foreground">Sign in to explore your workspace.</p><Button asChild><Link href="/login">Sign in</Link></Button></div>;
@@ -33,8 +41,8 @@ export function AuthForm({ mode }: { mode: "login" | "register" }) {
       <div><label htmlFor="password" className="field-label">Password</label><input id="password" name="password" type="password" autoComplete={register ? "new-password" : "current-password"} required minLength={register ? 12 : 1} maxLength={72} className="field-input" aria-describedby={register ? "password-help" : undefined} disabled={busy} />
         {register && <p id="password-help" className="mt-2 text-xs leading-5 text-muted-foreground">Use a unique passphrase of 12–72 characters, within 72 UTF-8 bytes. Password managers and paste are supported.</p>}</div>
       {error && <p role="alert" className="rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-900">{error}</p>}
-      <Button type="submit" className="w-full" disabled={busy}>{busy ? "Please wait…" : register ? "Create account" : "Sign in"}</Button>
+      <Button type="submit" className="w-full" disabled={busy}>{busy ? "Please wait…" : recovering ? "Sign in with these details" : register ? "Create account" : "Sign in"}</Button>
     </form>
-    <p className="mt-6 text-sm text-muted-foreground">{register ? "Already have an account? " : "New to CarePath? "}<Link className="font-medium text-primary underline underline-offset-4" href={register ? "/login" : "/register"}>{register ? "Sign in" : "Create an account"}</Link></p>
+    {recovering ? <Button type="button" variant="outline" className="mt-4 w-full" disabled={busy} onClick={() => { setRecovering(false); setError(""); }}>Return to account creation</Button> : <p className="mt-6 text-sm text-muted-foreground">{register ? "Already have an account? " : "New to CarePath? "}<Link className="font-medium text-primary underline underline-offset-4" href={register ? "/login" : "/register"}>{register ? "Sign in" : "Create an account"}</Link></p>}
   </>;
 }
