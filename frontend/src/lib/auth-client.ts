@@ -42,10 +42,20 @@ export function createAuthClient(transport: typeof fetch = (...args) => fetch(..
   }
   async function request(path: string, init: RequestInit = {}): Promise<unknown> {
     let response: Response;
+    const interactive = path === "register" || path === "login";
+    const unavailable = path === "register"
+      ? "Account creation could not be confirmed. Wait a minute, then try signing in with these details."
+      : "CarePath could not reach the account service. Wait a minute and try again.";
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), interactive ? 75000 : 12000);
     try {
-      response = await transport(`/api/v1/auth/${path}`, { ...init, credentials: "same-origin", cache: "no-store", signal: AbortSignal.timeout(12000),
+      response = await transport(`/api/v1/auth/${path}`, { ...init, credentials: "same-origin", cache: "no-store", signal: controller.signal,
         headers: { "Content-Type": "application/json", "X-CarePath-Client": "web", ...init.headers } });
-    } catch { throw new ApiError(0, "NETWORK_ERROR", "CarePath couldn’t connect. Please try again."); }
+    } catch { throw new ApiError(0, "NETWORK_ERROR", unavailable); }
+    finally { clearTimeout(timer); }
+    if (interactive && [502, 503, 504].includes(response.status)) {
+      throw new ApiError(response.status, "SERVICE_UNAVAILABLE", unavailable);
+    }
     if (!response.ok) {
       let code = "REQUEST_FAILED";
       try { const body: unknown = await response.json(); if (body && typeof body === "object" && "code" in body && typeof body.code === "string") code = body.code; } catch { /* No raw proxy/server errors shown. */ }
