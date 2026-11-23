@@ -11,6 +11,7 @@ export type Candidate = {
 };
 export type ProcessingStatus = { state: ProcessingState; jobState: string | null; attempts: number; errorCode: string | null; retryAllowed: boolean };
 export type Extraction = { id: string; documentId: string; revision: number; result: {
+  pages?: {number:number; lines:{start:number;end:number;check?: {box:NonNullable<Source["box"]>;observed:string[];calculated:string[]}|null}[]}[];
   classification: { category: string; confidence: Confidence; method: string; evidence: Source[] };
   information: { date: { value: string; source: Source } | null; provider: { value: string; source: Source } | null; warnings: string[] };
   candidates: Candidate[]; needsReview: boolean; ocrUsed: boolean; pipelineVersion: string;

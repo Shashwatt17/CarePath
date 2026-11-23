@@ -7,14 +7,29 @@ final class TableLabRows {
     private final MedicalDateParser dates=new MedicalDateParser();
     private List<String> headers=List.of();
     private Line header;
+    private boolean comparisonTable;
     boolean header(Page page,Line line) {
         String text=TextPages.source(page,line).text().strip();
+        String[] columns=text.split("\\t|\\|| {2,}",-1);
+        if(columns.length>=2 && columns[0].replace(" ","").equalsIgnoreCase("testname")){
+            header=null; headers=List.of(); comparisonTable=false;
+            if(columns.length>=4 && columns.length<=6 && columns[columns.length-1].strip().equalsIgnoreCase("unit")){
+                var labels=Arrays.stream(columns,1,columns.length-1).map(String::strip).toList();
+                if(labels.stream().allMatch(label->label.matches("[0-9]{1,4}.*[0-9]{4}") || dates.parse(label)!=null)){
+                    headers=labels;header=line;comparisonTable=true;
+                }
+            }
+            return true;
+        }
         if(!text.matches("(?i)^Date(?:\\s|:|\\|).*$"))return false;
-        headers=dates.tokens(text);header=line;return true;
+        comparisonTable=false;headers=dates.tokens(text);header=line;return true;
     }
     List<Candidate> extract(Page page,Line line,Information info) {
         String raw=TextPages.source(page,line).text().strip();
         String[] cells=raw.split(raw.contains("\t") ? "\t" : raw.contains("|") ? "\\|" : " {2,}",-1);
+        if(comparisonTable && (cells.length!=headers.size()+2 || !cells[1].strip().matches("[0-9]+(?:\\.[0-9]+)?"))){
+            comparisonTable=false;header=null;headers=List.of();
+        }
         if(!raw.contains("\t") && headers.size()<2)return null;
         if(cells.length<4 || cells.length>8)return null;
         for(int i=0;i<cells.length;i++)cells[i]=cells[i].strip();
@@ -23,12 +38,12 @@ final class TableLabRows {
         int unitIndex=1;
         while(unitIndex<cells.length && cells[unitIndex].matches("[<>≤≥]?[+-]?\\d+(?:\\.\\d+)?"))unitIndex++;
         int count=unitIndex-1;
-        if(count<1 || count>4 || unitIndex>=cells.length-1 || !cells[0].matches("[\\p{L}][\\p{L} ()/._%-]{1,159}"))return null;
+        if(count<1 || count>4 || unitIndex>=cells.length || (!comparisonTable && unitIndex==cells.length-1) || !cells[0].matches("[\\p{L}][\\p{L} ()/._%-]{1,159}"))return null;
         if(cells[unitIndex].isBlank() || cells[unitIndex].matches(".*\\d.*"))return null;
         String separator=raw.contains("\t")?"\t":raw.contains("|")?"|":"  ";
         String reference=String.join(separator,Arrays.copyOfRange(cells,unitIndex+1,cells.length));
         // Only keep a reference string that actually occurs in the source (no repaired spaces).
-        if(!raw.contains(reference) || !reference.matches(".*[0-9].*") || !(reference.contains("-") || reference.contains("–") || reference.contains(".")))return null;
+        if(!comparisonTable && (!raw.contains(reference) || !reference.matches(".*[0-9].*") || !(reference.contains("-") || reference.contains("–") || reference.contains("."))))return null;
         var range=new ReferenceRangeParser().parse(reference);
         // No date header is needed for a single value. Multiple values are kept separate,
         // but their dates stay absent unless the header count matches exactly.

@@ -28,7 +28,7 @@ public class DocumentTextExtractor {
                             float scale=(float)Math.min(150.0/72,Math.sqrt(4000000/area));
                             var renderer=new PDFRenderer(pdf);renderer.setSubsamplingAllowed(true);
                             var image=renderer.renderImage(i,scale,ImageType.RGB);Path path=temporaryDirectory.resolve("page-"+i+".png");
-                            try { ImageIO.write(image,"png",path.toFile());result=ocr.recognize(path,i+1,image.getWidth(),image.getHeight()); }
+                            try { ImageIO.write(image,"png",path.toFile());result=ocr.recognize(path,i+1,image); }
                             finally { image.flush();Files.deleteIfExists(path); }
                         }
                         characters+=result.text().length();if(result.text().length()>50000 || characters>maxCharacters) throw new ProcessingFailure("RESOURCE_LIMIT",false);
@@ -48,7 +48,7 @@ public class DocumentTextExtractor {
                         Path prepared=temporaryDirectory.resolve("prepared.png");
                         var enhanced=OcrImagePreparation.prepare(image);image.flush();
                         Page result;
-                        try { ImageIO.write(enhanced,"png",prepared.toFile());result=ocr.recognize(prepared,1,enhanced.getWidth(),enhanced.getHeight()); }
+                        try { ImageIO.write(enhanced,"png",prepared.toFile());result=ocr.recognize(prepared,1,enhanced); }
                         finally { enhanced.flush();Files.deleteIfExists(prepared); }
                         if(result.text().length()>Math.min(maxCharacters,50000)) throw new ProcessingFailure("RESOURCE_LIMIT",false);pages.add(result);
                     } finally { reader.dispose(); }

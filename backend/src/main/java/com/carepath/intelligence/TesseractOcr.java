@@ -9,6 +9,12 @@ public class TesseractOcr implements OcrProvider {
     private final String command;private final int timeoutSeconds;
     public TesseractOcr(String command,int timeoutSeconds) { this.command=command;this.timeoutSeconds=timeoutSeconds; }
     public Page recognize(Path image,int page,int width,int height) {
+        return recognize(image,page,width,height,null);
+    }
+    @Override public Page recognize(Path image,int page,java.awt.image.BufferedImage raster) {
+        return recognize(image,page,raster.getWidth(),raster.getHeight(),raster);
+    }
+    private Page recognize(Path image,int page,int width,int height,java.awt.image.BufferedImage raster) {
         Path output=image.resolveSibling("ocr-"+UUID.randomUUID()+".tsv");Process process=null;
         try {
            var builder=new ProcessBuilder(command,image.toAbsolutePath().toString(),"stdout","-l","eng","--psm","3","tsv");
@@ -22,7 +28,10 @@ public class TesseractOcr implements OcrProvider {
             }
             if(process.exitValue()!=0) throw new ProcessingFailure("OCR_FAILED",true);
             if(Files.size(output)>2097152) throw new ProcessingFailure("RESOURCE_LIMIT",false);
-            return parse(Files.readString(output),page,width,height);
+            String tsv=Files.readString(output);
+            if(raster!=null && page==1 && OcrOrientation.detect(tsv)==0)
+                return parseUpright(tsv,page,width,height,new LocalCellCheck(raster,command,image.getParent()));
+            return parse(tsv,page,width,height);
         } catch(IOException e) { throw new ProcessingFailure("OCR_UNAVAILABLE",true); }
         catch(InterruptedException e) { Thread.currentThread().interrupt();throw new ProcessingFailure("PROCESSING_INTERRUPTED",true); }
         finally { if(process!=null && process.isAlive()) terminate(process);try { Files.deleteIfExists(output); } catch(IOException ignored) {} }
@@ -36,6 +45,9 @@ public class TesseractOcr implements OcrProvider {
             .map(l->new Line(l.start(),l.end(),l.ocrConfidence(),OcrOrientation.original(l.box(),turns))).toList());
     }
     private static Page parseUpright(String tsv,int page,int width,int height) {
+        return parseUpright(tsv,page,width,height,null);
+    }
+    private static Page parseUpright(String tsv,int page,int width,int height,LocalCellCheck retry) {
         record Word(String text,int x,int y,int w,int h,double confidence) { double center(){return y+h/2.0;} }
         class Row {
             final List<Word> words=new ArrayList<>();double center=0,height=0;
@@ -67,13 +79,20 @@ public class TesseractOcr implements OcrProvider {
         StringBuilder text=new StringBuilder();List<Line> lines=new ArrayList<>();double total=0;
         for(Row row:rows){
             row.words.sort(Comparator.comparingInt(Word::x));int start=text.length(),left=Integer.MAX_VALUE,top=Integer.MAX_VALUE,right=0,bottom=0,lastRight=-1;double minimum=100;
+            List<Word> starts=new ArrayList<>();
             for(Word word:row.words){
+                if(lastRight<0 || word.x()-lastRight>Math.max(12,row.height*1.4)) starts.add(word);
                 if(lastRight>=0)text.append(word.x()-lastRight>Math.max(12,row.height*1.4)?'\t':' ');
                 text.append(word.text());lastRight=word.x()+word.w();minimum=Math.min(minimum,word.confidence());
                 left=Math.min(left,word.x());top=Math.min(top,word.y());right=Math.max(right,lastRight);bottom=Math.max(bottom,word.y()+word.h());
             }
             int end=text.length();text.append('\n');double confidence=Math.round(minimum)/100.0;total+=confidence;
-            lines.add(new Line(start,end,confidence,new Box((double)left/width,(double)top/height,(double)(right-left)/width,(double)(bottom-top)/height)));
+            CellCheck check=null;
+            if(retry!=null && starts.size()==4){
+                var w=starts.get(1);
+                check=retry.inspect(text.substring(start,end),w.text(),new java.awt.Rectangle(w.x(),w.y(),w.w(),w.h()),w.confidence());
+            }
+            lines.add(new Line(start,end,confidence,new Box((double)left/width,(double)top/height,(double)(right-left)/width,(double)(bottom-top)/height),check));
         }
         return new Page(page,text.toString(),Method.TESSERACT_OCR,lines.isEmpty()?0:Math.round(total/lines.size()*100)/100.0,lines);
     }

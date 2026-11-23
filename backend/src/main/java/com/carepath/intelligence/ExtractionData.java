@@ -8,7 +8,10 @@ public final class ExtractionData {
     public enum Band { HIGH, MEDIUM, LOW }
     public enum Method { PDFBOX_TEXT, TESSERACT_OCR }
     public record Box(double x,double y,double width,double height) {}
-    public record Line(int start,int end,Double ocrConfidence,Box box) {}
+    public record CellCheck(Box box, List<String> observed, List<String> calculated) {}
+    public record Line(int start,int end,Double ocrConfidence,Box box,CellCheck check) {
+        public Line(int start,int end,Double confidence,Box box){this(start,end,confidence,box,null);}
+    }
     public record Page(int number,String text,Method method,Double ocrConfidence,List<Line> lines) {}
     public record Source(int page,int start,int end,String text,Method method,Box box) {}
     public record Classification(String category,Band confidence,String method,List<Source> evidence) {}
